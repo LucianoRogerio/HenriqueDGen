@@ -50,6 +50,6 @@ PhenoData2 %>% reactable(defaultPageSize = 10)
 saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 ```
 
-### a. [Analises Descritivas](AnalisesDescritivas.Rmd)
-## **3. [Analise de modelos mistos](AnalisesModeloMisto.Rmd)**
+### a. [Analises Descritivas](AnalisesDescritivas.html)
+## **3. [Analise de modelos mistos](AnalisesModeloMisto.html)**
 

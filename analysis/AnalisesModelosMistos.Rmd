@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Wrong Page?](index.Rmd)
+[Wrong Page?](index.html)
 
 ## Introduction
 
@@ -15,5 +15,5 @@ editor_options:
 
 ```
 
-[Last page](AnalisesDescritivas.Rmd)
-[Back to home](index.Rmd)
+[Last page](AnalisesDescritivas.html)
+[Back to home](index.html)

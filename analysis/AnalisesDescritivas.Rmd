@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-[Wrong Page?](index.Rmd)
+[Wrong Page?](index.html)
 
 ## Grafico de Barras
 
@@ -34,5 +34,5 @@ PhenoData %>% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = "darkgreen"
         axis.ticks.x=element_blank())
 ```
 
-[Next page](AnalisesModelosMistos.Rmd)
-[Back to home](index.Rmd)
+[Next page](AnalisesModelosMistos.html)
+[Back to home](index.html)
