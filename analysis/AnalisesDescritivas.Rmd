@@ -1,0 +1,38 @@
+---
+title: "Analises Descritivas"
+author: "LucianoRogerio"
+date: "2021-10-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+[Wrong Page?](index.Rmd)
+
+## Grafico de Barras
+
+```{r message=FALSE, warning=FALSE}
+suppressMessages(library(tidyverse))
+PhenoData <- readRDS(here::here("output", "DadosFenotipicosv2.RDS"))
+
+# Figura 1. Grafico de barras para resistencia a manchas foliares em mandioca.
+PhenoData %>% filter(!is.na(traits), !is.na (Y)) %>% group_by(traits, Y) %>%
+  summarise(y = n()) %>%
+  ggplot(aes(x = traits, y = Y, fill = as.character(Y))) +
+  scale_fill_brewer(type = "div", palette = 7) +
+  geom_bar(position = "fill", stat = "identity") + guides(fill = guide_legend(title = "Score"))
+```
+
+## Grafico de Distribuicao
+
+```{r}
+# Figura 2. Grafico de Distribuicao para resistencia a manchas foliares em mandioca.
+PhenoData %>% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
+  facet_wrap(~ traits) + xlim(-1,6) + xlab("Scores") +
+  theme(legend.position="none",
+        panel.spacing = unit(0.1, "lines"),
+        axis.ticks.x=element_blank())
+```
+
+[Next page](AnalisesModelosMistos.Rmd)
+[Back to home](index.Rmd)

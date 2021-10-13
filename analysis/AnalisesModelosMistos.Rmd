@@ -1,0 +1,19 @@
+---
+title: "Analises Modelos Mistos"
+author: "LucianoRogerio"
+date: "2021-10-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+[Wrong Page?](index.Rmd)
+
+## Introduction
+
+```{r}
+
+```
+
+[Last page](AnalisesDescritivas.Rmd)
+[Back to home](index.Rmd)
