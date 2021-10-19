@@ -1,6 +1,6 @@
 ---
 title: "Analises Descritivas"
-author: "LucianoRogerio"
+author: "LucianoRogerio e HenriqueBernardino"
 date: "2021-10-12"
 output: workflowr::wflow_html
 editor_options:
