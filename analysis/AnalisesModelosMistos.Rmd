@@ -12,6 +12,69 @@ editor_options:
 ## Introduction
 
 ```{r}
+library(here)
+library(tidyverse)
+library(plyr)
+library(reactable)
+source(here::here("code", "MixedModelsFunctions.R"))
+
+PhenoData <- readRDS(here::here("output", "DadosFenotipicosv2.RDS"))
+
+
+PhenoData$block_number <- as.character(PhenoData$block_number)
+PhenoData2 <- PhenoData %>% filter(!is.na(Y))
+traits <- unique(PhenoData2$traits)
+
+fmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
+                              .fun = analyzeTrial.lme4)
+ResFixEffect <- lapply(fmfit, FUN = as.data.frame(anova))
+ResAnInt <- matrix(unlist(ResFixEffect,use.names = T),
+                   nrow = 2, byrow = F)
+ResAnFin <- rbind(ResAnInt[,1:4],
+                  ResAnInt[,5:8],
+                  ResAnInt[,9:12],
+                  ResAnInt[,13:16])
+colnames(ResAnFin) <- c("DF", "SumSq", "MeanSq", "Fvalue")
+ResAnovaFinal <- data.frame(Trait = rep(traits, 2),
+                            Factor = rep(c("Control", "Block"),
+                                         times = 4),
+                            ResAnFin)
+
+# Table 1. Anova of the fixed effects of Cassava foliar diseases
+ResAnovaFinal %>% reactable(columns = list(
+  SumSq = colDef(format = colFormat(digits = 3, locales = "en-US")),
+  MeanSq = colDef(format = colFormat(digits = 3, locales = "en-US")),
+  Fvalue = colDef(format = colFormat(digits = 3, locales = "en-US"))))
+
+
+rdfmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
+                                .fun = analyzeTrialrdMod.lme4)
+
+
+Deviances <- NULL
+for(i in traits){
+Deviances[[i]] <- data.frame(Deviance.MM(fmfit[[i]], rdfmfit[[i]]))[2,6:8]
+rownames(Deviances[[i]]) <- i
+  
+}
+
+ResDeviances <- data.frame(t(sapply(Deviances, FUN = rbind)))
+
+# Table 2. Deviance Analysis for cassava foliar disease
+ResDeviances %>% reactable()
+
+H2 <- sapply(fmfit, FUN = getVarComp.lme4) %>% t() %>% as.data.frame()
+colnames(H2) <- c("VarClone", "VarRes")
+H2 <- H2 %>% mutate(VarClone = as.numeric(VarClone),
+               VarRes = as.numeric(VarRes),
+               VarFen = VarClone + VarRes,
+               H2 = VarClone/VarFen)
+# Table 3. Heritabilities of cassava foliar disease
+H2 %>% reactable(columns = list(
+  VarClone = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  VarRes = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  VarFen = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  H2 = colDef(format = colFormat(digits = 4, locales = "en-US"))))
 
 ```
 
