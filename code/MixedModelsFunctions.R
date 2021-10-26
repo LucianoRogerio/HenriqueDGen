@@ -45,10 +45,10 @@ getVarOutput.lme4 <- function(modfit){
 
 
 getBLUPs.lme4 <- function(model){
-  as.data.frame(ranef(model)$clone +
+  as.data.frame(ranef(model)$"accession_name:new" +
                   fixef(model)["(Intercept)"]) %>%
-    rename(c("(Intercept)" = "BLUP"))
-  #    spread(key = Clone, value = BLUP, fill=NA)
+    rename(c("(Intercept)" = names(model)))
+     # spread(key = Clone, value = BLUP, fill=NA)
 }
 
 

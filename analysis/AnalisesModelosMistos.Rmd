@@ -13,10 +13,11 @@ editor_options:
 
 ```{r}
 library(here)
-library(tidyverse)
-library(plyr)
+suppressMessages(library(tidyverse))
+suppressMessages(library(plyr))
 library(reactable)
-source(here::here("code", "MixedModelsFunctions.R"))
+suppressMessages(library(data.table))
+suppressMessages(source(here::here("code", "MixedModelsFunctions.R")))
 
 PhenoData <- readRDS(here::here("output", "DadosFenotipicosv2.RDS"))
 
@@ -75,6 +76,37 @@ H2 %>% reactable(columns = list(
   VarRes = colDef(format = colFormat(digits = 4, locales = "en-US")),
   VarFen = colDef(format = colFormat(digits = 4, locales = "en-US")),
   H2 = colDef(format = colFormat(digits = 4, locales = "en-US"))))
+
+
+### Obter estimativas de médias + Blups dos clones
+
+MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef)))
+MediasFix[2:32, ] <- MediasFix[2:32,] +
+  matrix(rep(MediasFix[1, 1:4], each = 31), nrow = 31, ncol = 4,
+         byrow = F)
+MediasFix <- as.data.frame(MediasFix)
+rownames(MediasFix)[1] <- "controlClones"
+MediasFix$MeanEffect <- rownames(MediasFix)
+
+MediasFix %<>% filter(MeanEffect %like% "control") %>%
+  as.data.frame() %>% dplyr::select(MeanEffect, everything())
+rownames(MediasFix) <- NULL
+MediasFix$MeanEffect <- gsub(pattern = "control", replacement = "", x = MediasFix$MeanEffect)
+
+#### Obter os efeitos aleatorio dos Clones
+
+BLUPsAle <- lapply(fmfit, FUN = getBLUPs.lme4)
+
+BLUPSDisea <- data.frame(CLONE = rownames(BLUPsAle[1]$Anth))
+
+for(i in names(BLUPsAle)){
+  drg<-data.frame(CLONE = rownames(BLUPsAle[[i]]), stringsAsFactors=F)
+  drg[,i] <-BLUPsAle[[i]]
+  BLUPSDisea<-merge(BLUPSDisea,drg,by="CLONE",all.x=T)
+}
+
+BLUPSDisea <- BLUPSDisea %>% filter(CLONE %like% ":1")
+BLUPSDisea$CLONE <- gsub(pattern = ":1", replacement = "", BLUPSDisea$CLONE)
 
 ```
 
