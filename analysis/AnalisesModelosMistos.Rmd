@@ -86,12 +86,13 @@ MediasFix[2:32, ] <- MediasFix[2:32,] +
          byrow = F)
 MediasFix <- as.data.frame(MediasFix)
 rownames(MediasFix)[1] <- "controlClones"
-MediasFix$MeanEffect <- rownames(MediasFix)
+MediasFix$CLONE <- rownames(MediasFix)
 
-MediasFix %<>% filter(MeanEffect %like% "control") %>%
-  as.data.frame() %>% dplyr::select(MeanEffect, everything())
+MediasFix %<>% filter(CLONE %like% "control") %>%
+  as.data.frame() %>% dplyr::select(CLONE, everything())
 rownames(MediasFix) <- NULL
-MediasFix$MeanEffect <- gsub(pattern = "control", replacement = "", x = MediasFix$MeanEffect)
+MediasFix$CLONE <- gsub(pattern = "control", replacement = "", x = MediasFix$CLONE)
+MediasFix %>% filter(CLONE != "Clones") -> MediasFix
 
 #### Obter os efeitos aleatorio dos Clones
 
@@ -108,6 +109,16 @@ for(i in names(BLUPsAle)){
 BLUPSDisea <- BLUPSDisea %>% filter(CLONE %like% ":1")
 BLUPSDisea$CLONE <- gsub(pattern = ":1", replacement = "", BLUPSDisea$CLONE)
 
+BLUPS <- rbind(BLUPSDisea, MediasFix)
+
+saveRDS(BLUPS, here::here("output", "BLUPsDisease.RDS"))
+
+# Table 3. Blups of the accessions for cassava foliar diseases
+BLUPS %>% reactable(defaultPageSize = 25, columns = list(
+  Anth = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  BlLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  BrLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  WhLS = colDef(format = colFormat(digits = 4, locales = "en-US"))))
 ```
 
 [Last page](AnalisesDescritivas.html)
