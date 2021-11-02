@@ -1,5 +1,5 @@
 ---
-title: "SH_PCA_DAPC"
+title: "Analise de Componentes Principais e Discriminantes"
 author: "LucianoRogerio e HenriqueBernardino"
 date: "2021-11-02"
 output: workflowr::wflow_html
@@ -7,7 +7,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+[Wrong Page?](index.html)
+
 
 ```{r}
 suppressMessages(library(tidyverse))
@@ -64,3 +65,5 @@ ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
 #  as.data.frame() -> Res
 ```
 
+[Last page](AnalisesModelosMistos.html)
+[Back to home](index.html)

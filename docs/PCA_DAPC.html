@@ -13,7 +13,7 @@
 
 <meta name="date" content="2021-11-02" />
 
-<title>SH_PCA_DAPC</title>
+<title>Analise de Componentes Principais e Discriminantes</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -350,7 +350,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">SH_PCA_DAPC</h1>
+<h1 class="title toc-ignore">Analise de Componentes Principais e Discriminantes</h1>
 <h4 class="author">LucianoRogerio e HenriqueBernardino</h4>
 <h4 class="date">2021-11-02</h4>
 
@@ -401,7 +401,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -468,16 +468,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentreeb9ef481defdde781ff8eacc7da87b24166b03e29targetblankb9ef481a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/b9ef481defdde781ff8eacc7da87b24166b03e29" target="_blank">b9ef481</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree557070142be55f4366bfeead4484e978864db562targetblank5570701a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/557070142be55f4366bfeead4484e978864db562" target="_blank">5570701</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentreeb9ef481defdde781ff8eacc7da87b24166b03e29targetblankb9ef481a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree557070142be55f4366bfeead4484e978864db562targetblank5570701a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/b9ef481defdde781ff8eacc7da87b24166b03e29" target="_blank">b9ef481</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/557070142be55f4366bfeead4484e978864db562" target="_blank">5570701</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,8 +488,13 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
+Untracked files:
+    Untracked:  analysis/PCA_DAPC.Rmd
+
 Unstaged changes:
-    Modified:   analysis/SH_PCA_DAPC.Rmd
+    Modified:   analysis/AnalisesModelosMistos.Rmd
+    Deleted:    analysis/SH_PCA_DAPC.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -502,75 +507,14 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/SH_PCA_DAPC.Rmd</code>) and HTML (<code>docs/SH_PCA_DAPC.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/b9ef481defdde781ff8eacc7da87b24166b03e29/docs/SH_PCA_DAPC.html" target="_blank">b9ef481</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-Build site and add new Data
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/728635750c7b64c89e00e1a843c207560bc2ad37/analysis/SH_PCA_DAPC.Rmd" target="_blank">7286357</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-11-02
-</td>
-<td>
-Insercao do caractere Area de Antracnose e PCA
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
+<p><a href="index.html">Wrong Page?</a></p>
 <pre class="r"><code>suppressMessages(library(tidyverse))
 suppressMessages(library(adegenet))
 library(here)</code></pre>
@@ -596,44 +540,7 @@ for(i in 1:length(Perc)) {
 barplot(PercAc, main = &quot;Variance explained by PCA&quot;,
         ylab = &quot;Cumulative variance (%)&quot;, xlab = &quot;Number of retained PCs&quot;,
         col = c(&quot;gray&quot;, &quot;red&quot;, &quot;gray&quot;, &quot;gray&quot;, &quot;gray&quot;))</code></pre>
-<p><img src="figure/SH_PCA_DAPC.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/b9ef481defdde781ff8eacc7da87b24166b03e29/docs/figure/SH_PCA_DAPC.Rmd/unnamed-chunk-1-1.png" target="_blank">b9ef481</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-11-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>##
 
 PointPCA1 &lt;- as.data.frame(PCA$x)
@@ -655,48 +562,12 @@ ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
             data = LabelsPCA1, colour = &quot;red&quot;) + 
   theme_bw() +
   xlab(&quot;PC1 - 47.28%&quot;) + ylab(&quot;PC2 - 21.01%&quot;)</code></pre>
-<p><img src="figure/SH_PCA_DAPC.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-2">
-Past versions of unnamed-chunk-1-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/b9ef481defdde781ff8eacc7da87b24166b03e29/docs/figure/SH_PCA_DAPC.Rmd/unnamed-chunk-1-2.png" target="_blank">b9ef481</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-11-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#source(&quot;Shannon-Weaver.R&quot;)
 
 #DadosMaxT %&gt;% select(-Clones) %&gt;% apply(FUN = Shannon.Weaver.QL, nclass = c(5, 6, 7, 6, 6, 6, 5, 5, 5, 5, 2, 6), 2) %&gt;% diag() %&gt;%
 #  as.data.frame() -&gt; Res</code></pre>
+<p><a href="AnalisesModelosMistos.html">Last page</a> <a href="index.html">Back to home</a></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -737,16 +608,15 @@ loaded via a namespace (and not attached):
 [37] farver_2.1.0     jquerylib_0.1.4  generics_0.1.1   jsonlite_1.7.2  
 [41] magrittr_2.0.1   Matrix_1.3-4     Rcpp_1.0.7       munsell_0.5.0   
 [45] fansi_0.5.0      ape_5.5          lifecycle_1.0.1  stringi_1.7.5   
-[49] whisker_0.4      yaml_2.2.1       MASS_7.3-54      plyr_1.8.6      
-[53] grid_4.1.1       parallel_4.1.1   promises_1.2.0.1 crayon_1.4.2    
-[57] lattice_0.20-44  haven_2.4.3      splines_4.1.1    hms_1.1.1       
-[61] knitr_1.36       pillar_1.6.4     igraph_1.2.7     seqinr_4.2-8    
-[65] reshape2_1.4.4   reprex_2.0.1     glue_1.4.2       evaluate_0.14   
-[69] modelr_0.1.8     vctrs_0.3.8      tzdb_0.1.2       httpuv_1.6.3    
-[73] cellranger_1.1.0 gtable_0.3.0     assertthat_0.2.1 xfun_0.27       
-[77] mime_0.12        xtable_1.8-4     broom_0.7.9      later_1.3.0     
-[81] workflowr_1.6.2  cluster_2.1.2    ellipsis_0.3.2  </code></pre>
-</div>
+[49] yaml_2.2.1       MASS_7.3-54      plyr_1.8.6       grid_4.1.1      
+[53] parallel_4.1.1   promises_1.2.0.1 crayon_1.4.2     lattice_0.20-44 
+[57] haven_2.4.3      splines_4.1.1    hms_1.1.1        knitr_1.36      
+[61] pillar_1.6.4     igraph_1.2.7     seqinr_4.2-8     reshape2_1.4.4  
+[65] reprex_2.0.1     glue_1.4.2       evaluate_0.14    modelr_0.1.8    
+[69] vctrs_0.3.8      tzdb_0.1.2       httpuv_1.6.3     cellranger_1.1.0
+[73] gtable_0.3.0     assertthat_0.2.1 xfun_0.27        mime_0.12       
+[77] xtable_1.8-4     broom_0.7.9      later_1.3.0      workflowr_1.6.2 
+[81] cluster_2.1.2    ellipsis_0.3.2  </code></pre>
 </div>
 
 

@@ -53,5 +53,8 @@ saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 ```
 
 ### a. [Analises Descritivas](AnalisesDescritivas.html)
+
 ## **3. [Analise de modelos mistos](AnalisesModelosMistos.html)**
+
+## **4. [Analise de Componentes Principais e Discriminante](PCA_DAPC.html)
 

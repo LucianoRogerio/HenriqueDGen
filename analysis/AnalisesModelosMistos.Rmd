@@ -123,5 +123,6 @@ BLUPS %>% reactable(defaultPageSize = 25, columns = list(
   WhLS = colDef(format = colFormat(digits = 4, locales = "en-US"))))
 ```
 
+[Next page](PCA_DAPC.html)
 [Last page](AnalisesDescritivas.html)
 [Back to home](index.html)
