@@ -34,11 +34,12 @@ ResAnInt <- matrix(unlist(ResFixEffect,use.names = T),
 ResAnFin <- rbind(ResAnInt[,1:4],
                   ResAnInt[,5:8],
                   ResAnInt[,9:12],
-                  ResAnInt[,13:16])
+                  ResAnInt[,13:16],
+                  ResAnInt[,17:20])
 colnames(ResAnFin) <- c("DF", "SumSq", "MeanSq", "Fvalue")
-ResAnovaFinal <- data.frame(Trait = rep(traits, 2),
+ResAnovaFinal <- data.frame(Trait = rep(traits, each = 2),
                             Factor = rep(c("Control", "Block"),
-                                         times = 4),
+                                         times = 5),
                             ResAnFin)
 
 # Table 1. Anova of the fixed effects of Cassava foliar diseases
@@ -82,7 +83,7 @@ H2 %>% reactable(columns = list(
 
 MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef)))
 MediasFix[2:32, ] <- MediasFix[2:32,] +
-  matrix(rep(MediasFix[1, 1:4], each = 31), nrow = 31, ncol = 4,
+  matrix(rep(MediasFix[1, 1:5], each = 31), nrow = 31, ncol = 5,
          byrow = F)
 MediasFix <- as.data.frame(MediasFix)
 rownames(MediasFix)[1] <- "controlClones"
@@ -98,7 +99,7 @@ MediasFix %>% filter(CLONE != "Clones") -> MediasFix
 
 BLUPsAle <- lapply(fmfit, FUN = getBLUPs.lme4)
 
-BLUPSDisea <- data.frame(CLONE = rownames(BLUPsAle[1]$Anth))
+BLUPSDisea <- data.frame(CLONE = rownames(BLUPsAle[1]$AnAr))
 
 for(i in names(BLUPsAle)){
   drg<-data.frame(CLONE = rownames(BLUPsAle[[i]]), stringsAsFactors=F)
@@ -115,6 +116,7 @@ saveRDS(BLUPS, here::here("output", "BLUPsDisease.RDS"))
 
 # Table 3. Blups of the accessions for cassava foliar diseases
 BLUPS %>% reactable(defaultPageSize = 25, columns = list(
+  AnAr = colDef(format = colFormat(digits = 4, locales = "en-US")),
   Anth = colDef(format = colFormat(digits = 4, locales = "en-US")),
   BlLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
   BrLS = colDef(format = colFormat(digits = 4, locales = "en-US")),

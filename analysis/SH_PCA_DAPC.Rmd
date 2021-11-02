@@ -1,0 +1,65 @@
+---
+title: "SH_PCA_DAPC"
+author: "LucianoRogerio e HenriqueBernardino"
+date: "2021-11-02"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+suppressMessages(library(tidyverse))
+suppressMessages(library(adegenet))
+library(here)
+
+BLUPS <- readRDS(here::here("output", "BLUPsDisease.RDS"))
+
+### Analise de Componentes Principais
+
+BLUPS[ , 2:6] <- scale(BLUPS[ , 2:6], center = T, scale = T)
+BLUPS[is.na(BLUPS)] <- 0
+PCA <- prcomp(BLUPS[,-1])
+
+Perc <- 100*PCA$sdev^2/sum(PCA$sdev^2)
+Perc
+
+PercAc <- as.vector(rep(NA, times = length(Perc)))
+for(i in 1:length(Perc)) {
+  PercAc[i] <- sum(Perc[1:i])
+  names(PercAc)[i] <- i
+}
+
+# Fig 1. Grafico de Barras das variancias acumuladas dos componentes principais para tolerancia as doencas foliares.
+barplot(PercAc, main = "Variance explained by PCA",
+        ylab = "Cumulative variance (%)", xlab = "Number of retained PCs",
+        col = c("gray", "red", "gray", "gray", "gray"))
+
+##
+
+PointPCA1 <- as.data.frame(PCA$x)
+ArrowPCA1 <- as.data.frame(PCA$rotation)
+LabelsPCA1 <- 3*ArrowPCA1
+LabelsPCA1$PC2[1] <- 3
+LabelsPCA1[2, 1:2] <- c(1.1, -1.1)
+LabelsPCA1[3, 1:2] <- c(2.5, 0.45)
+LabelsPCA1[4, 1:2] <- c(2.5, 0.15)
+LabelsPCA1[5, 1:2] <- c(0.8, 0.6)
+
+ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
+  geom_point(na.rm = T) + geom_rug(col = "steelblue", alpha = 0.2, size = 1.5) +
+  geom_segment(mapping = aes(x = 0, xend = 3*PC1, y = 0, yend = 3*PC2, col = "w"),
+               data = ArrowPCA1, arrow = arrow(type = "closed",
+                                               length = unit(0.2,units = "cm"))) +
+  geom_text(mapping = aes(x = PC1, y = PC2, label = rownames(ArrowPCA1), col = "x"),
+            data = LabelsPCA1) + 
+  theme_bw() +
+  xlab("PC1 - 47.28%") + ylab("PC2 - 21.01%")
+
+#source("Shannon-Weaver.R")
+
+#DadosMaxT %>% select(-Clones) %>% apply(FUN = Shannon.Weaver.QL, nclass = c(5, 6, 7, 6, 6, 6, 5, 5, 5, 5, 2, 6), 2) %>% diag() %>%
+#  as.data.frame() -> Res
+```
+

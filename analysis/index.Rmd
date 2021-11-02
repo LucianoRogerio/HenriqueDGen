@@ -24,20 +24,22 @@ suppressMessages(library(reactable))
 
 # Leitura dos Dados pelo R utilizando o pacote here para organizar leitura para qualquer computador
 PhenoData <- readRDS(here::here("data", "DadosFenotipicos.RDS"))
-
 # Insercao de informacao de controles
 control <- names(table(PhenoData$accession_name)[table(PhenoData$accession_name) > 30])
 PhenoData$control <- ifelse(PhenoData$accession_name %in% control, PhenoData$accession_name, "999") 
 PhenoData$new <- ifelse(PhenoData$accession_name %in% control, 0, 1)
 
 # Troca dos nomes das doencas para siglas em ingles
-colnames(PhenoData)[7:10] <- c("Anth", "WhLS", "BrLS", "BlLS")
+colnames(PhenoData)[7:11] <- c("Anth", "WhLS", "BrLS", "BlLS", "AnAr")
+
+# Correção por log para Area de Antracnose.
+PhenoData$AnAr <- log(PhenoData$AnAr)
 
 # Tabela 1. Dados Fenotipicos de resistencia as doencas manchas foliares avaliadas no banco ativo de germoplasma de mandioca da EMBRAPA no ano de 2021.
 PhenoData %>% reactable(defaultPageSize = 10)
-# Antracnose (Anth), Mancha Branca (WhLS), Mancha Parda (BrLS), Queima das Folhas (BlLS).
+# Antracnose (Anth), Mancha Branca (WhLS), Mancha Parda (BrLS), Queima das Folhas (BlLS), Area afetada pela antracnose na area inoculada no caule da planta de mandioca (AnAr).
 
-lnfUtl <- colnames(PhenoData)[c(1:4, 11:12)]
+lnfUtl <- colnames(PhenoData)[c(1:4, 12:13)]
 PhenoData$talhao_number <- NULL
 PhenoData$Idade <- NULL
 traits <- colnames(PhenoData)[!colnames(PhenoData) %in% lnfUtl]
