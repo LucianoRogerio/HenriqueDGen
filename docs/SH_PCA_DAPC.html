@@ -11,9 +11,9 @@
 
 <meta name="author" content="LucianoRogerio e HenriqueBernardino" />
 
-<meta name="date" content="2021-10-12" />
+<meta name="date" content="2021-11-02" />
 
-<title>Analises Descritivas</title>
+<title>SH_PCA_DAPC</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -350,9 +350,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Analises Descritivas</h1>
+<h1 class="title toc-ignore">SH_PCA_DAPC</h1>
 <h4 class="author">LucianoRogerio e HenriqueBernardino</h4>
-<h4 class="date">2021-10-12</h4>
+<h4 class="date">2021-11-02</h4>
 
 </div>
 
@@ -509,7 +509,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/AnalisesDescritivas.Rmd</code>) and HTML (<code>docs/AnalisesDescritivas.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/SH_PCA_DAPC.Rmd</code>) and HTML (<code>docs/SH_PCA_DAPC.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -538,7 +538,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/728635750c7b64c89e00e1a843c207560bc2ad37/analysis/AnalisesDescritivas.Rmd" target="_blank">7286357</a>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/728635750c7b64c89e00e1a843c207560bc2ad37/analysis/SH_PCA_DAPC.Rmd" target="_blank">7286357</a>
 </td>
 <td>
 LucianoRogerio
@@ -550,108 +550,6 @@ LucianoRogerio
 Insercao do caractere Area de Antracnose e PCA
 </td>
 </tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/106f55c0a5c2953a599ca21689c622cec4d54950/analysis/AnalisesDescritivas.Rmd" target="_blank">106f55c</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-19
-</td>
-<td>
-Update Website
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/106f55c0a5c2953a599ca21689c622cec4d54950/docs/AnalisesDescritivas.html" target="_blank">106f55c</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-19
-</td>
-<td>
-Update Website
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/b9ece4f728226d5b1ef059ef677111bee8ab0275/analysis/AnalisesDescritivas.Rmd" target="_blank">b9ece4f</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-<td>
-Second Commit
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/b9ece4f728226d5b1ef059ef677111bee8ab0275/docs/AnalisesDescritivas.html" target="_blank">b9ece4f</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-<td>
-Second Commit
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/d2d70ff6fe59a37875e9b544acbfb3426be4862e/analysis/AnalisesDescritivas.Rmd" target="_blank">d2d70ff</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-<td>
-Second Commit
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/d2d70ff6fe59a37875e9b544acbfb3426be4862e/docs/AnalisesDescritivas.html" target="_blank">d2d70ff</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-<td>
-Second Commit
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -659,106 +557,59 @@ Second Commit
 </div>
 </div>
 </div>
-<p><a href="index.html">Wrong Page?</a></p>
-<div id="grafico-de-barras" class="section level2">
-<h2>Grafico de Barras</h2>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <pre class="r"><code>suppressMessages(library(tidyverse))
-PhenoData &lt;- readRDS(here::here(&quot;output&quot;, &quot;DadosFenotipicosv2.RDS&quot;))
+suppressMessages(library(adegenet))
+library(here)</code></pre>
+<pre><code>here() starts at /Users/lbd54/Documents/GitHub/HenriqueDGen</code></pre>
+<pre class="r"><code>BLUPS &lt;- readRDS(here::here(&quot;output&quot;, &quot;BLUPsDisease.RDS&quot;))
 
-# Figura 1. Grafico de barras para resistencia a manchas foliares em mandioca.
-PhenoData %&gt;% filter(!traits%in%&quot;AnAr&quot;, !is.na(traits), !is.na (Y)) %&gt;% group_by(traits, Y) %&gt;%
-  summarise(y = n()) %&gt;%
-  ggplot(aes(x = traits, y = Y, fill = as.character(Y))) +
-  scale_fill_brewer(type = &quot;div&quot;, palette = 7) +
-  geom_bar(position = &quot;fill&quot;, stat = &quot;identity&quot;) +
-  guides(fill = guide_legend(title = &quot;Score&quot;))</code></pre>
-<p><img src="figure/AnalisesDescritivas.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/d2d70ff6fe59a37875e9b544acbfb3426be4862e/docs/figure/AnalisesDescritivas.Rmd/unnamed-chunk-1-1.png" target="_blank">d2d70ff</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="grafico-de-distribuicao" class="section level2">
-<h2>Grafico de Distribuicao</h2>
-<pre class="r"><code># Figura 2. Grafico de Distribuicao para resistencia a manchas foliares em mandioca.
-PhenoData %&gt;% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = &quot;darkgreen&quot;) + 
-  facet_wrap(~ traits, scales = &quot;free_x&quot;) + xlab(&quot;Scores&quot;) +
-  theme(legend.position=&quot;none&quot;,
-        panel.spacing = unit(0.1, &quot;lines&quot;),
-        axis.ticks.x=element_blank())</code></pre>
-<pre><code>Warning: Removed 489 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="figure/AnalisesDescritivas.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
-Past versions of unnamed-chunk-2-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/d2d70ff6fe59a37875e9b544acbfb3426be4862e/docs/figure/AnalisesDescritivas.Rmd/unnamed-chunk-2-1.png" target="_blank">d2d70ff</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><a href="AnalisesModelosMistos.html">Next page</a> <a href="index.html">Back to home</a></p>
+### Analise de Componentes Principais
+
+BLUPS[ , 2:6] &lt;- scale(BLUPS[ , 2:6], center = T, scale = T)
+BLUPS[is.na(BLUPS)] &lt;- 0
+PCA &lt;- prcomp(BLUPS[,-1])
+
+Perc &lt;- 100*PCA$sdev^2/sum(PCA$sdev^2)
+Perc</code></pre>
+<pre><code>[1] 47.2776653 21.0120007 17.0577803 14.0511752  0.6013786</code></pre>
+<pre class="r"><code>PercAc &lt;- as.vector(rep(NA, times = length(Perc)))
+for(i in 1:length(Perc)) {
+  PercAc[i] &lt;- sum(Perc[1:i])
+  names(PercAc)[i] &lt;- i
+}
+
+# Fig 1. Grafico de Barras das variancias acumuladas dos componentes principais para tolerancia as doencas foliares.
+barplot(PercAc, main = &quot;Variance explained by PCA&quot;,
+        ylab = &quot;Cumulative variance (%)&quot;, xlab = &quot;Number of retained PCs&quot;,
+        col = c(&quot;gray&quot;, &quot;red&quot;, &quot;gray&quot;, &quot;gray&quot;, &quot;gray&quot;))</code></pre>
+<p><img src="figure/SH_PCA_DAPC.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>##
+
+PointPCA1 &lt;- as.data.frame(PCA$x)
+ArrowPCA1 &lt;- as.data.frame(PCA$rotation)
+LabelsPCA1 &lt;- 3*ArrowPCA1
+LabelsPCA1$PC2[1] &lt;- 3
+LabelsPCA1[2, 1:2] &lt;- c(1.1, -1.1)
+LabelsPCA1[3, 1:2] &lt;- c(2.5, 0.45)
+LabelsPCA1[4, 1:2] &lt;- c(2.5, 0.15)
+LabelsPCA1[5, 1:2] &lt;- c(0.8, 0.6)
+
+ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
+  geom_point(na.rm = T) + geom_rug(col = &quot;steelblue&quot;, alpha = 0.2, size = 1.5) +
+  geom_segment(mapping = aes(x = 0, xend = 3*PC1, y = 0, yend = 3*PC2, col = &quot;w&quot;),
+               data = ArrowPCA1, arrow = arrow(type = &quot;closed&quot;,
+                                               length = unit(0.2,units = &quot;cm&quot;))) +
+  geom_text(mapping = aes(x = PC1, y = PC2, label = rownames(ArrowPCA1), col = &quot;x&quot;),
+            data = LabelsPCA1) + 
+  theme_bw() +
+  xlab(&quot;PC1 - 47.28%&quot;) + ylab(&quot;PC2 - 21.01%&quot;)</code></pre>
+<p><img src="figure/SH_PCA_DAPC.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#source(&quot;Shannon-Weaver.R&quot;)
+
+#DadosMaxT %&gt;% select(-Clones) %&gt;% apply(FUN = Shannon.Weaver.QL, nclass = c(5, 6, 7, 6, 6, 6, 5, 5, 5, 5, 2, 6), 2) %&gt;% diag() %&gt;%
+#  as.data.frame() -&gt; Res</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -782,28 +633,33 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4    
- [5] readr_2.0.2     tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 workflowr_1.6.2
+ [1] here_1.0.1      adegenet_2.1.5  ade4_1.7-18     forcats_0.5.1  
+ [5] stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4     readr_2.0.2    
+ [9] tidyr_1.1.4     tibble_3.1.5    ggplot2_3.3.5   tidyverse_1.3.1
+[13] workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7         here_1.0.1         lubridate_1.8.0    assertthat_0.2.1  
- [5] rprojroot_2.0.2    digest_0.6.28      utf8_1.2.2         R6_2.5.1          
- [9] cellranger_1.1.0   backports_1.2.1    reprex_2.0.1       evaluate_0.14     
-[13] highr_0.9          httr_1.4.2         pillar_1.6.4       rlang_0.4.12      
-[17] readxl_1.3.1       rstudioapi_0.13    whisker_0.4        jquerylib_0.1.4   
-[21] rmarkdown_2.11     labeling_0.4.2     munsell_0.5.0      broom_0.7.9       
-[25] compiler_4.1.1     httpuv_1.6.3       modelr_0.1.8       xfun_0.27         
-[29] pkgconfig_2.0.3    htmltools_0.5.2    tidyselect_1.1.1   fansi_0.5.0       
-[33] crayon_1.4.2       tzdb_0.1.2         dbplyr_2.1.1       withr_2.4.2       
-[37] later_1.3.0        grid_4.1.1         jsonlite_1.7.2     gtable_0.3.0      
-[41] lifecycle_1.0.1    DBI_1.1.1          git2r_0.28.0       magrittr_2.0.1    
-[45] scales_1.1.1       cli_3.1.0          stringi_1.7.5      farver_2.1.0      
-[49] fs_1.5.0           promises_1.2.0.1   xml2_1.3.2         bslib_0.3.1       
-[53] ellipsis_0.3.2     generics_0.1.1     vctrs_0.3.8        RColorBrewer_1.1-2
-[57] tools_4.1.1        glue_1.4.2         hms_1.1.1          fastmap_1.1.0     
-[61] yaml_2.2.1         colorspace_2.0-2   rvest_1.0.2        knitr_1.36        
-[65] haven_2.4.3        sass_0.4.0        </code></pre>
+ [1] nlme_3.1-152     fs_1.5.0         lubridate_1.8.0  httr_1.4.2      
+ [5] rprojroot_2.0.2  tools_4.1.1      backports_1.2.1  bslib_0.3.1     
+ [9] utf8_1.2.2       R6_2.5.1         vegan_2.5-7      DBI_1.1.1       
+[13] mgcv_1.8-36      colorspace_2.0-2 permute_0.9-5    withr_2.4.2     
+[17] tidyselect_1.1.1 compiler_4.1.1   git2r_0.28.0     cli_3.1.0       
+[21] rvest_1.0.2      xml2_1.3.2       labeling_0.4.2   sass_0.4.0      
+[25] scales_1.1.1     digest_0.6.28    rmarkdown_2.11   pkgconfig_2.0.3 
+[29] htmltools_0.5.2  highr_0.9        dbplyr_2.1.1     fastmap_1.1.0   
+[33] rlang_0.4.12     readxl_1.3.1     rstudioapi_0.13  shiny_1.7.1     
+[37] farver_2.1.0     jquerylib_0.1.4  generics_0.1.1   jsonlite_1.7.2  
+[41] magrittr_2.0.1   Matrix_1.3-4     Rcpp_1.0.7       munsell_0.5.0   
+[45] fansi_0.5.0      ape_5.5          lifecycle_1.0.1  stringi_1.7.5   
+[49] whisker_0.4      yaml_2.2.1       MASS_7.3-54      plyr_1.8.6      
+[53] grid_4.1.1       parallel_4.1.1   promises_1.2.0.1 crayon_1.4.2    
+[57] lattice_0.20-44  haven_2.4.3      splines_4.1.1    hms_1.1.1       
+[61] knitr_1.36       pillar_1.6.4     igraph_1.2.7     seqinr_4.2-8    
+[65] reshape2_1.4.4   reprex_2.0.1     glue_1.4.2       evaluate_0.14   
+[69] modelr_0.1.8     vctrs_0.3.8      tzdb_0.1.2       httpuv_1.6.3    
+[73] cellranger_1.1.0 gtable_0.3.0     assertthat_0.2.1 xfun_0.27       
+[77] mime_0.12        xtable_1.8-4     broom_0.7.9      later_1.3.0     
+[81] cluster_2.1.2    ellipsis_0.3.2  </code></pre>
 </div>
 </div>
 
