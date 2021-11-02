@@ -48,12 +48,13 @@ LabelsPCA1[4, 1:2] <- c(2.5, 0.15)
 LabelsPCA1[5, 1:2] <- c(0.8, 0.6)
 
 ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
-  geom_point(na.rm = T) + geom_rug(col = "steelblue", alpha = 0.2, size = 1.5) +
-  geom_segment(mapping = aes(x = 0, xend = 3*PC1, y = 0, yend = 3*PC2, col = "w"),
+  geom_point(na.rm = T, colour = "gray") + geom_rug(col = "steelblue", alpha = 0.2, size = 1.5) +
+  geom_segment(mapping = aes(x = 0, xend = 3*PC1, y = 0, yend = 3*PC2),
+               colour = "red",
                data = ArrowPCA1, arrow = arrow(type = "closed",
                                                length = unit(0.2,units = "cm"))) +
-  geom_text(mapping = aes(x = PC1, y = PC2, label = rownames(ArrowPCA1), col = "x"),
-            data = LabelsPCA1) + 
+  geom_text(mapping = aes(x = PC1, y = PC2, label = rownames(ArrowPCA1)),
+            data = LabelsPCA1, colour = "red") + 
   theme_bw() +
   xlab("PC1 - 47.28%") + ylab("PC2 - 21.01%")
 
