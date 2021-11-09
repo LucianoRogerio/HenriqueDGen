@@ -55,15 +55,63 @@ ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
                data = ArrowPCA1, arrow = arrow(type = "closed",
                                                length = unit(0.2,units = "cm"))) +
   geom_text(mapping = aes(x = PC1, y = PC2, label = rownames(ArrowPCA1)),
-            data = LabelsPCA1, colour = "red") + 
+            data = LabelsPCA1, colour = "black") + 
   theme_bw() +
   xlab("PC1 - 47.28%") + ylab("PC2 - 21.01%")
 
-#source("Shannon-Weaver.R")
+### Análise Discriminante de Componentes Principais
 
-#DadosMaxT %>% select(-Clones) %>% apply(FUN = Shannon.Weaver.QL, nclass = c(5, 6, 7, 6, 6, 6, 5, 5, 5, 5, 2, 6), 2) %>% diag() %>%
-#  as.data.frame() -> Res
+library(adegenet); library(ggplot2)
+
+BLUPS <- readRDS(here::here("output", "BLUPsDisease.RDS"))
+BLUPS[ , 2:6] <- scale(BLUPS[ , 2:6], center = T, scale = T)
+BLUPS[is.na(BLUPS)] <- 0
+rownames(BLUPS) <- BLUPS$CLONE
+BLUPS$CLONE <- NULL
+
+DAPCHen <- find.clusters(BLUPS, n.pca = 2, max.n.clust = 20, choose.n.clust = FALSE, criterion = "diffNgroup")
+ClassDAPCHen <- DAPCHen$grp
+DAPCHenGraph <- dapc(BLUPS, grp = ClassDAPCHen, n.pca = 2, n.da = 2)
+
+DAPCIndPoint <- data.frame(DAPCHenGraph$ind.coord, grp = DAPCHenGraph$grp)
+DAPCGrpEllip <- data.frame(DAPCHenGraph$grp.coord, grp = as.character(1:4))
+ArrowDAPC <- as.data.frame(DAPCHenGraph$var.contr)
+LabelsDAPC <- data.frame(Trait = rownames(ArrowDAPC), ArrowDAPC*5)
+LabelsDAPC[1,3]   <- 4.7
+LabelsDAPC[2,2:3] <- c(0.7, 0.8)
+LabelsDAPC[3,2:3] <- c(2.5, 0.45)
+LabelsDAPC[4,2:3] <- c(2.5, -0.35)
+LabelsDAPC[5,2:3] <- c(0.3, -0.35)
+
+ggplot(data = DAPCIndPoint, aes(x = LD1, y = LD2, color = grp)) +
+  geom_point(na.rm = T) + geom_rug(col = "steelblue", alpha = 0.2, size = 1.5) +
+  theme_bw() +
+  scale_color_viridis_d() +
+  stat_ellipse(geom="polygon", aes(fill = grp), 
+               alpha = 0.2, 
+               show.legend = FALSE, 
+               level = 0.95) + guides(color = "none") + 
+  geom_label(data = DAPCGrpEllip, mapping = aes(x = LD1, y = LD2, label = grp)) +
+  geom_segment(mapping = aes(x = 0, xend = 5*LD1, y = 0, yend = 5*LD2),
+               colour = "red",
+               data = ArrowDAPC, arrow = arrow(type = "closed",
+                                               length = unit(0.2,units = "cm"))) +
+    geom_text(mapping = aes(x = LD1, y = LD2, label = Trait),
+            data = LabelsDAPC, colour = "black") +
+  xlab("LD1 - 56.54%") + ylab("LD2 - 11.75%")
+
+library(reshape2)
+BLUPS$CLONE <- rownames(BLUPS)
+BLUPS$Grp <- DAPCHenGraph$grp
+
+BLUPSBoxplot <- melt(BLUPS, variable.name = "Trait", value.name = "Y", id.vars = c("CLONE", "Grp"))
+
+ggplot(data = BLUPSBoxplot, mapping = aes(x = Grp, y = Y, fill = Grp)) + ylim(-3,4) +
+  geom_boxplot(outlier.shape = NA) + facet_wrap(facets = ~ Trait, ncol = 3) +
+  scale_fill_viridis_d() + guides(fill = "none") + ylab("BLUPs") + xlab("DACP Group")
+
 ```
 
+[Next page](Den_IndSH.html)
 [Last page](AnalisesModelosMistos.html)
 [Back to home](index.html)
