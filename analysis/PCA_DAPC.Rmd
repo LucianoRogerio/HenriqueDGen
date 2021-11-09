@@ -69,6 +69,7 @@ BLUPS[is.na(BLUPS)] <- 0
 rownames(BLUPS) <- BLUPS$CLONE
 BLUPS$CLONE <- NULL
 
+set.seed(1)
 DAPCHen <- find.clusters(BLUPS, n.pca = 2, max.n.clust = 20, choose.n.clust = FALSE, criterion = "diffNgroup")
 ClassDAPCHen <- DAPCHen$grp
 DAPCHenGraph <- dapc(BLUPS, grp = ClassDAPCHen, n.pca = 2, n.da = 2)
