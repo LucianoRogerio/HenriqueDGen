@@ -10,6 +10,55 @@ editor_options:
 ## Introduction
 
 ```{r}
+library(devtools)
+#install_version("circlize", version = "0.4.10", repos = "http://cran.us.r-project.org")
+library(tidyverse); library(circlize); library(ComplexHeatmap)
+library(dendextend)
+
+DAPCHenGraph <- readRDS(here::here("output", "DAPCAn.RDS"))
+DAPCS <- DAPCHenGraph$ind.coord
+DAPCS <- scale(DAPCS, center = T, scale = T)
+
+BLUPS <- readRDS(here::here("output", "BLUPsDisease.RDS"))
+BLUPS[ , 2:6] <- scale(BLUPS[ , 2:6], center = T, scale = T)
+BLUPS[is.na(BLUPS)] <- 0
+rownames(BLUPS) <- BLUPS$CLONE
+
+col_fun1 = colorRamp2(c(-3.3, 0, 4.8), c("darkblue", "white", "darkred"))
+col_fun2 = colorRamp2(c(-3.5, 0, 6.5), c("darkblue", "white", "darkred"))
+
+circos.par(gap.after = c(25)) 
+circos.heatmap(DAPCS, col = col_fun1, track.height = 0.15,
+               dend.side = "outside", clustering.method = "ward.D2",
+               dend.callback = function(dend, m, si) {
+                 color_branches(dend, k = 4, col = 1:4)
+               },
+               dend.track.height = 0.3)
+circos.heatmap(BLUPS[,2:6], col = col_fun2, track.height = 0.3)
+circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
+  if(CELL_META$sector.numeric.index == 1) { # the last sector
+    cn = colnames(BLUPS)[6:2]
+    n = length(cn)
+    circos.text(x = rep(0.04, n), y = (1:n) -0.6, labels = cn, 
+                cex = 0.5, adj = c(0, 0.5), facing = "outside")
+  }
+}, bg.border = NA)
+circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
+  if(CELL_META$sector.numeric.index == 1) { # the last sector
+    cn = c("2ºDA", "1ºDA")
+    n = length(cn)
+    circos.text(x = rep(0.04, n), y = (1:n) + 5, labels = cn, 
+                cex = 0.5, adj = c(0, 0.5), facing = "outside")
+  }
+}, bg.border = NA)
+circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
+    circos.text(c(670, 430, 250, 90), c(11, 10, 11, 11) + convert_y(2, "mm"), 
+        paste0("group ", c(1:4)),
+        facing = "bending.inside", cex = 0.8,
+        adj = c(0.5, 0), niceFacing = TRUE)
+}, bg.border = NA)
+
+circos.clear()
 
 ```
 
