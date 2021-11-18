@@ -8,9 +8,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-## **1. Introducao**
+## 1. Introducao
 
-## **2. Dados Fenotipicos**
+## 2. Dados Fenotipicos
 
 Foram realizadas analises descritivas e de Deviance para verificar a distribuição e efeitos genotipicos quanto a resistencia as doencas de manchas foliares.
 
@@ -54,7 +54,9 @@ saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 
 ### a. [Analises Descritivas](AnalisesDescritivas.html)
 
-## **3. [Analise de modelos mistos](AnalisesModelosMistos.html)**
+## 3. [Analise de modelos mistos](AnalisesModelosMistos.html)
 
-## **4. [Analise de Componentes Principais e Discriminante](PCA_DAPC.html)
+## 4. [Analise de Componentes Principais e Discriminante](PCA_DAPC.html)
+
+## 5. [Dendrograma e Indice de Shannon-Weaver](Den_IndSH.html)
 

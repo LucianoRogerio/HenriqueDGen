@@ -1,6 +1,6 @@
 ---
-title: "Den_IndSH"
-author: "LucianoRogerio"
+title: "Dendrograma e Indice de Shannon-Weaver"
+author: "LucianoRogerio e HenriqueBernardino"
 date: "2021-11-09"
 output: workflowr::wflow_html
 editor_options:
@@ -8,6 +8,8 @@ editor_options:
 ---
 
 ## Introduction
+
+[Wrong Page?](index.html)
 
 ```{r}
 library(devtools)
@@ -27,6 +29,7 @@ rownames(BLUPS) <- BLUPS$CLONE
 col_fun1 = colorRamp2(c(-3.3, 0, 4.8), c("darkblue", "white", "darkred"))
 col_fun2 = colorRamp2(c(-3.5, 0, 6.5), c("darkblue", "white", "darkred"))
 
+set.seed(1)
 circos.par(gap.after = c(25)) 
 circos.heatmap(DAPCS, col = col_fun1, track.height = 0.15,
                dend.side = "outside", clustering.method = "ward.D2",
@@ -62,3 +65,6 @@ circos.clear()
 
 ```
 
+[Next page](AnalisesModelosMistos.html)
+[Last page]
+[Back to home](index.html)
