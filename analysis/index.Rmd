@@ -8,10 +8,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-## 1. Introducao
+Introdução
+==========
 
-## 2. Dados Fenotipicos
-
+Dados Fenotípicos
+=================
 Foram realizadas analises descritivas e de Deviance para verificar a distribuição e efeitos genotipicos quanto a resistencia as doencas de manchas foliares.
 
 
@@ -34,29 +35,38 @@ colnames(PhenoData)[7:11] <- c("Anth", "WhLS", "BrLS", "BlLS", "AnAr")
 
 # Correção por log para Area de Antracnose.
 PhenoData$AnAr <- log(PhenoData$AnAr)
-
-# Tabela 1. Dados Fenotipicos de resistencia as doencas manchas foliares avaliadas no banco ativo de germoplasma de mandioca da EMBRAPA no ano de 2021.
+```
+#### Tabela 1. Dados Fenotipicos de resistencia as doencas manchas foliares avaliadas no banco ativo de germoplasma de mandioca da EMBRAPA no ano de 2021.
+```{r, echo = FALSE}
 PhenoData %>% reactable(defaultPageSize = 10)
-# Antracnose (Anth), Mancha Branca (WhLS), Mancha Parda (BrLS), Queima das Folhas (BlLS), Area afetada pela antracnose na area inoculada no caule da planta de mandioca (AnAr).
+```
+Antracnose (Anth), Mancha Branca (WhLS), Mancha Parda (BrLS), Queima das Folhas (BlLS), Area afetada pela antracnose na area inoculada no caule da planta de mandioca (AnAr).
 
+```{r, message = FALSE, warning = FALSE, eval = TRUE}
 lnfUtl <- colnames(PhenoData)[c(1:4, 12:13)]
 PhenoData$talhao_number <- NULL
 PhenoData$Idade <- NULL
 traits <- colnames(PhenoData)[!colnames(PhenoData) %in% lnfUtl]
 PhenoData2 <- PhenoData %>% gather(key = traits, value = Y, -all_of(lnfUtl))
+```
 
-# Tabela 2. Dados Fenotipicos organizados para realizar analises descritivas e de modelos mistos para resistencia as doencas manchas foliares.
+#### Tabela 2. Dados Fenotipicos organizados para realizar analises descritivas e de modelos mistos para resistencia as doencas manchas foliares.
+```{r, echo = FALSE}
 PhenoData2 %>% reactable(defaultPageSize = 10)
-# Antracnose (Anth), Mancha Branca (WhLS), Mancha Parda (BrLS), Queima das Folhas (BlLS).
+```
+Antracnose (Anth), Mancha Branca (WhLS), Mancha Parda (BrLS), Queima das Folhas (BlLS).
 
+```{r}
 saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 ```
 
-### a. [Analises Descritivas](AnalisesDescritivas.html)
+- [Analises Descritivas](AnalisesDescritivas.html)
 
-## 3. [Analise de modelos mistos](AnalisesModelosMistos.html)
+Análise de modelos mistos - [link](AnalisesModelosMistos.html)
+==============================================================
 
-## 4. [Analise de Componentes Principais e Discriminante](PCA_DAPC.html)
+Análise de Componentes Principais e Discriminante - [link](PCA_DAPC.html)
+=========================================================================
 
-## 5. [Dendrograma e Indice de Shannon-Weaver](Den_IndSH.html)
-
+Dendrograma e Indice de Shannon-Weaver - [link](Den_IndSH.html)
+===============================================================

@@ -65,6 +65,8 @@ circos.clear()
 
 ```
 
-[Next page](AnalisesModelosMistos.html)
+Next page - [Analise de Modelos Mistos](AnalisesModelosMistos.html)
+
 [Last page]
+
 [Back to home](index.html)
