@@ -90,7 +90,7 @@ H2 %>% reactable(columns = list(
   H2 = colDef(format = colFormat(digits = 4, locales = "en-US"))))
 ```
 
-## Obter estimativas de médias + Blups dos clones
+## Obtain the Mean + BLUPs of the clones
 
 ```{r}
 MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef)))
@@ -108,7 +108,7 @@ MediasFix$CLONE <- gsub(pattern = "control", replacement = "", x = MediasFix$CLO
 MediasFix %>% filter(CLONE != "Clones") -> MediasFix
 ```
 
-### Obter os BLUPs dos Clones
+### Obtain the Clones BLUPS
 
 ```{r}
 BLUPsAle <- lapply(fmfit, FUN = getBLUPs.lme4)
