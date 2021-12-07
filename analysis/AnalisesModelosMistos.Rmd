@@ -159,5 +159,7 @@ AgroData %>% reactable(defaultPageSize = 25, columns = list(
   DRY = colDef(format = colFormat(digits = 2, locales = "en-US"))))
 ```
 [Next page](PCA_DAPC.html)
+
 [Last page](AnalisesDescritivas.html)
+
 [Back to home](index.html)
