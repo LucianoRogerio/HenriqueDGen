@@ -9,14 +9,18 @@ editor_options:
 
 [Wrong Page?](index.html)
 
-## Grafico de Barras
+## Descriptive analysis
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE}
 suppressMessages(library(tidyverse))
 PhenoData <- readRDS(here::here("output", "DadosFenotipicosv2.RDS"))
+```
 
-# Figura 1. Grafico de barras para resistencia a manchas foliares em mandioca.
-PhenoData %>% filter(!traits%in%"AnAr", !is.na(traits), !is.na (Y)) %>% group_by(traits, Y) %>%
+
+#### Fig 1. Barplots of cassava foliar disease traits
+```{r, echo = FALSE, warning = FALSE}
+PhenoData %>% filter(!traits%in%"AnAr", !is.na(traits), !is.na (Y)) %>%
+  group_by(traits, Y) %>%
   summarise(y = n()) %>%
   ggplot(aes(x = traits, y = Y, fill = as.character(Y))) +
   scale_fill_brewer(type = "div", palette = 7) +
@@ -24,11 +28,8 @@ PhenoData %>% filter(!traits%in%"AnAr", !is.na(traits), !is.na (Y)) %>% group_by
   guides(fill = guide_legend(title = "Score"))
 ```
 
-## Grafico de Distribuicao
-
-```{r}
-
-# Figura 2. Grafico de Distribuicao para resistencia a manchas foliares em mandioca.
+#### Fig 2. Distribution plots of cassava foliar disease traits
+```{r, echo = FALSE, warning = FALSE}
 PhenoData %>% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
   facet_wrap(~ traits, scales = "free_x") + xlab("Scores") +
   theme(legend.position="none",

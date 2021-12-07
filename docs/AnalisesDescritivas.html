@@ -468,16 +468,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentreef27203820e46753b1624c0f79da53aabaae879eftargetblankf272038a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/f27203820e46753b1624c0f79da53aabaae879ef" target="_blank">f272038</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree73653b16f0d1eedb56622e6feb2e9202ed49783ctargetblank73653b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/73653b16f0d1eedb56622e6feb2e9202ed49783c" target="_blank">73653b1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentreef27203820e46753b1624c0f79da53aabaae879eftargetblankf272038a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree73653b16f0d1eedb56622e6feb2e9202ed49783ctargetblank73653b1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/f27203820e46753b1624c0f79da53aabaae879ef" target="_blank">f272038</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/73653b16f0d1eedb56622e6feb2e9202ed49783c" target="_blank">73653b1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -495,7 +495,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/AnalisesDescritivas.Rmd
-    Modified:   analysis/AnalisesModelosMistos.Rmd
     Modified:   analysis/PCA_DAPC.Rmd
 
 </code></pre>
@@ -535,6 +534,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/73653b16f0d1eedb56622e6feb2e9202ed49783c/analysis/AnalisesDescritivas.Rmd" target="_blank">73653b1</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+fix the buttons at the final of each of the webpages
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/73653b16f0d1eedb56622e6feb2e9202ed49783c/docs/AnalisesDescritivas.html" target="_blank">73653b1</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+fix the buttons at the final of each of the webpages
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -696,77 +729,13 @@ Second Commit
 </div>
 </div>
 <p><a href="index.html">Wrong Page?</a></p>
-<div id="grafico-de-barras" class="section level2">
-<h2>Grafico de Barras</h2>
+<div id="descriptive-analysis" class="section level2">
+<h2>Descriptive analysis</h2>
 <pre class="r"><code>suppressMessages(library(tidyverse))
-PhenoData &lt;- readRDS(here::here(&quot;output&quot;, &quot;DadosFenotipicosv2.RDS&quot;))
-
-# Figura 1. Grafico de barras para resistencia a manchas foliares em mandioca.
-PhenoData %&gt;% filter(!traits%in%&quot;AnAr&quot;, !is.na(traits), !is.na (Y)) %&gt;% group_by(traits, Y) %&gt;%
-  summarise(y = n()) %&gt;%
-  ggplot(aes(x = traits, y = Y, fill = as.character(Y))) +
-  scale_fill_brewer(type = &quot;div&quot;, palette = 7) +
-  geom_bar(position = &quot;fill&quot;, stat = &quot;identity&quot;) +
-  guides(fill = guide_legend(title = &quot;Score&quot;))</code></pre>
-<p><img src="figure/AnalisesDescritivas.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/b9ef481defdde781ff8eacc7da87b24166b03e29/docs/figure/AnalisesDescritivas.Rmd/unnamed-chunk-1-1.png" target="_blank">b9ef481</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-11-02
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/d2d70ff6fe59a37875e9b544acbfb3426be4862e/docs/figure/AnalisesDescritivas.Rmd/unnamed-chunk-1-1.png" target="_blank">d2d70ff</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-10-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="grafico-de-distribuicao" class="section level2">
-<h2>Grafico de Distribuicao</h2>
-<pre class="r"><code># Figura 2. Grafico de Distribuicao para resistencia a manchas foliares em mandioca.
-PhenoData %&gt;% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = &quot;darkgreen&quot;) + 
-  facet_wrap(~ traits, scales = &quot;free_x&quot;) + xlab(&quot;Scores&quot;) +
-  theme(legend.position=&quot;none&quot;,
-        panel.spacing = unit(0.1, &quot;lines&quot;),
-        axis.ticks.x=element_blank())</code></pre>
-<pre><code>Warning: Removed 489 rows containing non-finite values (stat_density).</code></pre>
+PhenoData &lt;- readRDS(here::here(&quot;output&quot;, &quot;DadosFenotipicosv2.RDS&quot;))</code></pre>
+<div id="fig-1.-barplots-of-cassava-foliar-disease-traits" class="section level4">
+<h4>Fig 1. Barplots of cassava foliar disease traits</h4>
+<pre><code>`summarise()` has grouped output by &#39;traits&#39;. You can override using the `.groups` argument.</code></pre>
 <p><img src="figure/AnalisesDescritivas.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
@@ -816,6 +785,10 @@ LucianoRogerio
 </table>
 </div>
 </div>
+</div>
+<div id="fig-2.-distribution-plots-of-cassava-foliar-disease-traits" class="section level4">
+<h4>Fig 2. Distribution plots of cassava foliar disease traits</h4>
+<p><img src="figure/AnalisesDescritivas.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><a href="AnalisesModelosMistos.html">Next page</a></p>
 <p><a href="index.html">Back to home</a></p>
 <br>
@@ -863,6 +836,7 @@ loaded via a namespace (and not attached):
 [57] RColorBrewer_1.1-2 tools_4.1.1        glue_1.5.0         hms_1.1.1         
 [61] fastmap_1.1.0      yaml_2.2.1         colorspace_2.0-2   rvest_1.0.2       
 [65] knitr_1.36         haven_2.4.3        sass_0.4.0        </code></pre>
+</div>
 </div>
 </div>
 

@@ -7,40 +7,59 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+
 
 [Wrong Page?](index.html)
 
+## Analysis of Principal Components
+
+This previoulsy analysis were performed aiming to select the best number of principal components.
+The phenotypic data were centered using the function scale to remove the effect of trait variance at the principal components analysis.
+The selection criteria for the number of principal components were variance bigger than one.
 
 ```{r}
 suppressMessages(library(tidyverse))
 suppressMessages(library(adegenet))
+library(reactable)
 library(here)
 
 BLUPS <- readRDS(here::here("output", "BLUPsDisease.RDS"))
 
-### Analise de Componentes Principais
-
 BLUPS[ , 2:6] <- scale(BLUPS[ , 2:6], center = T, scale = T)
 BLUPS[is.na(BLUPS)] <- 0
+```
+
+
+### Estimation of the Variance acumulated and selection of the number of Principal Components
+
+```{r}
 PCA <- prcomp(BLUPS[,-1])
 
 Perc <- 100*PCA$sdev^2/sum(PCA$sdev^2)
-Perc
 
 PercAc <- as.vector(rep(NA, times = length(Perc)))
 for(i in 1:length(Perc)) {
   PercAc[i] <- sum(Perc[1:i])
   names(PercAc)[i] <- i
 }
+```
 
-# Fig 1. Grafico de Barras das variancias acumuladas dos componentes principais para tolerancia as doencas foliares.
+#### Table 1. Variance explained by each principal component
+```{r, echo = FALSE}
+data.frame(PC = 1:5,
+           Var = PCA$sdev^2) %>% reactable(columns = list(Var = colDef(format = colFormat(digits = 4, locales = "en-US"))))
+```
+
+#### Fig 1. Barplot of the Accumulated variances of the principal components for foliar diseases.
+```{r, echo = FALSE}
 barplot(PercAc, main = "Variance explained by PCA",
         ylab = "Cumulative variance (%)", xlab = "Number of retained PCs",
         col = c("gray", "red", "gray", "gray", "gray"))
+```
 
-##
+This part we prepare the print location for the labels of foliar disease traits
 
+```{r}
 PointPCA1 <- as.data.frame(PCA$x)
 ArrowPCA1 <- as.data.frame(PCA$rotation)
 LabelsPCA1 <- 3*ArrowPCA1
@@ -49,7 +68,10 @@ LabelsPCA1[2, 1:2] <- c(1.1, -1.1)
 LabelsPCA1[3, 1:2] <- c(2.5, 0.45)
 LabelsPCA1[4, 1:2] <- c(2.5, 0.15)
 LabelsPCA1[5, 1:2] <- c(0.8, 0.6)
+```
 
+#### Fig 2. Scatterplot of the Principal components 1 and 2 with the correlation arrows of the foliar disease resistance with the principal components.
+```{r, echo = FALSE}
 ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
   geom_point(na.rm = T, colour = "gray") + geom_rug(col = "steelblue", alpha = 0.2, size = 1.5) +
   geom_segment(mapping = aes(x = 0, xend = 3*PC1, y = 0, yend = 3*PC2),
@@ -60,9 +82,11 @@ ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
             data = LabelsPCA1, colour = "black") + 
   theme_bw() +
   xlab("PC1 - 47.28%") + ylab("PC2 - 21.01%")
+```
 
-### Análise Discriminante de Componentes Principais
+## Discriminant Analysis of Principal Components
 
+```{r}
 library(adegenet); library(ggplot2)
 
 BLUPS <- readRDS(here::here("output", "BLUPsDisease.RDS"))
@@ -88,7 +112,10 @@ LabelsDAPC[2,2:3] <- c(0.7, 0.8)
 LabelsDAPC[3,2:3] <- c(2.5, 0.45)
 LabelsDAPC[4,2:3] <- c(2.5, -0.35)
 LabelsDAPC[5,2:3] <- c(0.3, -0.35)
+```
 
+#### Fig 3. Scatterplot of the first and second linear discriminant function of the discriminant analysis of principal components for cassava foliar diseases, with four clusters
+```{r, echo = F}
 ggplot(data = DAPCIndPoint, aes(x = LD1, y = LD2, color = grp)) +
   geom_point(na.rm = T) + geom_rug(col = "steelblue", alpha = 0.2, size = 1.5) +
   theme_bw() +
@@ -105,13 +132,18 @@ ggplot(data = DAPCIndPoint, aes(x = LD1, y = LD2, color = grp)) +
     geom_text(mapping = aes(x = LD1, y = LD2, label = Trait),
             data = LabelsDAPC, colour = "black") +
   xlab("LD1 - 56.54%") + ylab("LD2 - 11.75%")
+```
 
-library(reshape2)
+```{r}
+suppressMessages(library(reshape2))
 BLUPS$CLONE <- rownames(BLUPS)
 BLUPS$Grp <- DAPCHenGraph$grp
 
 BLUPSBoxplot <- melt(BLUPS, variable.name = "Trait", value.name = "Y", id.vars = c("CLONE", "Grp"))
+```
 
+#### Fig 4. Boxplots of the BLUPS of the accessions grouped by the discriminant analysis of principal components for cassava foliar diseases traits
+```{r, echo = FALSE, warning = FALSE}
 ggplot(data = BLUPSBoxplot, mapping = aes(x = Grp, y = Y, fill = Grp)) + ylim(-3,4) +
   geom_boxplot(outlier.shape = NA) + facet_wrap(facets = ~ Trait, ncol = 3) +
   scale_fill_viridis_d() + guides(fill = "none") + ylab("BLUPs") + xlab("DACP Group")
