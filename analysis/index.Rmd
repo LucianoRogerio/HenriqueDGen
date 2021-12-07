@@ -62,11 +62,8 @@ saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 
 - [Analises Descritivas](AnalisesDescritivas.html)
 
-Análise de modelos mistos - [link](AnalisesModelosMistos.html)
-==============================================================
+### [Análise de modelos mistos](AnalisesModelosMistos.html)
 
-Análise de Componentes Principais e Discriminante - [link](PCA_DAPC.html)
-=========================================================================
+### [Análise de Componentes Principais e Discriminante](PCA_DAPC.html)
 
-Dendrograma e Indice de Shannon-Weaver - [link](Den_IndSH.html)
-===============================================================
+### [Dendrograma e Indice de Shannon-Weaver](Den_IndSH.html)

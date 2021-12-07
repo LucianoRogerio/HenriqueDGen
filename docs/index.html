@@ -303,7 +303,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-24
+<strong>Last updated:</strong> 2021-12-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -394,16 +394,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree3ca049855426b24e708539878799e363e8ea029etargetblank3ca0498a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/3ca049855426b24e708539878799e363e8ea029e" target="_blank">3ca0498</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentreee5352271d34b9c175b0225dec5e3cc6c08cb67edtargetblanke535227a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/e5352271d34b9c175b0225dec5e3cc6c08cb67ed" target="_blank">e535227</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree3ca049855426b24e708539878799e363e8ea029etargetblank3ca0498a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentreee5352271d34b9c175b0225dec5e3cc6c08cb67edtargetblanke535227a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/3ca049855426b24e708539878799e363e8ea029e" target="_blank">3ca0498</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/e5352271d34b9c175b0225dec5e3cc6c08cb67ed" target="_blank">e535227</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -413,9 +413,19 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  data/Dados Fenotipicos 2020.csv
+    Untracked:  output/DAPCHen.tiff
+    Untracked:  output/DenHen.tiff
+    Untracked:  output/PCAHen.tiff
+    Untracked:  output/PCAHenExp.tiff
 
 Unstaged changes:
+    Modified:   analysis/AnalisesModelosMistos.Rmd
     Modified:   analysis/Den_IndSH.Rmd
+    Modified:   analysis/PCA_DAPC.Rmd
     Modified:   analysis/index.Rmd
 
 </code></pre>
@@ -455,6 +465,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/e5352271d34b9c175b0225dec5e3cc6c08cb67ed/analysis/index.Rmd" target="_blank">e535227</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-11-24
+</td>
+<td>
+Update Layout Website
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/e5352271d34b9c175b0225dec5e3cc6c08cb67ed/docs/index.html" target="_blank">e535227</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-11-24
+</td>
+<td>
+Update Layout Website
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -760,15 +804,14 @@ PhenoData2 &lt;- PhenoData %&gt;% gather(key = traits, value = Y, -all_of(lnfUtl
 <li><a href="AnalisesDescritivas.html">Analises Descritivas</a></li>
 </ul>
 </div>
+<div id="análise-de-modelos-mistos" class="section level3">
+<h3><a href="AnalisesModelosMistos.html">Análise de modelos mistos</a></h3>
 </div>
-<div id="análise-de-modelos-mistos---link" class="section level1">
-<h1>Análise de modelos mistos - <a href="AnalisesModelosMistos.html">link</a></h1>
+<div id="análise-de-componentes-principais-e-discriminante" class="section level3">
+<h3><a href="PCA_DAPC.html">Análise de Componentes Principais e Discriminante</a></h3>
 </div>
-<div id="análise-de-componentes-principais-e-discriminante---link" class="section level1">
-<h1>Análise de Componentes Principais e Discriminante - <a href="PCA_DAPC.html">link</a></h1>
-</div>
-<div id="dendrograma-e-indice-de-shannon-weaver---link" class="section level1">
-<h1>Dendrograma e Indice de Shannon-Weaver - <a href="Den_IndSH.html">link</a></h1>
+<div id="dendrograma-e-indice-de-shannon-weaver" class="section level3">
+<h3><a href="Den_IndSH.html">Dendrograma e Indice de Shannon-Weaver</a></h3>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -814,6 +857,7 @@ loaded via a namespace (and not attached):
 [57] crosstalk_1.2.0   hms_1.1.1         fastmap_1.1.0     yaml_2.2.1       
 [61] colorspace_2.0-2  rvest_1.0.2       knitr_1.36        haven_2.4.3      
 [65] sass_0.4.0       </code></pre>
+</div>
 </div>
 </div>
 

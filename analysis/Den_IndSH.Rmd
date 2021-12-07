@@ -14,8 +14,8 @@ editor_options:
 ```{r}
 library(devtools)
 #install_version("circlize", version = "0.4.10", repos = "http://cran.us.r-project.org")
-library(tidyverse); library(circlize); library(ComplexHeatmap)
-library(dendextend)
+suppressMessages(library(tidyverse)); suppressMessages(library(circlize))
+suppressMessages(library(ComplexHeatmap)); suppressMessages(library(dendextend))
 
 DAPCHenGraph <- readRDS(here::here("output", "DAPCAn.RDS"))
 DAPCS <- DAPCHenGraph$ind.coord

@@ -9,7 +9,7 @@ editor_options:
 
 [Wrong Page?](index.html)
 
-## Introduction
+## Mixed Models Foliar Disease
 
 ```{r}
 library(here)
@@ -41,14 +41,18 @@ ResAnovaFinal <- data.frame(Trait = rep(traits, each = 2),
                             Factor = rep(c("Control", "Block"),
                                          times = 5),
                             ResAnFin)
+```
 
-# Table 1. Anova of the fixed effects of Cassava foliar diseases
+#### Table 1. Anova of the fixed effects of Cassava foliar diseases
+```{r, echo = FALSE}
 ResAnovaFinal %>% reactable(columns = list(
   SumSq = colDef(format = colFormat(digits = 3, locales = "en-US")),
   MeanSq = colDef(format = colFormat(digits = 3, locales = "en-US")),
   Fvalue = colDef(format = colFormat(digits = 3, locales = "en-US"))))
+```
 
 
+```{r}
 rdfmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
                                 .fun = analyzeTrialrdMod.lme4)
 
@@ -61,26 +65,34 @@ rownames(Deviances[[i]]) <- i
 }
 
 ResDeviances <- data.frame(t(sapply(Deviances, FUN = rbind)))
+```
 
-# Table 2. Deviance Analysis for cassava foliar disease
+#### Table 2. Deviance Analysis for cassava foliar disease
+```{r, echo = FALSE}
 ResDeviances %>% reactable()
+```
 
+```{r}
 H2 <- sapply(fmfit, FUN = getVarComp.lme4) %>% t() %>% as.data.frame()
 colnames(H2) <- c("VarClone", "VarRes")
 H2 <- H2 %>% mutate(VarClone = as.numeric(VarClone),
                VarRes = as.numeric(VarRes),
                VarFen = VarClone + VarRes,
                H2 = VarClone/VarFen)
-# Table 3. Heritabilities of cassava foliar disease
+```
+
+#### Table 3. Heritabilities of cassava foliar disease
+```{r, echo = FALSE}
 H2 %>% reactable(columns = list(
   VarClone = colDef(format = colFormat(digits = 4, locales = "en-US")),
   VarRes = colDef(format = colFormat(digits = 4, locales = "en-US")),
   VarFen = colDef(format = colFormat(digits = 4, locales = "en-US")),
   H2 = colDef(format = colFormat(digits = 4, locales = "en-US"))))
+```
 
+## Obter estimativas de médias + Blups dos clones
 
-### Obter estimativas de médias + Blups dos clones
-
+```{r}
 MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef)))
 MediasFix[2:32, ] <- MediasFix[2:32,] +
   matrix(rep(MediasFix[1, 1:5], each = 31), nrow = 31, ncol = 5,
@@ -94,9 +106,11 @@ MediasFix %<>% filter(CLONE %like% "control") %>%
 rownames(MediasFix) <- NULL
 MediasFix$CLONE <- gsub(pattern = "control", replacement = "", x = MediasFix$CLONE)
 MediasFix %>% filter(CLONE != "Clones") -> MediasFix
+```
 
-#### Obter os efeitos aleatorio dos Clones
+### Obter os BLUPs dos Clones
 
+```{r}
 BLUPsAle <- lapply(fmfit, FUN = getBLUPs.lme4)
 
 BLUPSDisea <- data.frame(CLONE = rownames(BLUPsAle[1]$AnAr))
@@ -113,8 +127,10 @@ BLUPSDisea$CLONE <- gsub(pattern = ":1", replacement = "", BLUPSDisea$CLONE)
 BLUPS <- rbind(BLUPSDisea, MediasFix)
 
 saveRDS(BLUPS, here::here("output", "BLUPsDisease.RDS"))
+```
 
-# Table 3. Blups of the accessions for cassava foliar diseases
+#### Table 3. Blups of the accessions for cassava foliar diseases
+```{r, echo = FALSE}
 BLUPS %>% reactable(defaultPageSize = 25, columns = list(
   AnAr = colDef(format = colFormat(digits = 4, locales = "en-US")),
   Anth = colDef(format = colFormat(digits = 4, locales = "en-US")),
@@ -123,6 +139,25 @@ BLUPS %>% reactable(defaultPageSize = 25, columns = list(
   WhLS = colDef(format = colFormat(digits = 4, locales = "en-US"))))
 ```
 
+## Mixed Models Agronomic Traits
+
+```{r}
+suppressMessages(library(lme4)); suppressMessages(library(tidyverse))
+library(reactable); library(here)
+
+AgroData <- readRDS(file = here::here("data", "DadosFen2020.rds"))
+
+```
+
+#### Table 4. Data entry to perform the mxed model analysis for Agronomic Traits
+```{r, echo = FALSE}
+AgroData %>% reactable(defaultPageSize = 25, columns = list(
+  FRY = colDef(format = colFormat(digits = 2, locales = "en-US")),
+  AGY = colDef(format = colFormat(digits = 2, locales = "en-US")),
+  HI = colDef(format = colFormat(digits = 2, locales = "en-US")),
+  DMC = colDef(format = colFormat(digits = 2, locales = "en-US")),
+  DRY = colDef(format = colFormat(digits = 2, locales = "en-US"))))
+```
 [Next page](PCA_DAPC.html)
 [Last page](AnalisesDescritivas.html)
 [Back to home](index.html)
