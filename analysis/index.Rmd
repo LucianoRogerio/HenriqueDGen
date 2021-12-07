@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-##Introduction
+## Introduction
 
 ### Phenotypic data
 Descriptive and deviance analysis were performed to verify the distribution and the genotypic effects for resistance to foliar diseases.
