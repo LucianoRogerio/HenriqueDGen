@@ -65,8 +65,8 @@ circos.clear()
 
 ```
 
-Next page - [Analise de Modelos Mistos](AnalisesModelosMistos.html)
+[Next page]
 
-[Last page]
+[Last page](PCA_DAPC.html)
 
 [Back to home](index.html)
