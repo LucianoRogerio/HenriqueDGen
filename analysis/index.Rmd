@@ -57,67 +57,46 @@ Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf
 saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 ```
 
-## Atividades a finalizar nesta seção
-
-- [ ] Ajustar nomes das características produtivas logo após ler o arquivo de dados no R
-
-| Característica | Sigla |
-| :------------: | :---: |
-| **Genotipos** - 1˚coluna | Genotipos.BGM |
-| Altura.de.planta....CO_334.0000018 | AP |
-| Altura.de.planta.sem.folha....CO_334.0000125 | APsF |
-| **PTR** - Produtividade Total de Raizes | PTR |
-| **PRC** - Produtividade de Raiz Comercial | PRC |
-| **PRNC** - Produtividade de Raizes ñ comerciais | PRNC |
-| Peso.da.parte.aerea....CO_334.0000016 | PPA |
-| Vigor.Inicial | Vigor |
-| Vigor.da.planta.45.DAP..1-5. | Vigor45D |
-| Vigor.da.planta.6.MAP..1-5. | Vigor6M |
-| Vigor.da.planta.12.MAP..1-5. | Vigor12M |
-|     |     |
-
-  - Sugestão: usar a função colnames do R para trocar os nomes das características do Objeto que precisa trocar
-  
-```
-colnames(DadosPhen)[c(18, 12, 13, 20)] <- c("PortePl","AltPl", "AltPlsF",
-                                            "Vigor", "PPA")
-```
-
-- [ ] separar a característica Vigor em outro objeto do R, sem perder as informações de:
-
-  - Ano
-  - Campo
-  - Local
-  - Genotipos.BGM.
-  - Genotipos
-  - Bloco
-  - Linha
-  - Coluna
-
-
-- [ ] Transformar as várias colunas do objeto com as informações de Vigor em uma única coluna, e adicionar uma coluna com o número da amostra de avaliação de Vigor.
-
-  - Usar a função melt do pacote data.table do R
-
-```
-RawPhenoData %>% mutate("FlowerPresence" = flower.visual.rating.0.1.CO_334.0000111,
-                        "FlowerVisRate" = flowering.ability.visual.assessment.0.3.CO_334.0000233,
-                     .keep = "unused") %>% melt(data = .,
-                                                id.vars = c("studyYear", "locationName", "germplasmName",
-                                                            "replicate", "blockNumber", "plotNumber",
-                                                            "plantNumber"),
-                                                variable.name = "Trait",
-                                                value.name = "Value") -> PhenoData
-```
-  - Argumentos da Função melt:
-   - data: dados, se estiver utilizando o pipe (%>%) use o ponto (.), se não informe o objeto a ser transformado.
-   - id.vars: indica a função melt quais são colunas que devem permanecer intactas no novo objeto.
-   - variable.name: é o nome da nova coluna que indicará a origem da observação da nova coluna de característica.
-   - value.name: Nome da coluna que juntará todas as informações.
 
 ```{r}
 # Rodar o script aqui dentro
+
+
+#install.packages("reshape2")
+
+
+library(reshape2)
+DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2021.CSV1.CSV"), header = T, sep = ";")
+
+head(DadosProdutivos)
+
+
+colnames(DadosProdutivos)[c(4,10:20)] <- c("Genotipo-BGM","AP", "APsF","DMC",
+                                            "PTR","PRC", "PRNC","PPA","Vigor","Vigor45D","Vigor6M","Vigor12M")
+
+DadosProdutivos2 <- DadosProdutivos[,1:16]
+
+DadosProdutivosfin <- reshape2::melt(data = DadosProdutivos2,id.vars = c("Ano","Campo","Local","Genotipo-BGM","Genotipos","Bloco","Linha", "Coluna"),
+                                     variable.name = "Trait",
+                                     value.name = "Value") %>% filter(!is.na(Value))
+
+saveRDS(object = DadosProdutivosfin, file = here::here("output", "DadosProdutivos.rds"))
+
+
+DadosVigor <- DadosProdutivos[,c(1:8,17:20)]
+head(DadosVigor)
+
+DadosVigorFin <- reshape2::melt(data = DadosVigor, id.vars = c("Ano","Campo","Local","Genotipo-BGM",
+                                    "Genotipos","Bloco","Linha","Coluna"),
+                                         variable.name = "Epoca",
+                                         value.name = "Value") %>% filter(!is.na(Value))
+
+head(DadosVigorFin)
+
+saveRDS(object = DadosVigorFin, file = here::here("output", "DadosVigor.rds"))
 ```
+
+
 - [Descriptive Analysis](AnalisesDescritivas.html)
 
 ### [Mixed Models Analysis](AnalisesModelosMistos.html)
