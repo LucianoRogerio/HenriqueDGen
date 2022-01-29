@@ -84,6 +84,23 @@ ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
   xlab("PC1 - 47.28%") + ylab("PC2 - 21.01%")
 ```
 
+#### table 2. Analise de correlação dos Caracteristicas 
+```{r, echo=FALSE}
+library(tidyverse);library(here);library(reactable)
+
+DadosManchasFoliares <- readRDS(here::here("data","DadosFenotipicos.RDS"))
+
+DadosManchasFoliares %>% .[,7:11] %>%   
+ mutate(lnAreaAntracnose = log(AreaAntracnose), .keep = "unused") %>%
+  cor(use = "complete.obs")  %>%
+  reactable(columns = list(
+    Anthractnose = colDef(format = colFormat(digits = 2, locales = "en-US")),
+    ManchaBranca = colDef(format = colFormat(digits = 2, locales = "en-US")),
+    ManchaParda = colDef(format = colFormat(digits = 2, locales = "en-US")),
+    QueimaFolhas = colDef(format = colFormat(digits = 2, locales = "en-US")),
+    lnAreaAntracnose = colDef(format = colFormat(digits = 2, locales = "en-US"))))
+```
+
 ## Discriminant Analysis of Principal Components
 
 ```{r}

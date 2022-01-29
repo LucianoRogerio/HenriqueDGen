@@ -76,6 +76,12 @@ colnames(DadosProdutivos)[c(4,10:20)] <- c("Genotipo-BGM","AP", "APsF","DMC",
 
 DadosProdutivos2 <- DadosProdutivos[,1:16]
 
+
+
+
+
+
+
 DadosProdutivosfin <- reshape2::melt(data = DadosProdutivos2,id.vars = c("Ano","Campo","Local","Genotipo-BGM","Genotipos","Bloco","Linha", "Coluna"),
                                      variable.name = "Trait",
                                      value.name = "Value") %>% filter(!is.na(Value))
