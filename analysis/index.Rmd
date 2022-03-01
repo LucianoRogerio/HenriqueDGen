@@ -12,7 +12,6 @@ editor_options:
 
 ### Phenotypic data
 Descriptive and deviance analysis were performed to verify the distribution and the genotypic effects for resistance to foliar diseases.
-In this work we used a natural logarithm transformation for Affected area by Anthracnosis at the innoculated area at stem in cassava plants (AnAr).
 
 ```{r}
 suppressMessages(library(tidyverse))
@@ -27,20 +26,17 @@ PhenoData$control <- ifelse(PhenoData$accession_name %in% control, PhenoData$acc
 PhenoData$new <- ifelse(PhenoData$accession_name %in% control, 0, 1)
 
 # Change the Disease names to english abbreviations
-colnames(PhenoData)[7:11] <- c("Anth", "WhLS", "BrLS", "BlLS", "AnAr")
-
-# Natural logarithm transformation for Anthracnosis Area
-PhenoData$AnAr <- log(PhenoData$AnAr)
+colnames(PhenoData)[7:10] <- c("Anth", "WhLS", "BrLS", "BlLS")
 ```
 
 #### Table 1. Phenotypic data for resistance to foliar disease evaluated at the Cassava Germplasm Bank of EMBRAPA, data collected in 2021.
 ```{r, echo = FALSE}
 PhenoData %>% reactable(defaultPageSize = 10)
 ```
-Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS), Affected area by Anthracnosis at the innoculated area at stem in cassava plants (AnAr).
+Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS).
 
 ```{r, message = FALSE, warning = FALSE, eval = TRUE}
-lnfUtl <- colnames(PhenoData)[c(1:4, 12:13)]
+lnfUtl <- colnames(PhenoData)[c(1:4, 11:12)]
 PhenoData$talhao_number <- NULL
 PhenoData$Idade <- NULL
 traits <- colnames(PhenoData)[!colnames(PhenoData) %in% lnfUtl]
@@ -51,40 +47,50 @@ PhenoData2 <- PhenoData %>% gather(key = traits, value = Y, -all_of(lnfUtl))
 ```{r, echo = FALSE}
 PhenoData2 %>% reactable(defaultPageSize = 10)
 ```
-Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS), Affected area by Anthracnosis at the innoculated area at stem in cassava plants (AnAr).
+Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS).
 
 ```{r}
 saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 ```
 
+### Atividades Henrique organizar a planiha de dados fenotipicos
 
-```{r}
-# Rodar o script aqui dentro
+-[ ] Adicionar a informação de delineamento experimental
+    - DBC - Delineamento em Blocos Casualizados - possui repetição para todos os clones
+    - DBA - Delineamento em Blocos Aumentados - possui repetição apenas para os controles
+-[ ] Adicionar a informação de qual clone foi utilizado como controle nos ensaios DBA.
+    - é controle recebe 1.
+    - ñ é controle recebe 0. inserir 0 para todas as células dos ensaios DBC.
 
-
-#install.packages("reshape2")
-
-
+```{r, eval = FALSE}
 library(reshape2)
-DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2021.CSV1.CSV"), header = T, sep = ";")
+DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2021.CSV"), header = T, sep = ";")
 
 head(DadosProdutivos)
 
 
-colnames(DadosProdutivos)[c(4,10:20)] <- c("Genotipo-BGM","AP", "APsF","DMC",
-                                            "PTR","PRC", "PRNC","PPA","Vigor","Vigor45D","Vigor6M","Vigor12M")
+colnames(DadosProdutivos)[c(4,10:21)] <- c("Genotipo-BGM","AP", "APsF","DMC",
+                                            "PTR","PRC", "PRNC","PPA","Vigor","Vigor45D","Vigor6M","Vigor12M","NR")
 
-DadosProdutivos2 <- DadosProdutivos[,1:16]
+DadosProdutivos2 <- DadosProdutivos[,c(1:16,21)] %>% select(-c(AP, APsF, DMC, PRC, PRNC))
 
+head(DadosProdutivos2)
 
-
-
-
-
-
-DadosProdutivosfin <- reshape2::melt(data = DadosProdutivos2,id.vars = c("Ano","Campo","Local","Genotipo-BGM","Genotipos","Bloco","Linha", "Coluna"),
+DadosProdutivosfin <- reshape2::melt(data = DadosProdutivos2,id.vars = c("Ano","Campo","Local","Genotipo-BGM","Genotipos","Bloco","Linha", "Coluna", "Stand"),
                                      variable.name = "Trait",
-                                     value.name = "Value") %>% filter(!is.na(Value))
+                                     value.name = "Value") %>%
+  filter(!is.na(Value)) %>% 
+  mutate(Ano = Ano,
+         Campo = Campo,
+         Local = Local,
+         trial = match(paste(Ano, Campo, Local, sep = "."), unique(paste(Ano, Campo, Local, sep = "."))),
+         studyDesign = Delineamento,
+         clone = 'Genotipos-BGM',
+         rep = Bloco,
+         check = ifelse(Controle == "1", clone, "999"),
+         check = ifelse(clone %in% unique(check), clone, "999"),
+         new = ifelse(check != "999", 0, 1),
+         y = Value, .keep = "unused")
 
 saveRDS(object = DadosProdutivosfin, file = here::here("output", "DadosProdutivos.rds"))
 
