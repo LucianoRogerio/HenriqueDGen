@@ -15,8 +15,8 @@
 
 <title>Analise de Componentes Principais e Discriminantes</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -383,7 +383,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-07
+<strong>Last updated:</strong> 2022-01-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -407,7 +407,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has staged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -474,32 +474,31 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree73653b16f0d1eedb56622e6feb2e9202ed49783ctargetblank73653b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/73653b16f0d1eedb56622e6feb2e9202ed49783c" target="_blank">73653b1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomHenriqueBernardinoHenriqueDGentree6e4c5eef5d76b1555b29a726e69922da58b5a094targetblank6e4c5eea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/HenriqueBernardino/HenriqueDGen/tree/6e4c5eef5d76b1555b29a726e69922da58b5a094" target="_blank">6e4c5ee</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree73653b16f0d1eedb56622e6feb2e9202ed49783ctargetblank73653b1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomHenriqueBernardinoHenriqueDGentree6e4c5eef5d76b1555b29a726e69922da58b5a094targetblank6e4c5eea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/73653b16f0d1eedb56622e6feb2e9202ed49783c" target="_blank">73653b1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/HenriqueBernardino/HenriqueDGen/tree/6e4c5eef5d76b1555b29a726e69922da58b5a094" target="_blank">6e4c5ee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    data/.DS_Store
-    Ignored:    output/DAPCHen.tiff
-    Ignored:    output/DenHen.tiff
-    Ignored:    output/PCAHen.tiff
-    Ignored:    output/PCAHenExp.tiff
 
 Unstaged changes:
+    Modified:   analysis/PCA_DAPC.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   output/DAPCAn.RDS
+
+Staged changes:
     Modified:   analysis/PCA_DAPC.Rmd
 
 </code></pre>
@@ -544,7 +543,41 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/73653b16f0d1eedb56622e6feb2e9202ed49783c/analysis/PCA_DAPC.Rmd" target="_blank">73653b1</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/d124c30135760f429726f0d61277eed6e0637978/analysis/PCA_DAPC.Rmd" target="_blank">d124c30</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+Update of the webpage to english writting
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/d124c30135760f429726f0d61277eed6e0637978/docs/PCA_DAPC.html" target="_blank">d124c30</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+Update of the webpage to english writting
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/73653b16f0d1eedb56622e6feb2e9202ed49783c/analysis/PCA_DAPC.Rmd" target="_blank">73653b1</a>
 </td>
 <td>
 LucianoRogerio
@@ -561,7 +594,7 @@ fix the buttons at the final of each of the webpages
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/73653b16f0d1eedb56622e6feb2e9202ed49783c/docs/PCA_DAPC.html" target="_blank">73653b1</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/73653b16f0d1eedb56622e6feb2e9202ed49783c/docs/PCA_DAPC.html" target="_blank">73653b1</a>
 </td>
 <td>
 LucianoRogerio
@@ -578,7 +611,7 @@ fix the buttons at the final of each of the webpages
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/f27203820e46753b1624c0f79da53aabaae879ef/analysis/PCA_DAPC.Rmd" target="_blank">f272038</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/f27203820e46753b1624c0f79da53aabaae879ef/analysis/PCA_DAPC.Rmd" target="_blank">f272038</a>
 </td>
 <td>
 LucianoRogerio
@@ -595,7 +628,7 @@ Update of the analysis and website layout
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/f51cdc68bd576009169b31dcf698c433e40def4c/docs/PCA_DAPC.html" target="_blank">f51cdc6</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/f51cdc68bd576009169b31dcf698c433e40def4c/docs/PCA_DAPC.html" target="_blank">f51cdc6</a>
 </td>
 <td>
 LucianoRogerio
@@ -612,7 +645,7 @@ Add the Dendrogram analysis
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/b30f532ec3c866047e5f48b8101dfb02a7f99004/analysis/PCA_DAPC.Rmd" target="_blank">b30f532</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/b30f532ec3c866047e5f48b8101dfb02a7f99004/analysis/PCA_DAPC.Rmd" target="_blank">b30f532</a>
 </td>
 <td>
 LucianoRogerio
@@ -629,7 +662,7 @@ Add a header Introduction to PCA DAPC Analysis
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/b30f532ec3c866047e5f48b8101dfb02a7f99004/docs/PCA_DAPC.html" target="_blank">b30f532</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/b30f532ec3c866047e5f48b8101dfb02a7f99004/docs/PCA_DAPC.html" target="_blank">b30f532</a>
 </td>
 <td>
 LucianoRogerio
@@ -646,7 +679,7 @@ Add a header Introduction to PCA DAPC Analysis
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/cbf63bdd39fad3b9556eb0b6c044896866d55f2c/analysis/PCA_DAPC.Rmd" target="_blank">cbf63bd</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/cbf63bdd39fad3b9556eb0b6c044896866d55f2c/analysis/PCA_DAPC.Rmd" target="_blank">cbf63bd</a>
 </td>
 <td>
 LucianoRogerio
@@ -663,7 +696,7 @@ Add Dendrogram
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/cbf63bdd39fad3b9556eb0b6c044896866d55f2c/docs/PCA_DAPC.html" target="_blank">cbf63bd</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/cbf63bdd39fad3b9556eb0b6c044896866d55f2c/docs/PCA_DAPC.html" target="_blank">cbf63bd</a>
 </td>
 <td>
 LucianoRogerio
@@ -680,7 +713,7 @@ Add Dendrogram
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/1faf8c161ade41f4617657a88ec92af67ab98f05/docs/PCA_DAPC.html" target="_blank">1faf8c1</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/1faf8c161ade41f4617657a88ec92af67ab98f05/docs/PCA_DAPC.html" target="_blank">1faf8c1</a>
 </td>
 <td>
 LucianoRogerio
@@ -697,7 +730,7 @@ DAPC Analysis finished
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/efcce5fc08ba5fb3657388a66a1b4621c328ac38/analysis/PCA_DAPC.Rmd" target="_blank">efcce5f</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/efcce5fc08ba5fb3657388a66a1b4621c328ac38/analysis/PCA_DAPC.Rmd" target="_blank">efcce5f</a>
 </td>
 <td>
 LucianoRogerio
@@ -714,7 +747,7 @@ Merge branch ‘main’ of <a href="https://github.com/LucianoRogerio/HenriqueDG
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/e89306de2778535a318cece13cf3b227fe2d1fc4/analysis/PCA_DAPC.Rmd" target="_blank">e89306d</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/e89306de2778535a318cece13cf3b227fe2d1fc4/analysis/PCA_DAPC.Rmd" target="_blank">e89306d</a>
 </td>
 <td>
 LucianoRogerio
@@ -731,7 +764,7 @@ DAPC Analysis finished
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/e89306de2778535a318cece13cf3b227fe2d1fc4/docs/PCA_DAPC.html" target="_blank">e89306d</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/e89306de2778535a318cece13cf3b227fe2d1fc4/docs/PCA_DAPC.html" target="_blank">e89306d</a>
 </td>
 <td>
 LucianoRogerio
@@ -748,7 +781,7 @@ DAPC Analysis finished
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/33422ee6556507108c3f3cd49022bca3a0cea186/analysis/PCA_DAPC.Rmd" target="_blank">33422ee</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/33422ee6556507108c3f3cd49022bca3a0cea186/analysis/PCA_DAPC.Rmd" target="_blank">33422ee</a>
 </td>
 <td>
 LucianoRogerio
@@ -765,7 +798,7 @@ DAPC Analysis finished
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/33422ee6556507108c3f3cd49022bca3a0cea186/docs/PCA_DAPC.html" target="_blank">33422ee</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/33422ee6556507108c3f3cd49022bca3a0cea186/docs/PCA_DAPC.html" target="_blank">33422ee</a>
 </td>
 <td>
 LucianoRogerio
@@ -782,7 +815,7 @@ DAPC Analysis finished
 Rmd
 </td>
 <td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/97d638dd6d00dd7f5f76e9e79a8e666901f5592b/analysis/PCA_DAPC.Rmd" target="_blank">97d638d</a>
+<a href="https://github.com/HenriqueBernardino/HenriqueDGen/blob/97d638dd6d00dd7f5f76e9e79a8e666901f5592b/analysis/PCA_DAPC.Rmd" target="_blank">97d638d</a>
 </td>
 <td>
 LucianoRogerio
@@ -799,7 +832,7 @@ Update of html links
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/97d638dd6d00dd7f5f76e9e79a8e666901f5592b/docs/PCA_DAPC.html" target="_blank">97d638d</a>
+<a href="https://rawcdn.githack.com/HenriqueBernardino/HenriqueDGen/97d638dd6d00dd7f5f76e9e79a8e666901f5592b/docs/PCA_DAPC.html" target="_blank">97d638d</a>
 </td>
 <td>
 LucianoRogerio
@@ -822,11 +855,17 @@ Update of html links
 <div id="analysis-of-principal-components" class="section level2">
 <h2>Analysis of Principal Components</h2>
 <p>This previoulsy analysis were performed aiming to select the best number of principal components. The phenotypic data were centered using the function scale to remove the effect of trait variance at the principal components analysis. The selection criteria for the number of principal components were variance bigger than one.</p>
-<pre class="r"><code>suppressMessages(library(tidyverse))
-suppressMessages(library(adegenet))
-library(reactable)
-library(here)</code></pre>
-<pre><code>here() starts at /Users/lbd54/Documents/GitHub/HenriqueDGen</code></pre>
+<pre class="r"><code>suppressMessages(library(tidyverse))</code></pre>
+<pre><code>Warning: package &#39;tibble&#39; was built under R version 4.1.1</code></pre>
+<pre><code>Warning: package &#39;readr&#39; was built under R version 4.1.1</code></pre>
+<pre class="r"><code>suppressMessages(library(adegenet))</code></pre>
+<pre><code>Warning: package &#39;adegenet&#39; was built under R version 4.1.2</code></pre>
+<pre><code>Warning: package &#39;ade4&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>library(reactable)</code></pre>
+<pre><code>Warning: package &#39;reactable&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>library(here)</code></pre>
+<pre><code>Warning: package &#39;here&#39; was built under R version 4.1.2</code></pre>
+<pre><code>here() starts at C:/Users/jhenr/OneDrive/Documentos/GitHub/HenriqueDGen</code></pre>
 <pre class="r"><code>BLUPS &lt;- readRDS(here::here(&quot;output&quot;, &quot;BLUPsDisease.RDS&quot;))
 
 BLUPS[ , 2:6] &lt;- scale(BLUPS[ , 2:6], center = T, scale = T)
@@ -845,7 +884,7 @@ for(i in 1:length(Perc)) {
 <div id="table-1.-variance-explained-by-each-principal-component" class="section level4">
 <h4>Table 1. Variance explained by each principal component</h4>
 <div id="htmlwidget-1b94d95a6c1af03a7307" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1b94d95a6c1af03a7307">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"PC":[1,2,3,4,5],"Var":[2.30115614180018,1.02272170283614,0.830257070829899,0.683915921152584,0.0292710307030659]},"columns":[{"accessor":"PC","name":"PC","type":"numeric"},{"accessor":"Var","name":"Var","type":"numeric","format":{"cell":{"digits":4,"locales":"en-US"},"aggregated":{"digits":4,"locales":"en-US"}}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"fdb3860dca26b0d7d5f22660b843da06","key":"fdb3860dca26b0d7d5f22660b843da06"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-1b94d95a6c1af03a7307">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"PC":[1,2,3,4,5],"Var":[2.30115614180018,1.02272170283614,0.830257070829896,0.683915921152584,0.0292710307030659]},"columns":[{"accessor":"PC","name":"PC","type":"numeric"},{"accessor":"Var","name":"Var","type":"numeric","format":{"cell":{"digits":4,"locales":"en-US"},"aggregated":{"digits":4,"locales":"en-US"}}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"7bd051c17a5bcf4d1e65f2704542c60d","key":"7bd051c17a5bcf4d1e65f2704542c60d"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="fig-1.-barplot-of-the-accumulated-variances-of-the-principal-components-for-foliar-diseases." class="section level4">
 <h4>Fig 1. Barplot of the Accumulated variances of the principal components for foliar diseases.</h4>
@@ -863,6 +902,11 @@ LabelsPCA1[5, 1:2] &lt;- c(0.8, 0.6)</code></pre>
 <div id="fig-2.-scatterplot-of-the-principal-components-1-and-2-with-the-correlation-arrows-of-the-foliar-disease-resistance-with-the-principal-components." class="section level4">
 <h4>Fig 2. Scatterplot of the Principal components 1 and 2 with the correlation arrows of the foliar disease resistance with the principal components.</h4>
 <p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="table-2.-analise-de-correlação-dos-caracteristicas" class="section level4">
+<h4>table 2. Analise de correlação dos Caracteristicas</h4>
+<div id="htmlwidget-0f8f1a8b66666fe4f99f" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0f8f1a8b66666fe4f99f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{".rownames":["Anthractnose","ManchaBranca","ManchaParda","QueimaFolhas","lnAreaAntracnose"],"Anthractnose":[1,0.281863529692236,0.356965408600987,0.351511466155341,-0.14259722534782],"ManchaBranca":[0.281863529692236,1,0.393396354436473,0.385651186860421,-0.0845381798278842],"ManchaParda":[0.356965408600987,0.393396354436473,1,0.933067555008157,-0.11300228194671],"QueimaFolhas":[0.351511466155341,0.385651186860421,0.933067555008157,1,-0.110160978082189],"lnAreaAntracnose":[-0.14259722534782,-0.0845381798278842,-0.11300228194671,-0.110160978082189,1]},"columns":[{"accessor":".rownames","name":"","type":"character","sortable":false,"filterable":false},{"accessor":"Anthractnose","name":"Anthractnose","type":"numeric","format":{"cell":{"digits":2,"locales":"en-US"},"aggregated":{"digits":2,"locales":"en-US"}}},{"accessor":"ManchaBranca","name":"ManchaBranca","type":"numeric","format":{"cell":{"digits":2,"locales":"en-US"},"aggregated":{"digits":2,"locales":"en-US"}}},{"accessor":"ManchaParda","name":"ManchaParda","type":"numeric","format":{"cell":{"digits":2,"locales":"en-US"},"aggregated":{"digits":2,"locales":"en-US"}}},{"accessor":"QueimaFolhas","name":"QueimaFolhas","type":"numeric","format":{"cell":{"digits":2,"locales":"en-US"},"aggregated":{"digits":2,"locales":"en-US"}}},{"accessor":"lnAreaAntracnose","name":"lnAreaAntracnose","type":"numeric","format":{"cell":{"digits":2,"locales":"en-US"},"aggregated":{"digits":2,"locales":"en-US"}}}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"ec519ffdfc56b95795e3c528f816e0b3","key":"ec519ffdfc56b95795e3c528f816e0b3"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -895,16 +939,17 @@ LabelsDAPC[4,2:3] &lt;- c(2.5, -0.35)
 LabelsDAPC[5,2:3] &lt;- c(0.3, -0.35)</code></pre>
 <div id="fig-3.-scatterplot-of-the-first-and-second-linear-discriminant-function-of-the-discriminant-analysis-of-principal-components-for-cassava-foliar-diseases-with-four-clusters" class="section level4">
 <h4>Fig 3. Scatterplot of the first and second linear discriminant function of the discriminant analysis of principal components for cassava foliar diseases, with four clusters</h4>
-<p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>suppressMessages(library(reshape2))
-BLUPS$CLONE &lt;- rownames(BLUPS)
+<p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>suppressMessages(library(reshape2))</code></pre>
+<pre><code>Warning: package &#39;reshape2&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>BLUPS$CLONE &lt;- rownames(BLUPS)
 BLUPS$Grp &lt;- DAPCHenGraph$grp
 
 BLUPSBoxplot &lt;- melt(BLUPS, variable.name = &quot;Trait&quot;, value.name = &quot;Y&quot;, id.vars = c(&quot;CLONE&quot;, &quot;Grp&quot;))</code></pre>
 </div>
 <div id="fig-4.-boxplots-of-the-blups-of-the-accessions-grouped-by-the-discriminant-analysis-of-principal-components-for-cassava-foliar-diseases-traits" class="section level4">
 <h4>Fig 4. Boxplots of the BLUPS of the accessions grouped by the discriminant analysis of principal components for cassava foliar diseases traits</h4>
-<p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/PCA_DAPC.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><a href="Den_IndSH.html">Next page</a></p>
 <p><a href="AnalisesModelosMistos.html">Last page</a></p>
 <p><a href="index.html">Back to home</a></p>
@@ -916,16 +961,16 @@ BLUPSBoxplot &lt;- melt(BLUPS, variable.name = &quot;Trait&quot;, value.name = &
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Big Sur 11.6.1
+<pre><code>R version 4.1.0 (2021-05-18)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
 
 locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+[1] LC_COLLATE=Portuguese_Brazil.1252  LC_CTYPE=Portuguese_Brazil.1252   
+[3] LC_MONETARY=Portuguese_Brazil.1252 LC_NUMERIC=C                      
+[5] LC_TIME=Portuguese_Brazil.1252    
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -933,32 +978,32 @@ attached base packages:
 other attached packages:
  [1] reshape2_1.4.4  here_1.0.1      reactable_0.2.3 adegenet_2.1.5 
  [5] ade4_1.7-18     forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7    
- [9] purrr_0.3.4     readr_2.1.0     tidyr_1.1.4     tibble_3.1.6   
+ [9] purrr_0.3.4     readr_2.0.1     tidyr_1.1.3     tibble_3.1.4   
 [13] ggplot2_3.3.5   tidyverse_1.3.1
 
 loaded via a namespace (and not attached):
- [1] nlme_3.1-153      fs_1.5.0          lubridate_1.8.0   httr_1.4.2       
- [5] rprojroot_2.0.2   tools_4.1.1       backports_1.3.0   bslib_0.3.1      
+ [1] nlme_3.1-152      fs_1.5.0          lubridate_1.7.10  httr_1.4.2       
+ [5] rprojroot_2.0.2   tools_4.1.0       backports_1.2.1   bslib_0.3.1      
  [9] utf8_1.2.2        R6_2.5.1          vegan_2.5-7       DBI_1.1.1        
-[13] mgcv_1.8-38       colorspace_2.0-2  permute_0.9-5     withr_2.4.2      
-[17] tidyselect_1.1.1  compiler_4.1.1    git2r_0.29.0      cli_3.1.0        
-[21] rvest_1.0.2       xml2_1.3.2        labeling_0.4.2    sass_0.4.0       
-[25] scales_1.1.1      digest_0.6.28     rmarkdown_2.11    pkgconfig_2.0.3  
+[13] mgcv_1.8-35       colorspace_2.0-2  permute_0.9-7     withr_2.4.2      
+[17] tidyselect_1.1.1  compiler_4.1.0    git2r_0.28.0      cli_3.0.1        
+[21] rvest_1.0.1       xml2_1.3.2        labeling_0.4.2    sass_0.4.0       
+[25] scales_1.1.1      digest_0.6.27     rmarkdown_2.10    pkgconfig_2.0.3  
 [29] htmltools_0.5.2   highr_0.9         dbplyr_2.1.1      fastmap_1.1.0    
-[33] htmlwidgets_1.5.4 rlang_0.4.12      readxl_1.3.1      rstudioapi_0.13  
-[37] shiny_1.7.1       farver_2.1.0      jquerylib_0.1.4   generics_0.1.1   
-[41] jsonlite_1.7.2    crosstalk_1.2.0   magrittr_2.0.1    Matrix_1.3-4     
-[45] Rcpp_1.0.7        munsell_0.5.0     fansi_0.5.0       ape_5.5          
-[49] lifecycle_1.0.1   stringi_1.7.5     whisker_0.4       yaml_2.2.1       
-[53] MASS_7.3-54       plyr_1.8.6        grid_4.1.1        parallel_4.1.1   
-[57] promises_1.2.0.1  crayon_1.4.2      lattice_0.20-45   haven_2.4.3      
-[61] splines_4.1.1     hms_1.1.1         knitr_1.36        pillar_1.6.4     
-[65] igraph_1.2.8      seqinr_4.2-8      reprex_2.0.1      glue_1.5.0       
-[69] evaluate_0.14     modelr_0.1.8      vctrs_0.3.8       tzdb_0.2.0       
-[73] httpuv_1.6.3      cellranger_1.1.0  gtable_0.3.0      reactR_0.4.4     
-[77] assertthat_0.2.1  xfun_0.28         mime_0.12         xtable_1.8-4     
-[81] broom_0.7.10      later_1.3.0       viridisLite_0.4.0 workflowr_1.6.2  
-[85] cluster_2.1.2     ellipsis_0.3.2   </code></pre>
+[33] htmlwidgets_1.5.4 rlang_0.4.11      readxl_1.3.1      rstudioapi_0.13  
+[37] shiny_1.7.1       farver_2.1.0      jquerylib_0.1.4   generics_0.1.0   
+[41] jsonlite_1.7.2    magrittr_2.0.1    Matrix_1.3-3      Rcpp_1.0.7       
+[45] munsell_0.5.0     fansi_0.5.0       ape_5.6-1         lifecycle_1.0.0  
+[49] stringi_1.7.4     whisker_0.4       yaml_2.2.1        MASS_7.3-54      
+[53] plyr_1.8.6        grid_4.1.0        parallel_4.1.0    promises_1.2.0.1 
+[57] crayon_1.4.1      lattice_0.20-44   haven_2.4.3       splines_4.1.0    
+[61] hms_1.1.0         knitr_1.33        pillar_1.6.2      igraph_1.2.11    
+[65] seqinr_4.2-8      reprex_2.0.1      glue_1.4.2        evaluate_0.14    
+[69] modelr_0.1.8      vctrs_0.3.8       tzdb_0.1.2        httpuv_1.6.3     
+[73] cellranger_1.1.0  gtable_0.3.0      reactR_0.4.4      assertthat_0.2.1 
+[77] xfun_0.25         mime_0.11         xtable_1.8-4      broom_0.7.9      
+[81] later_1.3.0       viridisLite_0.4.0 workflowr_1.6.2   cluster_2.1.2    
+[85] ellipsis_0.3.2   </code></pre>
 </div>
 </div>
 </div>
