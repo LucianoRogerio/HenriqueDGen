@@ -5,6 +5,16 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: Scripts
+    menu:
+    - text: Analises Descritivas
+      href: AnalisesDescritivas.html
+    - text: Modelos Mistos
+      href: AnalisesModelosMistos.html
+    - text: PCA e DAPC
+      href: PCA_DAPC.html
+    - text: Dendrograma
+      href: Den_IndSH.html
   - text: About
     href: about.html
   - text: License

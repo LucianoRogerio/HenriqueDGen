@@ -8,9 +8,20 @@ if (!all(c("sommer", "lme4")%in% installed.packages())) {
 
 #### Analise de modelos mistos para ensaio com delineamento de blocos aumentados
 #### e completos - lme4 package
-analyzeTrial.lme4 <- function(x){
+
+analyzeTrial.lme4FD <- function(x){
     modfit <- lmer(Y ~ control + block_number + (1 | accession_name:new), data=x, REML = T)
-  return(modfit)
+    return(modfit)
+}
+
+analyzeTrial.lme4 <- function(x){
+  if(any(x$studyDesign == "DBA")){
+    modfit <- lmer(y ~ check + rep + (1 | clone:new), data=x, REML = T)
+    return(modfit)
+  } else {
+    modfit <- lmer(y ~ rep + (1 | clone), data=x, REML = T)
+    return(modfit)
+  }
 }
 
 analyzeTrialrdMod.lme4 <- function(x, trait){
@@ -82,5 +93,28 @@ getVarComp.sommer <- function(model){
   unlist(model$sigma) %>%
     data.frame(effect = c("Clone", "Residual"), VarEstimate = .) %>%
     spread(key = effect, value = VarEstimate, fill=NA)
+}
+
+
+analyzeTrial.sommerConj <- function(x){
+  #### Blocos Completos
+  if(length(unique(x$trial)) > 1){
+    modfit <- mmer(y ~ 1,
+                   random = ~ repTrial + clone + trial:clone,
+                   data = x,
+                   tolparinv = 1e-5,
+                   verbose = F,
+                   method = "EM",
+                   getPEV = T)
+  } else {
+    modfit <- mmer(y ~ 1,
+                   random = ~ repTrial + clone,
+                   data = x,
+                   tolparinv = 1e-5,
+                   verbose = F,
+                   method = "EM",
+                   getPEV = T)
+  }
+  return(modfit)
 }
 
