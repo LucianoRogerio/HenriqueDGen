@@ -11,7 +11,7 @@ editor_options:
 
 ## Mixed Models Foliar Disease
 
-```{r}
+```{r MixedModels and Anova Foliar Disease traits}
 library(here)
 suppressMessages(library(tidyverse))
 suppressMessages(library(plyr))
@@ -27,24 +27,23 @@ PhenoData2 <- PhenoData %>% filter(!is.na(Y))
 traits <- unique(PhenoData2$traits)
 
 fmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
-                              .fun = analyzeTrial.lme4)
+                              .fun = analyzeTrial.lme4FD)
 ResFixEffect <- lapply(fmfit, FUN = as.data.frame(anova))
 ResAnInt <- matrix(unlist(ResFixEffect,use.names = T),
                    nrow = 2, byrow = F)
 ResAnFin <- rbind(ResAnInt[,1:4],
                   ResAnInt[,5:8],
                   ResAnInt[,9:12],
-                  ResAnInt[,13:16],
-                  ResAnInt[,17:20])
+                  ResAnInt[,13:16])
 colnames(ResAnFin) <- c("DF", "SumSq", "MeanSq", "Fvalue")
 ResAnovaFinal <- data.frame(Trait = rep(traits, each = 2),
                             Factor = rep(c("Control", "Block"),
-                                         times = 5),
+                                         times = 4),
                             ResAnFin)
 ```
 
 #### Table 1. Anova of the fixed effects of Cassava foliar diseases
-```{r, echo = FALSE}
+```{r table1, echo = FALSE}
 ResAnovaFinal %>% reactable(columns = list(
   SumSq = colDef(format = colFormat(digits = 3, locales = "en-US")),
   MeanSq = colDef(format = colFormat(digits = 3, locales = "en-US")),
@@ -52,7 +51,7 @@ ResAnovaFinal %>% reactable(columns = list(
 ```
 
 
-```{r}
+```{r Deviance analysis}
 rdfmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
                                 .fun = analyzeTrialrdMod.lme4)
 
@@ -68,34 +67,44 @@ ResDeviances <- data.frame(t(sapply(Deviances, FUN = rbind)))
 ```
 
 #### Table 2. Deviance Analysis for cassava foliar disease
-```{r, echo = FALSE}
+```{r table2, echo = FALSE}
 ResDeviances %>% reactable()
 ```
 
-```{r}
+```{r heritability estimation}
 H2 <- sapply(fmfit, FUN = getVarComp.lme4) %>% t() %>% as.data.frame()
 colnames(H2) <- c("VarClone", "VarRes")
+
+MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef))) %>%
+  .[rownames(.) == "(Intercept)"] %>% data.frame(Mean = .) 
+H2 <- cbind(H2, MediasFix)
+
 H2 <- H2 %>% mutate(VarClone = as.numeric(VarClone),
                VarRes = as.numeric(VarRes),
                VarFen = VarClone + VarRes,
-               H2 = VarClone/VarFen)
+               H2 = VarClone/VarFen,
+               CVg = sqrt(VarClone)/Mean,
+               CVe = sqrt(VarRes)/Mean)
+H2[,"Mean"] <- NULL
 ```
 
 #### Table 3. Heritabilities of cassava foliar disease
-```{r, echo = FALSE}
+```{r table3, echo = FALSE}
 H2 %>% reactable(columns = list(
   VarClone = colDef(format = colFormat(digits = 4, locales = "en-US")),
   VarRes = colDef(format = colFormat(digits = 4, locales = "en-US")),
   VarFen = colDef(format = colFormat(digits = 4, locales = "en-US")),
-  H2 = colDef(format = colFormat(digits = 4, locales = "en-US"))))
+  H2 = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  CVg = colDef(format = colFormat(digits = 4, locales = "en-US", percent = T)),
+  CVe = colDef(format = colFormat(digits = 4, locales = "en-US", percent = T))))
 ```
 
 ## Obtain the Mean + BLUPs of the clones
 
-```{r}
+```{r estimating mean of the controls for foliar Diseases}
 MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef)))
 MediasFix[2:32, ] <- MediasFix[2:32,] +
-  matrix(rep(MediasFix[1, 1:5], each = 31), nrow = 31, ncol = 5,
+  matrix(rep(MediasFix[1,], each = 31), nrow = 31, ncol = 4,
          byrow = F)
 MediasFix <- as.data.frame(MediasFix)
 rownames(MediasFix)[1] <- "controlClones"
@@ -110,10 +119,10 @@ MediasFix %>% filter(CLONE != "Clones") -> MediasFix
 
 ### Obtain the Clones BLUPS
 
-```{r}
+```{r Estimating the BLUPs + Mean for the clones for foliar disease}
 BLUPsAle <- lapply(fmfit, FUN = getBLUPs.lme4)
 
-BLUPSDisea <- data.frame(CLONE = rownames(BLUPsAle[1]$AnAr))
+BLUPSDisea <- data.frame(CLONE = rownames(BLUPsAle[1]$Anth))
 
 for(i in names(BLUPsAle)){
   drg<-data.frame(CLONE = rownames(BLUPsAle[[i]]), stringsAsFactors=F)
@@ -129,35 +138,138 @@ BLUPS <- rbind(BLUPSDisea, MediasFix)
 saveRDS(BLUPS, here::here("output", "BLUPsDisease.RDS"))
 ```
 
-#### Table 3. Blups of the accessions for cassava foliar diseases
-```{r, echo = FALSE}
+#### Table 4. Blups of the accessions for cassava foliar diseases
+```{r table4, echo = FALSE}
 BLUPS %>% reactable(defaultPageSize = 25, columns = list(
-  AnAr = colDef(format = colFormat(digits = 4, locales = "en-US")),
   Anth = colDef(format = colFormat(digits = 4, locales = "en-US")),
   BlLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
   BrLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
   WhLS = colDef(format = colFormat(digits = 4, locales = "en-US"))))
 ```
 
-## Mixed Models Agronomic Traits
+#### Fig 1. Distribution of the BLUPs estimated for cassava foliar diseases
+```{r Fig1, echo = FALSE}
+BLUPS %>% reshape2::melt(id.vars = "CLONE",
+                         variable.name = "Trait",
+                         value.name = "Value") %>%
+  ggplot(aes(x = Value)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
+  facet_wrap(~ Trait) +
+  theme(legend.position="none",
+        panel.spacing = unit(0.1, "lines"),
+        axis.ticks.x=element_blank())
+```
 
-```{r}
+## Mixed Models
+
+### Yield Traits
+
+```{r reading the yield traits}
 suppressMessages(library(lme4)); suppressMessages(library(tidyverse))
 library(reactable); library(here)
 
-AgroData <- readRDS(file = here::here("data", "DadosFen2020.rds"))
-
+AgroData <- readRDS(file = here::here("output", "DadosFenotipicos.rds"))
+head(AgroData)
 ```
 
-#### Table 4. Data entry to perform the mxed model analysis for Agronomic Traits
-```{r, echo = FALSE}
+#### Table 5. Data entry to perform the mxed model analysis for Agronomic Traits
+```{r table5, echo = FALSE}
 AgroData %>% reactable(defaultPageSize = 25, columns = list(
-  FRY = colDef(format = colFormat(digits = 2, locales = "en-US")),
-  AGY = colDef(format = colFormat(digits = 2, locales = "en-US")),
-  HI = colDef(format = colFormat(digits = 2, locales = "en-US")),
-  DMC = colDef(format = colFormat(digits = 2, locales = "en-US")),
-  DRY = colDef(format = colFormat(digits = 2, locales = "en-US"))))
+  y = colDef(format = colFormat(digits = 2, locales = "en-US"))))
 ```
+
+#### 
+
+```{r estimation of heritability and reliability per trial and trait}
+
+Trials <- unique(AgroData$trial)
+Results <- tibble()
+
+for(i in Trials){
+  traits <- AgroData %>% filter(trial %in% i) %>% .$Trait %>% unique %>% as.character
+  results <- tibble()
+
+  for(j in traits) {
+  try(MixedModels <- analyzeTrial.lme4(AgroData %>% filter(trial %in% i & Trait %in% j)))
+  try(result <- tibble(Trial = i,
+                       Trait = j,
+                       VarG = as.data.frame(VarCorr(MixedModels))[,c("grp","vcov")] %>% .[1,2],
+                       VarE = as.data.frame(VarCorr(MixedModels))[,c("grp","vcov")] %>% .[2,2],
+                       H2 = VarG/(VarG + VarE),
+                       Real = suppressWarnings(MuMIn::r.squaredGLMM(MixedModels)[2])))
+  try(results <- rbind(results, result))
+  rm(MixedModels); rm(result)
+  }
+  
+  Results <- rbind(Results, results)
+  rm(traits); rm(results)
+}
+
+```
+
+#### Yield data selection
+
+```{r Yield data selection, echo = FALSE}
+library(reactable)
+TrialsList <- unique(AgroData[,c("Ano", "Campo", "Local", "trial")])
+
+Results2 <- Results %>% right_join(TrialsList, by = c("Trial" = "trial")) %>%
+  dplyr::select(Trial, Ano, Campo, Local, everything()) %>% mutate(Selecionado = ifelse(Real > 0.25 & H2 > 0.15, "Sim", "Nao"))
+
+
+AgroDataSel <- AgroData %>% 
+  .[.$trial %in% (Results2 %>% filter(Selecionado == "Sim") %>% .$Trial),]
+
+saveRDS(object = AgroDataSel, file = here::here("data", "DadosFenotipicosSel.rds"))
+```
+
+
+#### Table 6. Heritability and reliability of all trials for yield traits
+```{r table6, echo = FALSE}
+Results2 %>% reactable(groupBy = c("Trait"), columns = list(
+  VarG = colDef(format = colFormat(digits = 2, locales = "en-US")),
+  VarE = colDef(format = colFormat(digits = 2, locales = "en-US")),
+  H2 = colDef(format = colFormat(digits = 3, locales = "en-US")),
+  Real = colDef(format = colFormat(digits = 3, locales = "en-US"))))
+```
+
+## Estimação BLUPS e obtenção de médias corrigidas
+
+```{r, eval = FALSE}
+library(here)
+library(furrr)
+library(tidyverse)
+source(here::here("code", "MixedModelsFunctions.R"))
+
+AgroDataSel <- readRDS(here::here("data", "DadosFenotipicosSel.rds")) %>%
+  mutate(trial = as.character(trial),
+         rep = as.character(rep),
+         repTrial = as.factor(paste(trial, rep, sep =":")))
+
+
+#NCT <- 4
+
+#plan(sequential)
+#RhpcBLASctl::blas_set_num_threads(NCT)
+
+traits <- table(AgroDataSel$Trait) %>% .[order(.)] %>% names
+
+for(i in traits){
+  print(paste("Trait", i, sep = " "))
+  DataMM <- AgroDataSel %>% filter(Trait == i)
+  MM <- analyzeTrial.sommerConj(DataMM)
+  blups <- MM$U$clone$y + MM$Beta$Estimate
+  names(blups) <- names(blups) %>% gsub(pattern = "clone", replacement = "", x = .)
+  Blups <- tibble(id = names(blups),
+                  blups = blups)
+  file <- here::here("output", "MixedModels",
+                     paste("Blups_", i, ".rds", sep = ""))
+  saveRDS(object = Blups, file = file)
+  rm(DataMM); rm(MM); rm(blups); rm(Blups); rm(file)
+}
+
+```
+
+
 [Next page](PCA_DAPC.html)
 
 [Last page](AnalisesDescritivas.html)

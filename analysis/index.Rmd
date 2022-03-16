@@ -13,7 +13,8 @@ editor_options:
 ### Phenotypic data
 Descriptive and deviance analysis were performed to verify the distribution and the genotypic effects for resistance to foliar diseases.
 
-```{r}
+#### Foliar Disease data
+```{r PhenoData Foliar Disease read}
 suppressMessages(library(tidyverse))
 library(here)
 suppressMessages(library(reactable))
@@ -30,82 +31,62 @@ colnames(PhenoData)[7:10] <- c("Anth", "WhLS", "BrLS", "BlLS")
 ```
 
 #### Table 1. Phenotypic data for resistance to foliar disease evaluated at the Cassava Germplasm Bank of EMBRAPA, data collected in 2021.
-```{r, echo = FALSE}
+```{r table1, echo = FALSE}
 PhenoData %>% reactable(defaultPageSize = 10)
 ```
 Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS).
 
-```{r, message = FALSE, warning = FALSE, eval = TRUE}
+```{r formating foliar disease data to column, message = FALSE, warning = FALSE, eval = TRUE}
 lnfUtl <- colnames(PhenoData)[c(1:4, 11:12)]
 PhenoData$talhao_number <- NULL
 PhenoData$Idade <- NULL
 traits <- colnames(PhenoData)[!colnames(PhenoData) %in% lnfUtl]
 PhenoData2 <- PhenoData %>% gather(key = traits, value = Y, -all_of(lnfUtl))
+
+saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 ```
 
 #### Table 2. Data entry for the descriptive analysis and mixed models for resistance of foliar disease in cassava.
-```{r, echo = FALSE}
+```{r table2, echo = FALSE}
 PhenoData2 %>% reactable(defaultPageSize = 10)
 ```
 Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS).
 
-```{r}
-saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
-```
-
-### Atividades Henrique organizar a planiha de dados fenotipicos
-
--[x] Adicionar a informação de delineamento experimental
-    - DBC - Delineamento em Blocos Casualizados - possui repetição para todos os clones
-    - DBA - Delineamento em Blocos Aumentados - possui repetição apenas para os controles
--[x] Adicionar a informação de qual clone foi utilizado como controle nos ensaios DBA.
-    - é controle recebe 1.
-    - ñ é controle recebe 0. inserir 0 para todas as células dos ensaios DBC.
-
-```{r, eval = FALSE}
+#### Yield Traits
+```{r PhenoData Yield traits read}
 library(reshape2)
-DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2021.CSV"), header = T, sep = ";")
+DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2021.CSV"), header = T, sep = ",",
+                              na.strings = "NA")
 
 head(DadosProdutivos)
 
+colnames(DadosProdutivos)[c(4,12:23)] <- c("Genotipo_BGM","AP", "APsF","DMC",
+                                            "PTR","PRC", "PRNC","PPA","NR","Vigor","Vigor45D","Vigor6M","Vigor12M")
 
-colnames(DadosProdutivos)[c(4,10:21)] <- c("Genotipo-BGM","AP", "APsF","DMC",
-                                            "PTR","PRC", "PRNC","PPA","Vigor","Vigor45D","Vigor6M","Vigor12M","NR")
+DadosPhen2 <- DadosProdutivos %>% dplyr::select(-c(AP, APsF, DMC, PRC, PRNC))
 
-DadosProdutivos2 <- DadosProdutivos[,c(1:16,21)] %>% select(-c(AP, APsF, DMC, PRC, PRNC))
+head(DadosPhen2)
+```
 
-head(DadosProdutivos2)
-
-DadosProdutivosfin <- reshape2::melt(data = DadosProdutivos2,id.vars = c("Ano","Campo","Local","Genotipo-BGM","Genotipos","Bloco","Linha", "Coluna", "Stand"),
+```{r formating yield traits data to column}
+DadosPhenfin <- reshape2::melt(data = DadosPhen2,id.vars = c("Ano","Campo","Local","Delineamento","Controle","Genotipo_BGM","Genotipos","Bloco","Linha", "Coluna", "Stand"),
                                      variable.name = "Trait",
                                      value.name = "Value") %>%
   filter(!is.na(Value)) %>% 
-  mutate(Ano = Ano,
+  dplyr::mutate(Ano = Ano,
          Campo = Campo,
          Local = Local,
          trial = match(paste(Ano, Campo, Local, sep = "."), unique(paste(Ano, Campo, Local, sep = "."))),
          studyDesign = Delineamento,
-         clone = 'Genotipos-BGM',
+         clone = Genotipo_BGM,
          rep = Bloco,
          check = ifelse(Controle == "1", clone, "999"),
          check = ifelse(clone %in% unique(check), clone, "999"),
          new = ifelse(check != "999", 0, 1),
-         y = Value, .keep = "unused")
-
-saveRDS(object = DadosProdutivosfin, file = here::here("output", "DadosProdutivos.rds"))
-
-
-DadosVigor <- DadosProdutivos[,c(1:8,17:20)]
-head(DadosVigor)
-
-DadosVigorFin <- reshape2::melt(data = DadosVigor, id.vars = c("Ano","Campo","Local","Genotipo-BGM",
-                                    "Genotipos","Bloco","Linha","Coluna"),
-                                         variable.name = "Epoca",
-                                         value.name = "Value") %>% filter(!is.na(Value))
-
-head(DadosVigorFin)
-
-saveRDS(object = DadosVigorFin, file = here::here("output", "DadosVigor.rds"))
+         y = Value, .keep = "unused") %>% dplyr::select(-c("Genotipos")) %>%
+  filter(Trait != "NR" | (Trait=="NR" & y < 30))
+head(DadosPhenfin)
+saveRDS(object = DadosPhenfin, file = here::here("output", "DadosFenotipicos.rds"))
 ```
 
 
