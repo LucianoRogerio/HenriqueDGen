@@ -55,10 +55,10 @@ saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
 
 ### Atividades Henrique organizar a planiha de dados fenotipicos
 
--[ ] Adicionar a informação de delineamento experimental
+-[x] Adicionar a informação de delineamento experimental
     - DBC - Delineamento em Blocos Casualizados - possui repetição para todos os clones
     - DBA - Delineamento em Blocos Aumentados - possui repetição apenas para os controles
--[ ] Adicionar a informação de qual clone foi utilizado como controle nos ensaios DBA.
+-[x] Adicionar a informação de qual clone foi utilizado como controle nos ensaios DBA.
     - é controle recebe 1.
     - ñ é controle recebe 0. inserir 0 para todas as células dos ensaios DBC.
 
