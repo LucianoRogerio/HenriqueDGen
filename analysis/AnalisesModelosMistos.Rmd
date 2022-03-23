@@ -168,6 +168,7 @@ suppressMessages(library(lme4)); suppressMessages(library(tidyverse))
 library(reactable); library(here)
 
 AgroData <- readRDS(file = here::here("output", "DadosFenotipicos.rds"))
+
 head(AgroData)
 ```
 
@@ -234,7 +235,7 @@ Results2 %>% reactable(groupBy = c("Trait"), columns = list(
 
 ## Estimação BLUPS e obtenção de médias corrigidas
 
-```{r, eval = FALSE}
+```{r estimating Blups for yield traits, warning = FALSE}
 library(here)
 library(furrr)
 library(tidyverse)
@@ -256,18 +257,43 @@ traits <- table(AgroDataSel$Trait) %>% .[order(.)] %>% names
 for(i in traits){
   print(paste("Trait", i, sep = " "))
   DataMM <- AgroDataSel %>% filter(Trait == i)
-  MM <- analyzeTrial.sommerConj(DataMM)
-  blups <- MM$U$clone$y + MM$Beta$Estimate
-  names(blups) <- names(blups) %>% gsub(pattern = "clone", replacement = "", x = .)
-  Blups <- tibble(id = names(blups),
-                  blups = blups)
+  MM <- analyzeTrial.lme4Conj(DataMM)
+  blups <- ranef(MM)$clone + fixef(MM)[1]
+  Blups <- tibble(id = rownames(blups),
+                  blups = blups$`(Intercept)`)
+  colnames(Blups)[2] <- i
   file <- here::here("output", "MixedModels",
                      paste("Blups_", i, ".rds", sep = ""))
   saveRDS(object = Blups, file = file)
   rm(DataMM); rm(MM); rm(blups); rm(Blups); rm(file)
 }
 
+BlupsTraits <- readRDS(here::here("output", "MixedModels", "Blups_Vigor12M.rds"))
+IDClones <- tibble(id = unique(AgroDataSel$clone) %>% .[order(.)])
+BlupsTraits <- IDClones %>% left_join(BlupsTraits, by = "id")
+
+for(i in traits){
+  filename <- paste("Blups_", i, ".rds", sep = "")
+  BlupsTraits <- BlupsTraits %>%
+    left_join(readRDS(here::here("output", "MixedModels", filename)))
+  colnames(BlupsTraits)[colnames(BlupsTraits) == "blups"] <- i
+}
+
+saveRDS(object = BlupsTraits,
+        file = here::here("output", "BlupsFenHen.rds"))
+
 ```
+
+# Joint BLUPS from Disease and Yield traits
+
+```{r joint Blups object of Disease and yield traits}
+AllBlups <- BLUPS %>% left_join(BlupsTraits, by = c("CLONE" = "id"))
+
+AllBlups[is.na(AllBlups$NR),]
+
+BlupsTraits$id[BlupsTraits$id %like% "BRS"]
+```
+
 
 
 [Next page](PCA_DAPC.html)

@@ -44,40 +44,15 @@ PhenoData %>% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = "darkgreen"
 
 ```{r reading the yield data, message=FALSE}
 suppressMessages(library(tidyverse))
-PhenoData <- readRDS(here::here("output", "DadosFenotipicos.RDS"))
+PhenoData <- readRDS(here::here("output", "DadosFenotipicos.rds"))
 ```
 
 
 #### Fig 3. Distribution plots of cassava yield traits
 ```{r figure3, echo = FALSE, warning = FALSE}
-PhenoData %>% dplyr::filter(Trait %in% c("PTR", "PPA", "NR")) %>%
-  ggplot(aes(x = y)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
+PhenoData %>% ggplot(aes(x = y)) +
+  geom_density(adjust = 2.5, fill = "darkgreen") + 
   facet_wrap(~ Trait, scales = "free") +
-  theme(legend.position="none",
-        panel.spacing = unit(0.1, "lines"),
-        axis.ticks.x=element_blank())
-```
-
-### Vigor evaluations
-
-#### Fig 4. Barplots of cassava vigor
-```{r figure4, echo = FALSE, warning = FALSE}
-PhenoData %>% filter(!is.na(Trait), !is.na (y), Trait %in% c("Vigor", "Vigor45D",
-                                                             "Vigor6M", "Vigor12M")) %>%
-  group_by(Trait, y) %>%
-  dplyr::summarise(Y = n()) %>%
-  ggplot(aes(x = Trait, y = Y, fill = as.character(y))) +
-  scale_fill_brewer(type = "div", palette = 7) +
-  geom_bar(position = "fill", stat = "identity") +
-  guides(fill = guide_legend(title = "Score"))
-```
-
-#### Fig 5. Distribution plots of cassava vigor
-```{r figure5, echo = FALSE, warning = FALSE}
-PhenoData %>% filter(Trait %in% c("Vigor", "Vigor45D",
-                                  "Vigor6M", "Vigor12M")) %>%
-  ggplot(aes(x = y)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
-  facet_wrap(~ Trait) +
   theme(legend.position="none",
         panel.spacing = unit(0.1, "lines"),
         axis.ticks.x=element_blank())
