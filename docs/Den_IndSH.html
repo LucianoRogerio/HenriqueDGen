@@ -15,7 +15,7 @@
 
 <title>Dendrograma e Indice de Shannon-Weaver</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -75,6 +75,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -95,6 +96,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -320,7 +324,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -331,6 +335,27 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Scripts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="AnalisesDescritivas.html">Analises Descritivas</a>
+    </li>
+    <li>
+      <a href="AnalisesModelosMistos.html">Modelos Mistos</a>
+    </li>
+    <li>
+      <a href="PCA_DAPC.html">PCA e DAPC</a>
+    </li>
+    <li>
+      <a href="Den_IndSH.html">Dendrograma</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="about.html">About</a>
@@ -377,7 +402,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-07
+<strong>Last updated:</strong> 2022-03-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -386,8 +411,8 @@ div.tocify {
 <strong>Knit directory:</strong> <code>HenriqueDGen/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -468,16 +493,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree8fec82706d833bb5ebd95af0fc6c93845dce1a01targetblank8fec827a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/8fec82706d833bb5ebd95af0fc6c93845dce1a01" target="_blank">8fec827</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree924973e53b628a00359d68b7d2009926bb0c45cetargetblank924973ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/924973e53b628a00359d68b7d2009926bb0c45ce" target="_blank">924973e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree8fec82706d833bb5ebd95af0fc6c93845dce1a01targetblank8fec827a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree924973e53b628a00359d68b7d2009926bb0c45cetargetblank924973ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/8fec82706d833bb5ebd95af0fc6c93845dce1a01" target="_blank">8fec827</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/924973e53b628a00359d68b7d2009926bb0c45ce" target="_blank">924973e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -488,10 +513,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    data/.DS_Store
-    Ignored:    output/DAPCHen.tiff
-    Ignored:    output/DenHen.tiff
-    Ignored:    output/PCAHen.tiff
-    Ignored:    output/PCAHenExp.tiff
 
 Unstaged changes:
     Modified:   analysis/Den_IndSH.Rmd
@@ -533,6 +554,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/924973e53b628a00359d68b7d2009926bb0c45ce/analysis/Den_IndSH.Rmd" target="_blank">924973e</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-29
+</td>
+<td>
+Update Henrique Analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/924973e53b628a00359d68b7d2009926bb0c45ce/docs/Den_IndSH.html" target="_blank">924973e</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2022-03-29
+</td>
+<td>
+Update Henrique Analysis
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/67d31e9388871428c695ba6876736be9544e3d43/analysis/Den_IndSH.Rmd" target="_blank">67d31e9</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+Fix the navigation buttons on Dendrogram and SH webpage
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/67d31e9388871428c695ba6876736be9544e3d43/docs/Den_IndSH.html" target="_blank">67d31e9</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+Fix the navigation buttons on Dendrogram and SH webpage
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -749,100 +838,73 @@ DAPC Analysis finished
 <p><a href="index.html">Wrong Page?</a></p>
 <pre class="r"><code>library(devtools)</code></pre>
 <pre><code>Loading required package: usethis</code></pre>
-<pre class="r"><code>#install_version(&quot;circlize&quot;, version = &quot;0.4.10&quot;, repos = &quot;http://cran.us.r-project.org&quot;)
-suppressMessages(library(tidyverse)); suppressMessages(library(circlize))
+<pre class="r"><code>suppressMessages(library(tidyverse)); suppressMessages(library(circlize))
 suppressMessages(library(ComplexHeatmap)); suppressMessages(library(dendextend))
 
 DAPCHenGraph &lt;- readRDS(here::here(&quot;output&quot;, &quot;DAPCAn.RDS&quot;))
 DAPCS &lt;- DAPCHenGraph$ind.coord
-DAPCS &lt;- scale(DAPCS, center = T, scale = T)
+DAPCS &lt;- scale(DAPCS, center = T, scale = F)
 
-BLUPS &lt;- readRDS(here::here(&quot;output&quot;, &quot;BLUPsDisease.RDS&quot;))
-BLUPS[ , 2:6] &lt;- scale(BLUPS[ , 2:6], center = T, scale = T)
+BLUPS &lt;- readRDS(here::here(&quot;output&quot;, &quot;BLUPsDiseaseAgro.RDS&quot;))
+BLUPS[ , -1] &lt;- scale(BLUPS[ , -1], center = T, scale = T)
 BLUPS[is.na(BLUPS)] &lt;- 0
 rownames(BLUPS) &lt;- BLUPS$CLONE
 
-col_fun1 = colorRamp2(c(-3.3, 0, 4.8), c(&quot;darkblue&quot;, &quot;white&quot;, &quot;darkred&quot;))
-col_fun2 = colorRamp2(c(-3.5, 0, 6.5), c(&quot;darkblue&quot;, &quot;white&quot;, &quot;darkred&quot;))
+col_fun1 = colorRamp2(c(-5.5, 0, 6.5), c(&quot;darkblue&quot;, &quot;white&quot;, &quot;darkred&quot;))
 
+
+orderDen &lt;- as.dendrogram(hclust(dist(DAPCS[,1:2]), method = &quot;ward.D2&quot;)) %&gt;% order.dendrogram(.) %&gt;% 
+  rownames(DAPCS)[.]
+pos &lt;- match(orderDen, BLUPS$CLONE)
+BLUPS &lt;- BLUPS[pos,]
+  
 set.seed(1)
 circos.par(gap.after = c(25)) 
-circos.heatmap(DAPCS, col = col_fun1, track.height = 0.15,
+circos.heatmap(DAPCS[,1:2], col = col_fun1, track.height = 0.1,
                dend.side = &quot;outside&quot;, clustering.method = &quot;ward.D2&quot;,
                dend.callback = function(dend, m, si) {
-                 color_branches(dend, k = 4, col = 1:4)
+                 color_branches(dend, k = 3, col = 1:3)
                },
-               dend.track.height = 0.3)
-circos.heatmap(BLUPS[,2:6], col = col_fun2, track.height = 0.3)
-circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
-  if(CELL_META$sector.numeric.index == 1) { # the last sector
-    cn = colnames(BLUPS)[6:2]
-    n = length(cn)
-    circos.text(x = rep(0.04, n), y = (1:n) -0.6, labels = cn, 
-                cex = 0.5, adj = c(0, 0.5), facing = &quot;outside&quot;)
-  }
-}, bg.border = NA)
+               dend.track.height = 0.2)
 circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
   if(CELL_META$sector.numeric.index == 1) { # the last sector
     cn = c(&quot;2ºDA&quot;, &quot;1ºDA&quot;)
     n = length(cn)
-    circos.text(x = rep(0.04, n), y = (1:n) + 5, labels = cn, 
+    circos.text(x = rep(-3, n), y = (1:n) - 0.5, labels = cn, 
                 cex = 0.5, adj = c(0, 0.5), facing = &quot;outside&quot;)
   }
 }, bg.border = NA)</code></pre>
-<pre><code>Note: 2 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
+<pre><code>Note: 2 points are out of plotting region in sector &#39;group&#39;, track &#39;2&#39;.</code></pre>
+<pre class="r"><code>circos.heatmap(BLUPS[,-1], col = col_fun1, track.height = 0.4, cluster = FALSE)
+circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
+  if(CELL_META$sector.numeric.index == 1) { # the last sector
+    cn = colnames(BLUPS)[10:2]
+    n = length(cn)
+    circos.text(x = rep(-3, n), y = (1:n)*1.15 -0.6, labels = cn, 
+                cex = 0.5, adj = c(0, 0.5), facing = &quot;outside&quot;)
+  }
+}, bg.border = NA)</code></pre>
+<pre><code>Note: 9 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
 <pre class="r"><code>circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
-    circos.text(c(670, 430, 250, 90), c(11, 10, 11, 11) + convert_y(2, &quot;mm&quot;), 
-        paste0(&quot;group &quot;, c(1:4)),
+    circos.text(c(630, 375, 125), c(14.5, 14.5, 16) + convert_y(2, &quot;mm&quot;), 
+        paste0(&quot;group &quot;, c(1:3)),
         facing = &quot;bending.inside&quot;, cex = 0.8,
         adj = c(0.5, 0), niceFacing = TRUE)
 }, bg.border = NA)</code></pre>
-<pre><code>Note: 4 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
+<pre><code>Note: 3 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
 <pre><code>Note: 1 point is out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
 <pre><code>Note: 7 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
-<pre><code>Note: 3 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
+<pre><code>Note: 2 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
 <pre><code>Note: 7 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.
-Note: 7 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.
 Note: 7 points are out of plotting region in sector &#39;group&#39;, track &#39;3&#39;.</code></pre>
-<p><img src="figure/Den_IndSH.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/cbf63bdd39fad3b9556eb0b6c044896866d55f2c/docs/figure/Den_IndSH.Rmd/unnamed-chunk-1-1.png" target="_blank">cbf63bd</a>
-</td>
-<td>
-LucianoRogerio
-</td>
-<td>
-2021-11-16
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>circos.clear()</code></pre>
+<pre class="r"><code>circos.clear()
+#adding legend key
+library(ComplexHeatmap)
+lgd_links = Legend(at=c(-5.5,0,6.5), col_fun = col_fun1, 
+                   title_position = &quot;topleft&quot;, title = &quot;Value&quot;, direction = &quot;vertical&quot;)
+draw(lgd_links, x = unit(1, &quot;npc&quot;) - unit(5, &quot;mm&quot;), y = unit(8, &quot;mm&quot;), 
+     just = c(&quot;right&quot;, &quot;bottom&quot;))</code></pre>
+<p><img src="figure/Den_IndSH.Rmd/Dendrogram%20of%20the%20DA%20scores-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>[Next page]</p>
 <p><a href="PCA_DAPC.html">Last page</a></p>
 <p><a href="index.html">Back to home</a></p>
@@ -854,12 +916,11 @@ LucianoRogerio
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.1 (2021-08-10)
+<pre><code>R version 4.1.2 (2021-11-01)
 Platform: aarch64-apple-darwin20 (64-bit)
 Running under: macOS Big Sur 11.6.1
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRblas.0.dylib
 LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
 
 locale:
@@ -870,52 +931,53 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] dendextend_1.15.2     ComplexHeatmap_2.10.0 circlize_0.4.13      
- [4] forcats_0.5.1         stringr_1.4.0         dplyr_1.0.7          
- [7] purrr_0.3.4           readr_2.1.0           tidyr_1.1.4          
+ [1] dendextend_1.15.2     ComplexHeatmap_2.10.0 circlize_0.4.14      
+ [4] forcats_0.5.1         stringr_1.4.0         dplyr_1.0.8          
+ [7] purrr_0.3.4           readr_2.1.2           tidyr_1.2.0          
 [10] tibble_3.1.6          ggplot2_3.3.5         tidyverse_1.3.1      
-[13] devtools_2.4.2        usethis_2.1.3        
+[13] devtools_2.4.3        usethis_2.1.5        
 
 loaded via a namespace (and not attached):
- [1] matrixStats_0.61.0  fs_1.5.0            lubridate_1.8.0    
- [4] RColorBrewer_1.1-2  doParallel_1.0.16   httr_1.4.2         
- [7] rprojroot_2.0.2     tools_4.1.1         backports_1.3.0    
+ [1] matrixStats_0.61.0  fs_1.5.2            lubridate_1.8.0    
+ [4] RColorBrewer_1.1-2  doParallel_1.0.17   httr_1.4.2         
+ [7] rprojroot_2.0.2     tools_4.1.2         backports_1.4.1    
 [10] bslib_0.3.1         utf8_1.2.2          R6_2.5.1           
-[13] BiocGenerics_0.40.0 DBI_1.1.1           colorspace_2.0-2   
-[16] GetoptLong_1.0.5    withr_2.4.2         gridExtra_2.3      
-[19] tidyselect_1.1.1    prettyunits_1.1.1   processx_3.5.2     
-[22] compiler_4.1.1      git2r_0.29.0        cli_3.1.0          
-[25] rvest_1.0.2         xml2_1.3.2          desc_1.4.0         
-[28] sass_0.4.0          scales_1.1.1        callr_3.7.0        
-[31] digest_0.6.28       rmarkdown_2.11      pkgconfig_2.0.3    
-[34] htmltools_0.5.2     sessioninfo_1.2.1   highr_0.9          
-[37] dbplyr_2.1.1        fastmap_1.1.0       rlang_0.4.12       
-[40] GlobalOptions_0.1.2 readxl_1.3.1        rstudioapi_0.13    
-[43] shape_1.4.6         jquerylib_0.1.4     generics_0.1.1     
-[46] jsonlite_1.7.2      magrittr_2.0.1      S4Vectors_0.32.2   
-[49] Rcpp_1.0.7          munsell_0.5.0       fansi_0.5.0        
-[52] viridis_0.6.2       lifecycle_1.0.1     stringi_1.7.5      
-[55] whisker_0.4         yaml_2.2.1          pkgbuild_1.2.0     
-[58] parallel_4.1.1      promises_1.2.0.1    crayon_1.4.2       
-[61] haven_2.4.3         hms_1.1.1           knitr_1.36         
-[64] ps_1.6.0            pillar_1.6.4        rjson_0.2.20       
-[67] stats4_4.1.1        codetools_0.2-18    pkgload_1.2.3      
-[70] reprex_2.0.1        glue_1.5.0          evaluate_0.14      
-[73] remotes_2.4.1       modelr_0.1.8        png_0.1-7          
-[76] foreach_1.5.1       vctrs_0.3.8         tzdb_0.2.0         
-[79] httpuv_1.6.3        testthat_3.1.0      cellranger_1.1.0   
-[82] gtable_0.3.0        clue_0.3-60         assertthat_0.2.1   
-[85] cachem_1.0.6        xfun_0.28           broom_0.7.10       
-[88] later_1.3.0         viridisLite_0.4.0   iterators_1.0.13   
-[91] IRanges_2.28.0      memoise_2.0.0       cluster_2.1.2      
-[94] workflowr_1.6.2     ellipsis_0.3.2      here_1.0.1         </code></pre>
+[13] BiocGenerics_0.40.0 DBI_1.1.2           colorspace_2.0-3   
+[16] GetoptLong_1.0.5    withr_2.5.0         gridExtra_2.3      
+[19] tidyselect_1.1.2    prettyunits_1.1.1   processx_3.5.3     
+[22] compiler_4.1.2      git2r_0.30.1        cli_3.2.0          
+[25] rvest_1.0.2         xml2_1.3.3          desc_1.4.1         
+[28] sass_0.4.1          scales_1.1.1        callr_3.7.0        
+[31] digest_0.6.29       rmarkdown_2.13      pkgconfig_2.0.3    
+[34] htmltools_0.5.2     sessioninfo_1.2.2   highr_0.9          
+[37] dbplyr_2.1.1        fastmap_1.1.0       rlang_1.0.2        
+[40] GlobalOptions_0.1.2 readxl_1.4.0        rstudioapi_0.13    
+[43] shape_1.4.6         jquerylib_0.1.4     generics_0.1.2     
+[46] jsonlite_1.8.0      magrittr_2.0.2      S4Vectors_0.32.4   
+[49] Rcpp_1.0.8.3        munsell_0.5.0       fansi_1.0.3        
+[52] viridis_0.6.2       lifecycle_1.0.1     stringi_1.7.6      
+[55] whisker_0.4         yaml_2.3.5          brio_1.1.3         
+[58] pkgbuild_1.3.1      parallel_4.1.2      promises_1.2.0.1   
+[61] crayon_1.5.1        haven_2.4.3         hms_1.1.1          
+[64] knitr_1.38          ps_1.6.0            pillar_1.7.0       
+[67] rjson_0.2.21        stats4_4.1.2        codetools_0.2-18   
+[70] pkgload_1.2.4       reprex_2.0.1        glue_1.6.2         
+[73] evaluate_0.15       remotes_2.4.2       modelr_0.1.8       
+[76] png_0.1-7           foreach_1.5.2       vctrs_0.3.8        
+[79] tzdb_0.3.0          httpuv_1.6.5        testthat_3.1.3     
+[82] cellranger_1.1.0    gtable_0.3.0        clue_0.3-60        
+[85] assertthat_0.2.1    cachem_1.0.6        xfun_0.30          
+[88] broom_0.7.12        later_1.3.0         viridisLite_0.4.0  
+[91] iterators_1.0.14    IRanges_2.28.0      memoise_2.0.1      
+[94] cluster_2.1.2       workflowr_1.7.0     ellipsis_0.3.2     
+[97] here_1.0.1         </code></pre>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

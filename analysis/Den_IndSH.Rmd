@@ -11,59 +11,69 @@ editor_options:
 
 [Wrong Page?](index.html)
 
-```{r}
+```{r Dendrogram of the DA scores}
 library(devtools)
-#install_version("circlize", version = "0.4.10", repos = "http://cran.us.r-project.org")
 suppressMessages(library(tidyverse)); suppressMessages(library(circlize))
 suppressMessages(library(ComplexHeatmap)); suppressMessages(library(dendextend))
 
 DAPCHenGraph <- readRDS(here::here("output", "DAPCAn.RDS"))
 DAPCS <- DAPCHenGraph$ind.coord
-DAPCS <- scale(DAPCS, center = T, scale = T)
+DAPCS <- scale(DAPCS, center = T, scale = F)
 
-BLUPS <- readRDS(here::here("output", "BLUPsDisease.RDS"))
-BLUPS[ , 2:6] <- scale(BLUPS[ , 2:6], center = T, scale = T)
+BLUPS <- readRDS(here::here("output", "BLUPsDiseaseAgro.RDS"))
+BLUPS[ , -1] <- scale(BLUPS[ , -1], center = T, scale = T)
 BLUPS[is.na(BLUPS)] <- 0
 rownames(BLUPS) <- BLUPS$CLONE
 
-col_fun1 = colorRamp2(c(-3.3, 0, 4.8), c("darkblue", "white", "darkred"))
-col_fun2 = colorRamp2(c(-3.5, 0, 6.5), c("darkblue", "white", "darkred"))
+col_fun1 = colorRamp2(c(-5.5, 0, 6.5), c("darkblue", "white", "darkred"))
 
+
+orderDen <- as.dendrogram(hclust(dist(DAPCS[,1:2]), method = "ward.D2")) %>% order.dendrogram(.) %>% 
+  rownames(DAPCS)[.]
+pos <- match(orderDen, BLUPS$CLONE)
+BLUPS <- BLUPS[pos,]
+  
 set.seed(1)
 circos.par(gap.after = c(25)) 
-circos.heatmap(DAPCS, col = col_fun1, track.height = 0.15,
+circos.heatmap(DAPCS[,1:2], col = col_fun1, track.height = 0.1,
                dend.side = "outside", clustering.method = "ward.D2",
                dend.callback = function(dend, m, si) {
-                 color_branches(dend, k = 4, col = 1:4)
+                 color_branches(dend, k = 3, col = 1:3)
                },
-               dend.track.height = 0.3)
-circos.heatmap(BLUPS[,2:6], col = col_fun2, track.height = 0.3)
-circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
-  if(CELL_META$sector.numeric.index == 1) { # the last sector
-    cn = colnames(BLUPS)[6:2]
-    n = length(cn)
-    circos.text(x = rep(0.04, n), y = (1:n) -0.6, labels = cn, 
-                cex = 0.5, adj = c(0, 0.5), facing = "outside")
-  }
-}, bg.border = NA)
+               dend.track.height = 0.2)
 circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
   if(CELL_META$sector.numeric.index == 1) { # the last sector
     cn = c("2ºDA", "1ºDA")
     n = length(cn)
-    circos.text(x = rep(0.04, n), y = (1:n) + 5, labels = cn, 
+    circos.text(x = rep(-3, n), y = (1:n) - 0.5, labels = cn, 
+                cex = 0.5, adj = c(0, 0.5), facing = "outside")
+  }
+}, bg.border = NA)
+circos.heatmap(BLUPS[,-1], col = col_fun1, track.height = 0.4, cluster = FALSE)
+circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
+  if(CELL_META$sector.numeric.index == 1) { # the last sector
+    cn = colnames(BLUPS)[10:2]
+    n = length(cn)
+    circos.text(x = rep(-3, n), y = (1:n)*1.15 -0.6, labels = cn, 
                 cex = 0.5, adj = c(0, 0.5), facing = "outside")
   }
 }, bg.border = NA)
 circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
-    circos.text(c(670, 430, 250, 90), c(11, 10, 11, 11) + convert_y(2, "mm"), 
-        paste0("group ", c(1:4)),
+    circos.text(c(630, 375, 125), c(14.5, 14.5, 16) + convert_y(2, "mm"), 
+        paste0("group ", c(1:3)),
         facing = "bending.inside", cex = 0.8,
         adj = c(0.5, 0), niceFacing = TRUE)
 }, bg.border = NA)
-
 circos.clear()
+#adding legend key
+library(ComplexHeatmap)
+lgd_links = Legend(at=c(-5.5,0,6.5), col_fun = col_fun1, 
+                   title_position = "topleft", title = "Value", direction = "vertical")
+draw(lgd_links, x = unit(1, "npc") - unit(5, "mm"), y = unit(8, "mm"), 
+     just = c("right", "bottom"))
 
 ```
+
 
 [Next page]
 

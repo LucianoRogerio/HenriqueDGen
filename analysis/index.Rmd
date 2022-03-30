@@ -21,6 +21,10 @@ suppressMessages(library(reactable))
 
 # Data read by R using here package to allow the read in any computer with different directory path
 PhenoData <- readRDS(here::here("data", "DadosFenotipicos.rds"))
+
+#write.table(PhenoData, file = "data/xx.csv", quote = F, sep = ",", row.names = F)
+#PhenoData2 <- read.table("data/xx.csv", header = T, sep = ",")
+#saveRDS(PhenoData2, file = here::here("data", "DadosFenotipicos.rds"))
 # Add the control information for the Mixed Models analysis
 control <- names(table(PhenoData$accession_name)[table(PhenoData$accession_name) > 30])
 PhenoData$control <- ifelse(PhenoData$accession_name %in% control, PhenoData$accession_name, "999") 

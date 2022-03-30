@@ -272,7 +272,7 @@ BlupsTraits <- readRDS(here::here("output", "MixedModels", "Blups_Vigor12M.rds")
 IDClones <- tibble(id = unique(AgroDataSel$clone) %>% .[order(.)])
 BlupsTraits <- IDClones %>% left_join(BlupsTraits, by = "id")
 
-for(i in traits){
+for(i in traits[-1]){
   filename <- paste("Blups_", i, ".rds", sep = "")
   BlupsTraits <- BlupsTraits %>%
     left_join(readRDS(here::here("output", "MixedModels", filename)))
@@ -287,13 +287,28 @@ saveRDS(object = BlupsTraits,
 # Joint BLUPS from Disease and Yield traits
 
 ```{r joint Blups object of Disease and yield traits}
-AllBlups <- BLUPS %>% left_join(BlupsTraits, by = c("CLONE" = "id"))
+AllBlups <- BLUPS %>% left_join(BlupsTraits, by = c("CLONE" = "id")) %>% 
+  dplyr::rename(Vigor = Vigor12M)
 
-AllBlups[is.na(AllBlups$NR),]
-
-BlupsTraits$id[BlupsTraits$id %like% "BRS"]
+saveRDS(AllBlups, file = here::here("output", "BLUPsDiseaseAgro.rds"))
 ```
 
+#### Table 7. BLUPs plus intercept for all disease and agronomic traits for cassava.
+
+```{r, echo = FALSE}
+library(reactable)
+AllBlups %>%
+  reactable(columns = list(Anth = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           BlLS = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           BrLS = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           WhLS = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           Vigor = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           NR = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           DRY = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           DMC = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           PTR = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           PPA = colDef(format = colFormat(digits = 2, locales = "en-US"))))
+```
 
 
 [Next page](PCA_DAPC.html)
