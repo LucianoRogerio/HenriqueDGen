@@ -18,7 +18,7 @@ suppressMessages(library(ComplexHeatmap)); suppressMessages(library(dendextend))
 
 DAPCHenGraph <- readRDS(here::here("output", "DAPCAn.RDS"))
 DAPCS <- DAPCHenGraph$ind.coord
-DAPCS <- scale(DAPCS, center = T, scale = F)
+DAPCS <- scale(DAPCS, center = T, scale = T)
 
 BLUPS <- readRDS(here::here("output", "BLUPsDiseaseAgro.RDS"))
 BLUPS[ , -1] <- scale(BLUPS[ , -1], center = T, scale = T)
@@ -27,25 +27,33 @@ rownames(BLUPS) <- BLUPS$CLONE
 
 col_fun1 = colorRamp2(c(-5.5, 0, 6.5), c("darkblue", "white", "darkred"))
 
+km <- DAPCHenGraph$grp
+km1 <- km[km == 1] %>% names
+km2 <- km[km == 2] %>% names
+km3 <- km[km == 3] %>% names
 
-orderDen <- as.dendrogram(hclust(dist(DAPCS[,1:2]), method = "ward.D2")) %>% order.dendrogram(.) %>% 
-  rownames(DAPCS)[.]
+orderDen1 <- as.dendrogram(hclust(dist(DAPCS[(rownames(DAPCS) %in% km1),1:2]))) %>% order.dendrogram(.) %>% 
+  rownames(DAPCS[(rownames(DAPCS) %in% km1),])[.]
+orderDen2 <- as.dendrogram(hclust(dist(DAPCS[(rownames(DAPCS) %in% km2),1:2]))) %>% order.dendrogram(.) %>% 
+  rownames(DAPCS[(rownames(DAPCS) %in% km2),])[.]
+orderDen3 <- as.dendrogram(hclust(dist(DAPCS[(rownames(DAPCS) %in% km3),1:2]))) %>% order.dendrogram(.) %>% 
+  rownames(DAPCS[(rownames(DAPCS) %in% km3),])[.]
+
+orderDen <- c(orderDen1, orderDen2, orderDen3)
+
 pos <- match(orderDen, BLUPS$CLONE)
 BLUPS <- BLUPS[pos,]
   
 set.seed(1)
-circos.par(gap.after = c(25)) 
+circos.par(gap.after = c(20)) 
 circos.heatmap(DAPCS[,1:2], col = col_fun1, track.height = 0.1,
-               dend.side = "outside", clustering.method = "ward.D2",
-               dend.callback = function(dend, m, si) {
-                 color_branches(dend, k = 3, col = 1:3)
-               },
-               dend.track.height = 0.2)
+               dend.side = "outside", clustering.method = "ward.D2", split = km,
+               dend.track.height = 0.2, show.sector.labels = T)
 circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
   if(CELL_META$sector.numeric.index == 1) { # the last sector
     cn = c("2ºDA", "1ºDA")
     n = length(cn)
-    circos.text(x = rep(-3, n), y = (1:n) - 0.5, labels = cn, 
+    circos.text(x = rep(-3, n), y = (1:n)*4 - 10.5, labels = cn, 
                 cex = 0.5, adj = c(0, 0.5), facing = "outside")
   }
 }, bg.border = NA)
@@ -58,12 +66,6 @@ circos.track(track.index = get.current.track.index(), panel.fun = function(x, y)
                 cex = 0.5, adj = c(0, 0.5), facing = "outside")
   }
 }, bg.border = NA)
-circos.track(track.index = get.current.track.index(), panel.fun = function(x, y) {
-    circos.text(c(630, 375, 125), c(14.5, 14.5, 16) + convert_y(2, "mm"), 
-        paste0("group ", c(1:3)),
-        facing = "bending.inside", cex = 0.8,
-        adj = c(0.5, 0), niceFacing = TRUE)
-}, bg.border = NA)
 circos.clear()
 #adding legend key
 library(ComplexHeatmap)
@@ -72,6 +74,55 @@ lgd_links = Legend(at=c(-5.5,0,6.5), col_fun = col_fun1,
 draw(lgd_links, x = unit(1, "npc") - unit(5, "mm"), y = unit(8, "mm"), 
      just = c("right", "bottom"))
 
+```
+
+
+## Shannon-Weaver index
+
+```{r Shannon-Weaver Index}
+suppressMessages(library(tidyverse)); library(magrittr)
+library(here)
+source(here::here("code", "Shannon-Weaver.R"))
+
+BLUPS <- readRDS(here::here("output", "BLUPsDiseaseAgro.RDS"))
+Grps <- readRDS(here::here("output", "DAPCAn.RDS")) %$% grp
+
+Groups <- tibble(CLONE = names(Grps),
+                 Group = as.character(Grps))
+
+BLUPS2 <- BLUPS %>% left_join(Groups, by = "CLONE")
+MIN <- apply(BLUPS[,2:10], FUN = min, MARGIN = 2, na.rm = T)
+MAX <- apply(BLUPS[,2:10], FUN = max, MARGIN = 2, na.rm = T)
+
+IndSH <- BLUPS2 %>% dplyr::group_by(Group) %>% 
+  dplyr::summarise(SH_Anth = Shannon.Weaver.QT(Anth, min = MIN[1], max = MAX[1],formula = 2),
+                   SH_BlLS = Shannon.Weaver.QT(BlLS, min = MIN[2], max = MAX[2],formula = 2),
+                   SH_BrLS = Shannon.Weaver.QT(BrLS, min = MIN[3], max = MAX[3],formula = 2),
+                   SH_WhLS = Shannon.Weaver.QT(WhLS, min = MIN[4], max = MAX[4],formula = 2),
+                   SH_Vigor = Shannon.Weaver.QT(Vigor, min = MIN[5], max = MAX[5],formula = 2),
+                   SH_NR = Shannon.Weaver.QT(NR, min = MIN[6], max = MAX[6],formula = 2),
+                   SH_DRY = Shannon.Weaver.QT(DRY, min = MIN[7], max = MAX[7],formula = 2),
+                   SH_DMC = Shannon.Weaver.QT(DMC, min = MIN[8], max = MAX[8],formula = 2),
+                   SH_PTR = Shannon.Weaver.QT(PTR, min = MIN[9], max = MAX[9],formula = 2),
+                   SH_PPA = Shannon.Weaver.QT(PPA, min = MIN[10], max = MAX[10],formula = 2))
+
+```
+
+#### Table 1. Shannon-Weaver Index per DAPC group of cassava agronomic and foliar disease traits
+```{r Table 1, echo = F}
+library(reactable)
+
+IndSH %>% reactable(columns = list(
+    SH_Anth = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_BlLS = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_BrLS = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_WhLS = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_Vigor = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_NR = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_DRY = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_DMC = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_PTR = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_PPA = colDef(format = colFormat(digits = 3, locales = "en-US"))))
 ```
 
 

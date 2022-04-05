@@ -284,6 +284,19 @@ saveRDS(object = BlupsTraits,
 
 ```
 
+#### Fig 2. Distribution of the BLUPs estimated for cassava agronomic traits
+```{r Fig2, echo = FALSE}
+BlupsTraits %>% dplyr::rename(Vigor = Vigor12M) %>% reshape2::melt(id.vars = "id",
+                         variable.name = "Trait",
+                         value.name = "Value") %>%
+  ggplot(aes(x = Value)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
+  facet_wrap(~ Trait, scales = "free") +
+  theme(legend.position="none",
+        panel.spacing = unit(0.1, "lines"),
+        axis.ticks.x=element_blank())
+```
+
+
 # Joint BLUPS from Disease and Yield traits
 
 ```{r joint Blups object of Disease and yield traits}
