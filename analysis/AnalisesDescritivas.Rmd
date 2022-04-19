@@ -20,7 +20,7 @@ PhenoData <- readRDS(here::here("output", "DadosFenotipicosv2.RDS"))
 
 
 #### Fig 1. Barplots of cassava foliar disease traits
-```{r figure1, echo = FALSE, warning = FALSE}
+```{r figure1, echo = FALSE, warning = FALSE, fig.height = 3, fig.width = 3}
 PhenoData %>% filter(!is.na(traits), !is.na (Y)) %>%
   group_by(traits, Y) %>%
   summarise(y = n()) %>%
@@ -31,7 +31,7 @@ PhenoData %>% filter(!is.na(traits), !is.na (Y)) %>%
 ```
 
 #### Fig 2. Distribution plots of cassava foliar disease traits
-```{r figure2, echo = FALSE, warning = FALSE}
+```{r figure2, echo = FALSE, warning = FALSE, fig.height = 4, fig.width = 3}
 PhenoData %>% ggplot(aes(x = Y)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
   facet_wrap(~ traits, scales = "free_x") + xlab("Scores") +
   theme(legend.position="none",
@@ -49,13 +49,14 @@ PhenoData <- readRDS(here::here("output", "DadosFenotipicos.rds"))
 
 
 #### Fig 3. Distribution plots of cassava yield traits
-```{r figure3, echo = FALSE, warning = FALSE}
+```{r figure3, echo = FALSE, warning = FALSE, fig.height = 4, fig.width = 3}
 PhenoData %>% ggplot(aes(x = y)) +
   geom_density(adjust = 2.5, fill = "darkgreen") + 
-  facet_wrap(~ Trait, scales = "free") +
+  facet_wrap(~ Trait, scales = "free", ncol = 2) +
   theme(legend.position="none",
         panel.spacing = unit(0.1, "lines"),
-        axis.ticks.x=element_blank())
+        axis.ticks.x=element_blank()) +
+  theme_minimal()
 ```
 
 

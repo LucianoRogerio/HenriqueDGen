@@ -148,7 +148,7 @@ BLUPS %>% reactable(defaultPageSize = 25, columns = list(
 ```
 
 #### Fig 1. Distribution of the BLUPs estimated for cassava foliar diseases
-```{r Fig1, echo = FALSE}
+```{r Fig1, echo = FALSE, fig.height = 4, fig.width = 3}
 BLUPS %>% reshape2::melt(id.vars = "CLONE",
                          variable.name = "Trait",
                          value.name = "Value") %>%
@@ -178,7 +178,7 @@ AgroData %>% reactable(defaultPageSize = 25, columns = list(
   y = colDef(format = colFormat(digits = 2, locales = "en-US"))))
 ```
 
-#### 
+#### Mixed Models analysis
 
 ```{r estimation of heritability and reliability per trial and trait}
 
@@ -285,12 +285,12 @@ saveRDS(object = BlupsTraits,
 ```
 
 #### Fig 2. Distribution of the BLUPs estimated for cassava agronomic traits
-```{r Fig2, echo = FALSE}
+```{r Fig2, echo = FALSE, fig.height = 4, fig.width = 3}
 BlupsTraits %>% dplyr::rename(Vigor = Vigor12M) %>% reshape2::melt(id.vars = "id",
                          variable.name = "Trait",
                          value.name = "Value") %>%
   ggplot(aes(x = Value)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
-  facet_wrap(~ Trait, scales = "free") +
+  facet_wrap(~ Trait, scales = "free", ncol = 2) +
   theme(legend.position="none",
         panel.spacing = unit(0.1, "lines"),
         axis.ticks.x=element_blank())
@@ -299,7 +299,7 @@ BlupsTraits %>% dplyr::rename(Vigor = Vigor12M) %>% reshape2::melt(id.vars = "id
 
 # Joint BLUPS from Disease and Yield traits
 
-```{r joint Blups object of Disease and yield traits}
+```{r joint Blups object of Disease and yield traits, fig.height = 4, fig.width = 3}
 AllBlups <- BLUPS %>% left_join(BlupsTraits, by = c("CLONE" = "id")) %>% 
   dplyr::rename(Vigor = Vigor12M)
 
@@ -308,7 +308,7 @@ saveRDS(AllBlups, file = here::here("output", "BLUPsDiseaseAgro.rds"))
 
 #### Table 7. BLUPs plus intercept for all disease and agronomic traits for cassava.
 
-```{r, echo = FALSE}
+```{r table7, echo = FALSE}
 library(reactable)
 AllBlups %>%
   reactable(columns = list(Anth = colDef(format = colFormat(digits = 2, locales = "en-US")),
