@@ -21,7 +21,6 @@ suppressMessages(library(reactable))
 
 # Data read by R using here package to allow the read in any computer with different directory path
 PhenoData <- readRDS(here::here("data", "DadosFenotipicos.rds"))
-
 #write.table(PhenoData, file = "data/xx.csv", quote = F, sep = ",", row.names = F)
 #PhenoData2 <- read.table("data/xx.csv", header = T, sep = ",")
 #saveRDS(PhenoData2, file = here::here("data", "DadosFenotipicos.rds"))
@@ -31,7 +30,7 @@ PhenoData$control <- ifelse(PhenoData$accession_name %in% control, PhenoData$acc
 PhenoData$new <- ifelse(PhenoData$accession_name %in% control, 0, 1)
 
 # Change the Disease names to english abbreviations
-colnames(PhenoData)[7:10] <- c("Anth", "WhLS", "BrLS", "BlLS")
+colnames(PhenoData)[10:13] <- c("Anth", "WhLS", "BrLS", "BlLS")
 ```
 
 #### Table 1. Phenotypic data for resistance to foliar disease evaluated at the Cassava Germplasm Bank of EMBRAPA, data collected in 2021.
@@ -41,13 +40,14 @@ PhenoData %>% reactable(defaultPageSize = 10)
 Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf Spot (BlLS).
 
 ```{r formating foliar disease data to column, message = FALSE, warning = FALSE, eval = TRUE}
-lnfUtl <- colnames(PhenoData)[c(1:4, 11:12)]
+lnfUtl <- colnames(PhenoData)[c(1:6, 14:15)]
 PhenoData$talhao_number <- NULL
 PhenoData$Idade <- NULL
+PhenoData$is_a_control <- NULL
 traits <- colnames(PhenoData)[!colnames(PhenoData) %in% lnfUtl]
 PhenoData2 <- PhenoData %>% gather(key = traits, value = Y, -all_of(lnfUtl))
 
-saveRDS(PhenoData2, here::here("output", "DadosFenotipicosv2.RDS"))
+saveRDS(PhenoData2, here::here("output", "DadosDoencasv2.RDS"))
 ```
 
 #### Table 2. Data entry for the descriptive analysis and mixed models for resistance of foliar disease in cassava.
@@ -59,13 +59,14 @@ Anthracnosis (Anth), White Leaf spot (WhLS), Brown Leaf spot (BrLS), Blight Leaf
 #### Yield Traits
 ```{r PhenoData Yield traits read}
 library(reshape2); library(tidyverse)
-DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2021.CSV"), header = T, sep = ",",
+DadosProdutivos <- read.table(here::here("data", "Dados Produtivos 2011-2022.csv"), header = T, sep = ",",
                               na.strings = "NA")
 
 head(DadosProdutivos)
 
-colnames(DadosProdutivos)[c(5, 13:25)] <- c("Genotipo_BGM","AP", "APsF","DMC", "DRY",
-                                            "PTR","PRC", "PRNC","PPA","NR","Vigor","Vigor45D","Vigor6M","Vigor12M")
+colnames(DadosProdutivos)[c(5, 13:26)] <- c("Genotipo_BGM","AP", "APsF","DMC", "DRY",
+                                            "PTR","PRC", "PRNC","PPA","NR","Vigor",
+                                            "Vigor45D","Vigor6M","Vigor12M", "RF")
 
 DadosPhen2 <- DadosProdutivos %>% dplyr::select(-c(AP, APsF, PRC, PRNC, Vigor, Vigor45D, Vigor6M))
 
@@ -73,15 +74,15 @@ head(DadosPhen2)
 ```
 
 ```{r formating yield traits data to column}
-DadosPhenfin <- reshape2::melt(data = DadosPhen2,id.vars = c("Ano", "Campo",
+DadosPhenfin <- reshape2::melt(data = DadosPhen2, id.vars = c("Ano", "Campo",
                                                              "Fazenda", "Local",
                                                              "Delineamento","Controle",
                                                              "Genotipo_BGM","Genotipos",
                                                              "Bloco", "Linha",
                                                              "Coluna", "Stand"),
                                      variable.name = "Trait",
-                                     value.name = "Value") %>%
-  filter(!is.na(Value)) %>% 
+                                     value.name = "y") %>%
+  dplyr::filter(!is.na(y)) %>% 
   dplyr::mutate(Ano = Ano,
          Campo = Campo,
          Local = Local,
@@ -92,8 +93,8 @@ DadosPhenfin <- reshape2::melt(data = DadosPhen2,id.vars = c("Ano", "Campo",
          check = ifelse(Controle == "1", clone, "999"),
          check = ifelse(clone %in% unique(check), clone, "999"),
          new = ifelse(check != "999", 0, 1),
-         y = Value, .keep = "unused") %>% dplyr::select(-c("Genotipos")) %>%
-  filter(Trait != "NR" | (Trait=="NR" & y < 30))
+         .keep = "unused") %>% dplyr::select(-c("Genotipos")) %>%
+  dplyr::filter(Trait != "NR" | (Trait=="NR" & y < 30))
 head(DadosPhenfin)
 saveRDS(object = DadosPhenfin, file = here::here("output", "DadosFenotipicos.rds"))
 ```

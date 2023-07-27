@@ -44,6 +44,8 @@ orderDen <- c(orderDen1, orderDen2, orderDen3)
 pos <- match(orderDen, BLUPS$CLONE)
 BLUPS <- BLUPS[pos,]
   
+#tiff(filename = here::here("output", "Fig10_CircularHeatmapDAGrp.tiff"), res = 350, compression = "lzw",
+#     units = "cm", height = 15, width = 15)
 set.seed(1)
 circos.par(gap.after = c(20)) 
 circos.heatmap(DAPCS[,1:2], col = col_fun1, track.height = 0.1,
@@ -73,7 +75,7 @@ lgd_links = Legend(at=c(-5.5,0,6.5), col_fun = col_fun1,
                    title_position = "topleft", title = "Value", direction = "vertical")
 draw(lgd_links, x = unit(1, "npc") - unit(5, "mm"), y = unit(8, "mm"), 
      just = c("right", "bottom"))
-
+#dev.off()
 ```
 
 

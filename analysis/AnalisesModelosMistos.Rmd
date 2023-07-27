@@ -19,11 +19,11 @@ library(reactable)
 suppressMessages(library(data.table))
 suppressMessages(source(here::here("code", "MixedModelsFunctions.R")))
 
-PhenoData <- readRDS(here::here("output", "DadosFenotipicosv2.RDS"))
-
+PhenoData <- readRDS(here::here("output", "DadosDoencasv2.RDS"))
 
 PhenoData$block_number <- as.character(PhenoData$block_number)
-PhenoData2 <- PhenoData %>% filter(!is.na(Y))
+PhenoData2 <- PhenoData %>% filter(!is.na(Y)) %>% 
+  mutate(TrialBlock = paste0(trial_name, block_number))
 traits <- unique(PhenoData2$traits)
 
 fmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
@@ -37,7 +37,7 @@ ResAnFin <- rbind(ResAnInt[,1:4],
                   ResAnInt[,13:16])
 colnames(ResAnFin) <- c("DF", "SumSq", "MeanSq", "Fvalue")
 ResAnovaFinal <- data.frame(Trait = rep(traits, each = 2),
-                            Factor = rep(c("Control", "Block"),
+                            Factor = rep(c("Trial", "Trial:Block"),
                                          times = 4),
                             ResAnFin)
 ```
@@ -52,40 +52,62 @@ ResAnovaFinal %>% reactable(columns = list(
 
 
 ```{r Deviance analysis}
-rdfmfit <- PhenoData2 %>% dlply(.variables = c("traits"),
-                                .fun = analyzeTrialrdMod.lme4)
-
+rdfmfit1 <- PhenoData2 %>% dlply(.variables = c("traits"),
+                                .fun = analyzeTrialrdMod1.lme4)
+rdfmfit2 <- PhenoData2 %>% dlply(.variables = c("traits"),
+                                .fun = analyzeTrialrdMod2.lme4)
 
 Deviances <- NULL
 for(i in traits){
-Deviances[[i]] <- data.frame(Deviance.MM(fmfit[[i]], rdfmfit[[i]]))[2,6:8]
-rownames(Deviances[[i]]) <- i
-  
+Deviances[[i]] <- data.frame(Deviance.MM(fmfit[[i]], rdfmfit1[[i]], rdfmfit2[[i]]))[2:3,6:8]
+rownames(Deviances[[i]]) <- c("Clone", "GxE")
 }
+ResDeviances <- matrix(unlist(Deviances, use.names = T), nrow = 2, byrow = F)
+ResDeviances <- rbind(ResDeviances[,1:3],
+                  ResDeviances[,4:6],
+                  ResDeviances[,7:9],
+                  ResDeviances[,10:12])
+colnames(ResDeviances) <- c("QuiSq", "DF", "Prob")
 
-ResDeviances <- data.frame(t(sapply(Deviances, FUN = rbind)))
+ResDeviancesFinal <- data.frame(Trait = rep(traits, each = 2),
+                            Factor = rep(c("Clone", "GxE"),
+                                         times = 4),
+                            ResDeviances)
 ```
 
 #### Table 2. Deviance Analysis for cassava foliar disease
 ```{r table2, echo = FALSE}
-ResDeviances %>% reactable()
+ResDeviancesFinal %>% reactable()
 ```
 
 ```{r heritability estimation}
 H2 <- sapply(fmfit, FUN = getVarComp.lme4) %>% t() %>% as.data.frame()
-colnames(H2) <- c("VarClone", "VarRes")
+colnames(H2) <- c("VarClone", "VarGE", "VarRes")
 
 MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef))) %>%
-  .[rownames(.) == "(Intercept)"] %>% data.frame(Mean = .) 
-H2 <- cbind(H2, MediasFix)
+  .[rownames(.) == "(Intercept)"] %>% data.frame(Mean = .)
+
+RepMean <- tibble()
+
+for(i in traits){
+    RepMean <- bind_rows(RepMean, tibble(Trait = i,
+      RepMean = PhenoData2 %>% group_by(traits, trial_name, accession_name) %>%
+      dplyr::summarise(RepMean = n())%>% .$RepMean %>% mean()))
+}
+H2 <- cbind(H2, MediasFix, RepMean)
+
 
 H2 <- H2 %>% mutate(VarClone = as.numeric(VarClone),
-               VarRes = as.numeric(VarRes),
-               VarFen = VarClone + VarRes,
-               H2 = VarClone/VarFen,
-               CVg = sqrt(VarClone)/Mean,
-               CVe = sqrt(VarRes)/Mean)
+                    VarGE = as.numeric(VarGE),
+                    VarRes = as.numeric(VarRes),
+                    VarFen = VarClone + VarGE + VarRes,
+                    VarFenFam = VarClone + VarGE/RepMean + VarRes/(RepMean*2),
+                    H2 = VarClone/VarFen,
+                    H2fam = VarClone/VarFenFam,
+                    CVg = sqrt(VarClone)/Mean,
+                    CVe = sqrt(VarRes)/Mean)
 H2[,"Mean"] <- NULL
+H2[,"RepMean"] <- NULL
 ```
 
 #### Table 3. Heritabilities of cassava foliar disease
@@ -95,27 +117,12 @@ H2 %>% reactable(columns = list(
   VarRes = colDef(format = colFormat(digits = 4, locales = "en-US")),
   VarFen = colDef(format = colFormat(digits = 4, locales = "en-US")),
   H2 = colDef(format = colFormat(digits = 4, locales = "en-US")),
+  H2fam = colDef(format = colFormat(digits = 4, locales = "en-US")),
   CVg = colDef(format = colFormat(digits = 4, locales = "en-US", percent = T)),
   CVe = colDef(format = colFormat(digits = 4, locales = "en-US", percent = T))))
 ```
 
 ## Obtain the Mean + BLUPs of the clones
-
-```{r estimating mean of the controls for foliar Diseases}
-MediasFix <- as.matrix(sapply(fmfit, FUN = (fixef)))
-MediasFix[2:32, ] <- MediasFix[2:32,] +
-  matrix(rep(MediasFix[1,], each = 31), nrow = 31, ncol = 4,
-         byrow = F)
-MediasFix <- as.data.frame(MediasFix)
-rownames(MediasFix)[1] <- "controlClones"
-MediasFix$CLONE <- rownames(MediasFix)
-
-MediasFix %<>% filter(CLONE %like% "control") %>%
-  as.data.frame() %>% dplyr::select(CLONE, everything())
-rownames(MediasFix) <- NULL
-MediasFix$CLONE <- gsub(pattern = "control", replacement = "", x = MediasFix$CLONE)
-MediasFix %>% filter(CLONE != "Clones") -> MediasFix
-```
 
 ### Obtain the Clones BLUPS
 
@@ -130,17 +137,12 @@ for(i in names(BLUPsAle)){
   BLUPSDisea<-merge(BLUPSDisea,drg,by="CLONE",all.x=T)
 }
 
-BLUPSDisea <- BLUPSDisea %>% filter(CLONE %like% ":1")
-BLUPSDisea$CLONE <- gsub(pattern = ":1", replacement = "", BLUPSDisea$CLONE)
-
-BLUPS <- rbind(BLUPSDisea, MediasFix)
-
-saveRDS(BLUPS, here::here("output", "BLUPsDisease.RDS"))
+saveRDS(BLUPSDisea, here::here("output", "BLUPsDisease.RDS"))
 ```
 
 #### Table 4. Blups of the accessions for cassava foliar diseases
 ```{r table4, echo = FALSE}
-BLUPS %>% reactable(defaultPageSize = 25, columns = list(
+BLUPSDisea %>% reactable(defaultPageSize = 25, columns = list(
   Anth = colDef(format = colFormat(digits = 4, locales = "en-US")),
   BlLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
   BrLS = colDef(format = colFormat(digits = 4, locales = "en-US")),
@@ -149,14 +151,17 @@ BLUPS %>% reactable(defaultPageSize = 25, columns = list(
 
 #### Fig 1. Distribution of the BLUPs estimated for cassava foliar diseases
 ```{r Fig1, echo = FALSE, fig.height = 4, fig.width = 3}
-BLUPS %>% reshape2::melt(id.vars = "CLONE",
+#tiff(here::here("output", "Fig4_DenplotsBLUPsCassavaFoliarDiseaseTraits.tiff"), res = 350,
+#     compression = "lzw", units = "cm", width = 20, height = 15)
+BLUPSDisea %>% reshape2::melt(id.vars = "CLONE",
                          variable.name = "Trait",
                          value.name = "Value") %>%
   ggplot(aes(x = Value)) + geom_density(adjust = 2.5, fill = "darkgreen") + 
   facet_wrap(~ Trait) +
   theme(legend.position="none",
         panel.spacing = unit(0.1, "lines"),
-        axis.ticks.x=element_blank())
+        axis.ticks.x=element_blank()) + theme_bw()
+#dev.off()
 ```
 
 ## Mixed Models
@@ -181,7 +186,6 @@ AgroData %>% reactable(defaultPageSize = 25, columns = list(
 #### Mixed Models analysis
 
 ```{r estimation of heritability and reliability per trial and trait}
-
 Trials <- unique(AgroData$trial)
 Results <- tibble()
 
@@ -281,11 +285,12 @@ for(i in traits[-1]){
 
 saveRDS(object = BlupsTraits,
         file = here::here("output", "BlupsFenHen.rds"))
-
 ```
 
 #### Fig 2. Distribution of the BLUPs estimated for cassava agronomic traits
 ```{r Fig2, echo = FALSE, fig.height = 4, fig.width = 3}
+#tiff(filename = here::here("output", "Fig5_DenplotsBLUPsCassavaAgronomicTraits.tif"), res = 350,
+#     compression = "lzw", units = "cm", width = 20, height = 15)
 BlupsTraits %>% dplyr::rename(Vigor = Vigor12M) %>% reshape2::melt(id.vars = "id",
                          variable.name = "Trait",
                          value.name = "Value") %>%
@@ -293,14 +298,15 @@ BlupsTraits %>% dplyr::rename(Vigor = Vigor12M) %>% reshape2::melt(id.vars = "id
   facet_wrap(~ Trait, scales = "free", ncol = 2) +
   theme(legend.position="none",
         panel.spacing = unit(0.1, "lines"),
-        axis.ticks.x=element_blank())
+        axis.ticks.x=element_blank()) + theme_bw()
+#dev.off()
 ```
 
 
 # Joint BLUPS from Disease and Yield traits
 
 ```{r joint Blups object of Disease and yield traits, fig.height = 4, fig.width = 3}
-AllBlups <- BLUPS %>% left_join(BlupsTraits, by = c("CLONE" = "id")) %>% 
+AllBlups <- BLUPSDisea %>% left_join(BlupsTraits, by = c("CLONE" = "id")) %>% 
   dplyr::rename(Vigor = Vigor12M)
 
 saveRDS(AllBlups, file = here::here("output", "BLUPsDiseaseAgro.rds"))

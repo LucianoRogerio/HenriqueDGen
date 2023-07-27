@@ -10,7 +10,7 @@ if (!all(c("sommer", "lme4")%in% installed.packages())) {
 #### e completos - lme4 package
 
 analyzeTrial.lme4FD <- function(x){
-    modfit <- lmer(Y ~ control + block_number + (1 | accession_name:new), data=x, REML = T)
+    modfit <- lmer(Y ~ trial_name/block_number + (1 | accession_name) + (1 | accession_name:trial_name), data=x, REML = T)
     return(modfit)
 }
 
@@ -24,13 +24,22 @@ analyzeTrial.lme4 <- function(x){
   }
 }
 
-analyzeTrialrdMod.lme4 <- function(x, trait){
-  modfit <- lm(Y ~ control + block_number, data=x)
+analyzeTrialrdMod1.lme4 <- function(x, trait){
+  modfit <- lmer(Y ~ trial_name/block_number + (1 | accession_name), data=x)
   return(modfit)
 }
 
-Deviance.MM <- function(x, y) {
-  anova(x, y)
+analyzeTrialrdMod2.lme4 <- function(x, trait){
+  modfit <- lm(Y ~ trial_name/block_number, data=x)
+  return(modfit)
+}
+
+Deviance.MM <- function(x, y, z = NULL) {
+  if(is.null(z)){
+    anova(x, y)
+  } else {
+      anova(x, y, z)
+    }
 }
 
 getVarComp.lme4 <- function(model){
@@ -56,7 +65,7 @@ getVarOutput.lme4 <- function(modfit){
 
 
 getBLUPs.lme4 <- function(model){
-  as.data.frame(ranef(model)$"accession_name:new" +
+  as.data.frame(ranef(model)$"accession_name" +
                   fixef(model)["(Intercept)"]) %>%
     rename(c("(Intercept)" = names(model)))
      # spread(key = Clone, value = BLUP, fill=NA)
