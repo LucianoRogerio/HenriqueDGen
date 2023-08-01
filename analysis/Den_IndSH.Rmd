@@ -125,6 +125,8 @@ IndSH %>% reactable(columns = list(
     SH_DMC = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_PTR = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_PPA = colDef(format = colFormat(digits = 3, locales = "en-US"))))
+
+write.table(x = IndSH, file = here::here("output", "ShannonWeaverIndex.csv"), sep = ",", quote = F)
 ```
 
 

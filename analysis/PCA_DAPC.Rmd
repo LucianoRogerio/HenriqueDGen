@@ -233,11 +233,11 @@ for(i in Traits) {
 library(ggpubr)
 #tiff(filename = here::here("output", "Fig9_BoxplotsBLUPSDAGrpCassavaFoliarDiseases.tiff"), res = 350,
 #     compression = "lzw", units = "cm", width = 20, height = 25)
-ggarrange(bxAnth, bxBlLS,
-          bxBrLS, bxWhLS,
-          bxVigor, bxNR,
-          bxDMC, bxDRY,
-          bxPPA, bxPTR, ncol = 2, nrow = 5)
+ggarrange(bxAnth, bxBlLS, bxBrLS,
+          bxWhLS, bxVigor, bxRF,
+          bxNR, bxDMC, bxDRY,
+          bxPPA, bxPTR,
+          ncol = 3, nrow = 4)
 #dev.off()
 ```
 
