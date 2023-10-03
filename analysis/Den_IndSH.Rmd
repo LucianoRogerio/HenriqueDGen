@@ -93,8 +93,8 @@ Groups <- tibble(CLONE = names(Grps),
                  Group = as.character(Grps))
 
 BLUPS2 <- BLUPS %>% left_join(Groups, by = "CLONE")
-MIN <- apply(BLUPS[,2:10], FUN = min, MARGIN = 2, na.rm = T)
-MAX <- apply(BLUPS[,2:10], FUN = max, MARGIN = 2, na.rm = T)
+MIN <- apply(BLUPS[,2:11], FUN = min, MARGIN = 2, na.rm = T)
+MAX <- apply(BLUPS[,2:11], FUN = max, MARGIN = 2, na.rm = T)
 
 IndSH <- BLUPS2 %>% dplyr::group_by(Group) %>% 
   dplyr::summarise(SH_Anth = Shannon.Weaver.QT(Anth, min = MIN[1], max = MAX[1],formula = 2),
@@ -103,10 +103,11 @@ IndSH <- BLUPS2 %>% dplyr::group_by(Group) %>%
                    SH_WhLS = Shannon.Weaver.QT(WhLS, min = MIN[4], max = MAX[4],formula = 2),
                    SH_Vigor = Shannon.Weaver.QT(Vigor, min = MIN[5], max = MAX[5],formula = 2),
                    SH_NR = Shannon.Weaver.QT(NR, min = MIN[6], max = MAX[6],formula = 2),
-                   SH_DRY = Shannon.Weaver.QT(DRY, min = MIN[7], max = MAX[7],formula = 2),
-                   SH_DMC = Shannon.Weaver.QT(DMC, min = MIN[8], max = MAX[8],formula = 2),
-                   SH_PTR = Shannon.Weaver.QT(PTR, min = MIN[9], max = MAX[9],formula = 2),
-                   SH_PPA = Shannon.Weaver.QT(PPA, min = MIN[10], max = MAX[10],formula = 2))
+                   SH_RF = Shannon.Weaver.QT(RF, min = MIN[7], max = MAX[7],formula = 2),
+                   SH_DRY = Shannon.Weaver.QT(DRY, min = MIN[8], max = MAX[8],formula = 2),
+                   SH_DMC = Shannon.Weaver.QT(DMC, min = MIN[9], max = MAX[9],formula = 2),
+                   SH_PTR = Shannon.Weaver.QT(PTR, min = MIN[10], max = MAX[10],formula = 2),
+                   SH_PPA = Shannon.Weaver.QT(PPA, min = MIN[11], max = MAX[11],formula = 2))
 
 ```
 
@@ -121,6 +122,7 @@ IndSH %>% reactable(columns = list(
     SH_WhLS = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_Vigor = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_NR = colDef(format = colFormat(digits = 3, locales = "en-US")),
+    SH_RF = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_DRY = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_DMC = colDef(format = colFormat(digits = 3, locales = "en-US")),
     SH_PTR = colDef(format = colFormat(digits = 3, locales = "en-US")),

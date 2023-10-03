@@ -316,6 +316,8 @@ saveRDS(AllBlups, file = here::here("output", "BLUPsDiseaseAgro.rds"))
 
 ```{r table7, echo = FALSE}
 library(reactable)
+AllBlups <- readRDS(file = here::here("output", "BLUPsDiseaseAgro.rds"))
+
 AllBlups %>%
   reactable(columns = list(Anth = colDef(format = colFormat(digits = 2, locales = "en-US")),
                            BlLS = colDef(format = colFormat(digits = 2, locales = "en-US")),
@@ -329,6 +331,11 @@ AllBlups %>%
                            PPA = colDef(format = colFormat(digits = 2, locales = "en-US"))))
 ```
 
+```{r}
+sink(file = here::here("output", "MediasBLUPs.txt"))
+colMeans(AllBlups[,-1], na.rm = T)
+sink()
+```
 
 [Next page](PCA_DAPC.html)
 
