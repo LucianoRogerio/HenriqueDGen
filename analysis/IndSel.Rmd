@@ -1,0 +1,43 @@
+---
+title: "IndSel"
+author: "LucianoRogerio"
+date: "2023-11-28"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r Read Data}
+suppressMessages(library(tidyverse))
+suppressMessages(library(adegenet))
+library(reactable)
+library(here)
+library(data.table)
+
+BLUPS <- readRDS(here::here("output", "BLUPsDiseaseAgro.rds"))
+rownames(BLUPS) <- BLUPS$CLONE
+
+BLUPS2 <- BLUPS[,-1] %>% scale(., center = T, scale = T)
+BLUPS[is.na(BLUPS)] <- 0
+BLUPS2[is.na(BLUPS2)] <- 0
+```
+
+```{r Selection index}
+BLUPS2 <- BLUPS2 %>% as.data.frame %>% 
+  dplyr::mutate(SelIn = -10*Anth + -10*BlLS + -10*BrLS + -5*WhLS + 5*Vigor
+                + 8*NR + 10*RF + 20*DRY + 10*DMC + 10*PTR + 5*PPA)
+BLUPS <- BLUPS %>% mutate(SelInd = BLUPS2$SelIn)
+
+BLUPSTest <- BLUPS[BLUPS$CLONE %in% c("BGM-1683", "BGM-2095", "BGM-2097", "BGM-2151", "BGM-2339", "BRS-Amansa-Burro",
+                                      "BRS-Caipira", "BRS-Dourada", "BRS-Formosa", "BRS-Formosa-Tetra", "BRS-Gema-de-Ovo",
+                                      "BRS-Jari", "BRS-Kiriris", "BRS-Mulatinha", "BRS-NovoHorizonte", "BRS-Poti-Branca",
+                                      "BRS-Tapioqueira", "BRS-Verdinha", "BR-11-34-41", "BR-11-34-45", "BR-11-34-64", "BR-12-107-002"),]
+BLUPSGer <- BLUPS[!BLUPS$CLONE %in% BLUPSTest$CLONE,]
+Top30 <- BLUPSGer %>% arrange(desc(SelInd)) %>% .[2:31,]
+BLUPSF <- Top30 %>% bind_rows(BLUPSTest)
+
+write.table(BLUPSF, file = here::here("output", "BLUPsSel.csv"), sep = ",", quote = F, row.names = F)
+```
+

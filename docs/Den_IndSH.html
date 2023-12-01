@@ -359,6 +359,9 @@ div.tocify {
     <li>
       <a href="Den_IndSH.html">Dendrograma</a>
     </li>
+    <li>
+      <a href="IndSel.html">Indice Selecao</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -410,7 +413,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-10-03
+<strong>Last updated:</strong> 2023-11-30
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -448,10 +451,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has staged changes. To know which version of the
-R Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -544,15 +547,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree54268fe6c9f5e6bced550a669eef910505b8665atargetblank54268fea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree4ade56b1abdf35421eace51214c1a90e7ef58427targetblank4ade56ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/54268fe6c9f5e6bced550a669eef910505b8665a" target="_blank">54268fe</a>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/4ade56b1abdf35421eace51214c1a90e7ef58427" target="_blank">4ade56b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree54268fe6c9f5e6bced550a669eef910505b8665atargetblank54268fea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree4ade56b1abdf35421eace51214c1a90e7ef58427targetblank4ade56ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +565,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/54268fe6c9f5e6bced550a669eef910505b8665a" target="_blank">54268fe</a>.
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/4ade56b1abdf35421eace51214c1a90e7ef58427" target="_blank">4ade56b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -584,14 +587,16 @@ Ignored files:
     Ignored:    output/.DS_Store
     Ignored:    output/Figures/.DS_Store
 
-Unstaged changes:
-    Modified:   output/MediasBLUPs.txt
+Untracked files:
+    Untracked:  analysis/IndSel.Rmd
+    Untracked:  output/BLUPsSel.csv
+    Untracked:  output/Correlogram.tiff
 
-Staged changes:
-    Modified:   analysis/AnalisesModelosMistos.Rmd
+Unstaged changes:
     Modified:   analysis/Den_IndSH.Rmd
-    New:        output/MediasBLUPs.txt
-    Modified:   output/ShannonWeaverIndex.csv
+    Modified:   analysis/PCA_DAPC.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   output/DadosDoencasv2.RDS
 
 </code></pre>
 <p>
@@ -637,6 +642,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/4ade56b1abdf35421eace51214c1a90e7ef58427/analysis/Den_IndSH.Rmd" target="_blank">4ade56b</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2023-10-03
+</td>
+<td>
+Atualizacao Shannon Weaver e medias
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/4ade56b1abdf35421eace51214c1a90e7ef58427/docs/Den_IndSH.html" target="_blank">4ade56b</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2023-10-03
+</td>
+<td>
+Atualizacao Shannon Weaver e medias
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1185,7 +1224,7 @@ class="section level4">
 and foliar disease traits</h4>
 <div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f843a680a1fcd62a0dd1" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f843a680a1fcd62a0dd1">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Group":["1","2","3"],"SH_Anth":[0.788204287564795,0.834922676552371,0.7934840496893],"SH_BlLS":[0.815793627390761,0.769460023138239,0.787085546056877],"SH_BrLS":[0.758316631556719,0.745489449116196,0.78672466463124],"SH_WhLS":[0.796529228816687,0.701038299081418,0.82442625806191],"SH_Vigor":[0.740696332637633,0.891495122640705,0.88443095172642],"SH_NR":[0.861145959207832,0.879020274848935,0.725019220610367],"SH_RF":[0.708232268192472,0.834301187012719,0.689834114036132],"SH_DRY":[0.790497561683704,0.852862953207404,0.757410846734626],"SH_DMC":[0.788771332924535,0.66786202451207,0.76654406079173],"SH_PTR":[0.778130738664136,0.749503912906497,0.864941426415366],"SH_PPA":[0.781265600966429,0.845574671090245,0.854607188114717]},"columns":[{"id":"Group","name":"Group","type":"character"},{"id":"SH_Anth","name":"SH_Anth","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_BlLS","name":"SH_BlLS","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_BrLS","name":"SH_BrLS","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_WhLS","name":"SH_WhLS","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_Vigor","name":"SH_Vigor","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_NR","name":"SH_NR","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_RF","name":"SH_RF","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_DRY","name":"SH_DRY","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_DMC","name":"SH_DMC","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_PTR","name":"SH_PTR","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}},{"id":"SH_PPA","name":"SH_PPA","type":"numeric","format":{"cell":{"digits":3,"locales":"en-US"},"aggregated":{"digits":3,"locales":"en-US"}}}],"dataKey":"031c35ae15c24fc82b8ddb5088b59eba"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-<p>[Next page]</p>
+<p><a href="IndSel.html">Next page</a></p>
 <p><a href="PCA_DAPC.html">Last page</a></p>
 <p><a href="index.html">Back to home</a></p>
 <br>
@@ -1199,7 +1238,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.3.1 (2023-06-16)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.5.2
+Running under: macOS Sonoma 14.0
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 

@@ -132,7 +132,7 @@ write.table(x = IndSH, file = here::here("output", "ShannonWeaverIndex.csv"), se
 ```
 
 
-[Next page]
+[Next page](IndSel.html)
 
 [Last page](PCA_DAPC.html)
 

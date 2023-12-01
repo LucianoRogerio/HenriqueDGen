@@ -13,7 +13,7 @@
 
 <title>Home</title>
 
-<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -281,6 +281,9 @@ $(document).ready(function () {
     <li>
       <a href="Den_IndSH.html">Dendrograma</a>
     </li>
+    <li>
+      <a href="IndSel.html">Indice Selecao</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -309,7 +312,7 @@ $(document).ready(function () {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -320,8 +323,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -330,13 +333,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-12
+<strong>Last updated:</strong> 2023-11-30
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>HenriqueDGen/</code> <span
@@ -359,21 +362,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -464,15 +464,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree56be24f74e59fa1db6a0ce216fc3e12c073f9a18targetblank56be24fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree4ade56b1abdf35421eace51214c1a90e7ef58427targetblank4ade56ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/56be24f74e59fa1db6a0ce216fc3e12c073f9a18" target="_blank">56be24f</a>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/4ade56b1abdf35421eace51214c1a90e7ef58427" target="_blank">4ade56b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree56be24f74e59fa1db6a0ce216fc3e12c073f9a18targetblank56be24fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomLucianoRogerioHenriqueDGentree4ade56b1abdf35421eace51214c1a90e7ef58427targetblank4ade56ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -482,7 +482,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/56be24f74e59fa1db6a0ce216fc3e12c073f9a18" target="_blank">56be24f</a>.
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/tree/4ade56b1abdf35421eace51214c1a90e7ef58427" target="_blank">4ade56b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -505,60 +505,14 @@ Ignored files:
     Ignored:    output/Figures/.DS_Store
 
 Untracked files:
-    Untracked:  data/Dados Produtivos 2011-2022.csv
-    Untracked:  data/DadosDoencasBAG2021-22Henr.csv
-    Untracked:  output/DadosDoencasv2.RDS
+    Untracked:  analysis/IndSel.Rmd
+    Untracked:  output/BLUPsSel.csv
+    Untracked:  output/Correlogram.tiff
 
 Unstaged changes:
-    Modified:   .Rprofile
-    Modified:   .gitattributes
-    Modified:   .gitignore
-    Modified:   HenriqueDGen.Rproj
-    Modified:   README.md
-    Modified:   _workflowr.yml
-    Modified:   analysis/AnalisesDescritivas.Rmd
-    Modified:   analysis/AnalisesModelosMistos.Rmd
     Modified:   analysis/Den_IndSH.Rmd
     Modified:   analysis/PCA_DAPC.Rmd
     Modified:   analysis/_site.yml
-    Modified:   analysis/about.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
-    Modified:   code/MixedModelsFunctions.R
-    Modified:   code/README.md
-    Modified:   data/Dados Produtivos 2011-2021.CSV
-    Modified:   data/DadosFen2020.rds
-    Modified:   data/DadosFenotipicos.RDS
-    Modified:   data/DadosFenotipicos.csv
-    Modified:   data/DadosFenotipicosSel.rds
-    Modified:   data/DadosProdutivosSel.rds
-    Modified:   data/README.md
-    Modified:   output/.gitignore
-    Modified:   output/BLUPsDisease.RDS
-    Modified:   output/BLUPsDiseaseAgro.rds
-    Modified:   output/BlupsFenHen.rds
-    Modified:   output/DAPCAn.RDS
-    Modified:   output/DadosFenotipicos.rds
-    Modified:   output/DadosFenotipicosv2.RDS
-    Modified:   output/DadosProdutivos.rds
-    Modified:   output/DadosVigor.rds
-    Modified:   output/Figures/Fig10_CircularHeatmapDAGrp.tiff
-    Modified:   output/Figures/Fig1_BarplotsCassavaFoliarDiseaseTraits.tiff
-    Modified:   output/Figures/Fig2_DenplotsCassavaFoliarDiseaseTraits.tiff
-    Modified:   output/Figures/Fig3_DenplotsCassavaAgronomicTraits.tiff
-    Modified:   output/Figures/Fig4_DenplotsBLUPsCassavaFoliarDiseaseTraits.tiff
-    Modified:   output/Figures/Fig5_DenplotsBLUPsCassavaAgronomicTraits.tiff
-    Modified:   output/Figures/Fig6_BarplotAccumulatedVariancesPCFoliarDiseases.tiff
-    Modified:   output/Figures/Fig7_ScatterplotPC1and2CorrelationArrowsFoliarDiseaseResistancePC.tiff
-    Modified:   output/Figures/Fig8_Scatterplot1and2LDCassavaFoliarDiseases4clusters.tiff
-    Modified:   output/Figures/Fig9_BoxplotsBLUPSDAGrpCassavaFoliarDiseases.tiff
-    Modified:   output/MixedModels/Blups_DMC.rds
-    Modified:   output/MixedModels/Blups_DRY.rds
-    Modified:   output/MixedModels/Blups_NR.rds
-    Modified:   output/MixedModels/Blups_PPA.rds
-    Modified:   output/MixedModels/Blups_PTR.rds
-    Modified:   output/MixedModels/Blups_Vigor12M.rds
-    Modified:   output/README.md
 
 </code></pre>
 <p>
@@ -603,6 +557,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/LucianoRogerio/HenriqueDGen/blob/fef5cf24a1c7f574142a35a07015d07d6ce8a809/analysis/index.Rmd" target="_blank">fef5cf2</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2023-07-26
+</td>
+<td>
+Adicao Dados 2022
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/LucianoRogerio/HenriqueDGen/fef5cf24a1c7f574142a35a07015d07d6ce8a809/docs/index.html" target="_blank">fef5cf2</a>
+</td>
+<td>
+LucianoRogerio
+</td>
+<td>
+2023-07-26
+</td>
+<td>
+Adicao Dados 2022
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1348,15 +1336,15 @@ head(DadosPhen2)</code></pre>
 4        0     1     7      2    16 35.34  6.52 21.25 21.25 NA       NA NA
 5        0     2     4     11    17 26.68  5.51 25.00 27.50 NA       NA NA
 6        0     3     3     20    17 27.92  3.78 16.25 29.38 NA       NA NA</code></pre>
-<pre class="r"><code>DadosPhenfin &lt;- reshape2::melt(data = DadosPhen2,id.vars = c(&quot;Ano&quot;, &quot;Campo&quot;,
+<pre class="r"><code>DadosPhenfin &lt;- reshape2::melt(data = DadosPhen2, id.vars = c(&quot;Ano&quot;, &quot;Campo&quot;,
                                                              &quot;Fazenda&quot;, &quot;Local&quot;,
                                                              &quot;Delineamento&quot;,&quot;Controle&quot;,
                                                              &quot;Genotipo_BGM&quot;,&quot;Genotipos&quot;,
                                                              &quot;Bloco&quot;, &quot;Linha&quot;,
                                                              &quot;Coluna&quot;, &quot;Stand&quot;),
                                      variable.name = &quot;Trait&quot;,
-                                     value.name = &quot;Value&quot;) %&gt;%
-  filter(!is.na(Value)) %&gt;% 
+                                     value.name = &quot;y&quot;) %&gt;%
+  dplyr::filter(!is.na(y)) %&gt;% 
   dplyr::mutate(Ano = Ano,
          Campo = Campo,
          Local = Local,
@@ -1367,23 +1355,23 @@ head(DadosPhen2)</code></pre>
          check = ifelse(Controle == &quot;1&quot;, clone, &quot;999&quot;),
          check = ifelse(clone %in% unique(check), clone, &quot;999&quot;),
          new = ifelse(check != &quot;999&quot;, 0, 1),
-         y = Value, .keep = &quot;unused&quot;) %&gt;% dplyr::select(-c(&quot;Genotipos&quot;)) %&gt;%
-  filter(Trait != &quot;NR&quot; | (Trait==&quot;NR&quot; &amp; y &lt; 30))
+         .keep = &quot;unused&quot;) %&gt;% dplyr::select(-c(&quot;Genotipos&quot;)) %&gt;%
+  dplyr::filter(Trait != &quot;NR&quot; | (Trait==&quot;NR&quot; &amp; y &lt; 30))
 head(DadosPhenfin)</code></pre>
-<pre><code>   Ano      Campo Fazenda     Local Linha Coluna Stand Trait trial studyDesign
-1 2011 Agroverde1   CNPMF CruzAlmas    27      7    18   DMC     1         DBC
-2 2011 Agroverde1   CNPMF CruzAlmas    25     14    17   DMC     1         DBC
-3 2011 Agroverde1   CNPMF CruzAlmas    16     24    20   DMC     1         DBC
-4 2011 Agroverde1   CNPMF CruzAlmas     7      2    16   DMC     1         DBC
-5 2011 Agroverde1   CNPMF CruzAlmas     4     11    17   DMC     1         DBC
-6 2011 Agroverde1   CNPMF CruzAlmas     3     20    17   DMC     1         DBC
-     clone rep check new     y
-1 BGM-0023   1   999   1 29.91
-2 BGM-0023   2   999   1 29.93
-3 BGM-0023   3   999   1 31.52
-4 BGM-0025   1   999   1 35.34
-5 BGM-0025   2   999   1 26.68
-6 BGM-0025   3   999   1 27.92</code></pre>
+<pre><code>   Ano      Campo Fazenda     Local Linha Coluna Stand Trait     y trial
+1 2011 Agroverde1   CNPMF CruzAlmas    27      7    18   DMC 29.91     1
+2 2011 Agroverde1   CNPMF CruzAlmas    25     14    17   DMC 29.93     1
+3 2011 Agroverde1   CNPMF CruzAlmas    16     24    20   DMC 31.52     1
+4 2011 Agroverde1   CNPMF CruzAlmas     7      2    16   DMC 35.34     1
+5 2011 Agroverde1   CNPMF CruzAlmas     4     11    17   DMC 26.68     1
+6 2011 Agroverde1   CNPMF CruzAlmas     3     20    17   DMC 27.92     1
+  studyDesign    clone rep check new
+1         DBC BGM-0023   1   999   1
+2         DBC BGM-0023   2   999   1
+3         DBC BGM-0023   3   999   1
+4         DBC BGM-0025   1   999   1
+5         DBC BGM-0025   2   999   1
+6         DBC BGM-0025   3   999   1</code></pre>
 <pre class="r"><code>saveRDS(object = DadosPhenfin, file = here::here(&quot;output&quot;, &quot;DadosFenotipicos.rds&quot;))</code></pre>
 <ul>
 <li><a href="AnalisesDescritivas.html">Descriptive Analysis</a></li>
@@ -1412,7 +1400,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.3.1 (2023-06-16)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4.1
+Running under: macOS Sonoma 14.0
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
@@ -1429,24 +1417,25 @@ attached base packages:
 
 other attached packages:
  [1] reshape2_1.4.4  reactable_0.4.4 here_1.0.1      lubridate_1.9.2
- [5] forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2     purrr_1.0.1    
- [9] readr_2.1.4     tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.2  
+ [5] forcats_1.0.0   stringr_1.5.0   dplyr_1.1.2     purrr_1.0.2    
+ [9] readr_2.1.4     tidyr_1.3.0     tibble_3.2.1    ggplot2_3.4.3  
 [13] tidyverse_2.0.0
 
 loaded via a namespace (and not attached):
- [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    stringi_1.7.12   
+ [1] sass_0.4.7        utf8_1.2.3        generics_0.1.3    stringi_1.7.12   
  [5] hms_1.1.3         digest_0.6.33     magrittr_2.0.3    timechange_0.2.0 
  [9] evaluate_0.21     grid_4.3.1        fastmap_1.1.1     plyr_1.8.8       
 [13] rprojroot_2.0.3   workflowr_1.7.0   jsonlite_1.8.7    whisker_0.4.1    
-[17] promises_1.2.0.1  fansi_1.0.4       scales_1.2.1      jquerylib_0.1.4  
-[21] cli_3.6.1         rlang_1.1.1       ellipsis_0.3.2    munsell_0.5.0    
-[25] reactR_0.4.4      withr_2.5.0       cachem_1.0.8      yaml_2.3.7       
-[29] tools_4.3.1       tzdb_0.4.0        colorspace_2.1-0  httpuv_1.6.11    
-[33] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   git2r_0.32.0     
-[37] htmlwidgets_1.6.2 fs_1.6.2          pkgconfig_2.0.3   pillar_1.9.0     
-[41] bslib_0.5.0       later_1.3.1       gtable_0.3.3      glue_1.6.2       
-[45] Rcpp_1.0.11       xfun_0.39         tidyselect_1.2.0  rstudioapi_0.15.0
-[49] knitr_1.43        htmltools_0.5.5   rmarkdown_2.23    compiler_4.3.1   </code></pre>
+[17] promises_1.2.1    fansi_1.0.4       crosstalk_1.2.0   scales_1.2.1     
+[21] jquerylib_0.1.4   cli_3.6.1         rlang_1.1.1       ellipsis_0.3.2   
+[25] munsell_0.5.0     reactR_0.4.4      withr_2.5.0       cachem_1.0.8     
+[29] yaml_2.3.7        tools_4.3.1       tzdb_0.4.0        colorspace_2.1-0 
+[33] httpuv_1.6.11     vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3  
+[37] git2r_0.32.0      htmlwidgets_1.6.2 fs_1.6.3          pkgconfig_2.0.3  
+[41] pillar_1.9.0      bslib_0.5.1       later_1.3.1       gtable_0.3.3     
+[45] glue_1.6.2        Rcpp_1.0.11       xfun_0.40         tidyselect_1.2.0 
+[49] rstudioapi_0.15.0 knitr_1.43        htmltools_0.5.6   rmarkdown_2.24   
+[53] compiler_4.3.1   </code></pre>
 </div>
 </div>
 </div>

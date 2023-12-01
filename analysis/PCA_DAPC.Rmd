@@ -120,6 +120,20 @@ write.table(DadosManchasFoliares %>% dplyr::select(-CLONE) %>%
   cor(use = "complete.obs"), file = here::here("output", "CorrelacoesTraits.csv"), sep = ",", quote = F)
 ```
 
+## Correlogram
+
+```{r Correlogram}
+library(corrplot)
+#tiff(filename = here::here("output", "Correlogram.tiff"), height = 10, width = 10, compression = "lzw",
+#     units = "cm", res = 350)
+DadosManchasFoliares %>% dplyr::select(-CLONE) %>% cor(use = "complete.obs") %>%
+  corrplot::corrplot(tl.col = "black",order = "hclust") %>%
+  corrRect(name = c("Anth", "DMC", "RF", "NR", "PPA"))
+#dev.off()
+```
+
+
+
 ## Discriminant Analysis of Principal Components
 
 ```{r Discriminant Analysis of Principal Components}
