@@ -53,12 +53,13 @@ data.frame(PC = 1:11, Var = PCA$sdev^2) %>%
 
 #### Fig 1. Barplot of the Accumulated variances of the principal components for foliar diseases.
 ```{r Barplot of the PCAs, echo = FALSE}
-tiff(filename = here::here("output", "Fig6_BarplotAccumulatedVariancesPCFoliarDiseases.tiff"), res = 350,
-     compression = "lzw", units = "cm", width = 20, height = 15)
+#pdf(file = here::here("output", "Fig6_BarplotAccumulatedVariancesPCFoliarDiseases.pdf"), width = 20/inch, height = 15/inch)
+#tiff(filename = here::here("output", "Fig6_BarplotAccumulatedVariancesPCFoliarDiseases.tiff"), res = 350,
+#     compression = "lzw", units = "cm", width = 20, height = 15)
 barplot(PercAc, main = "Variance explained by PCA",
         ylab = "Cumulative variance (%)", xlab = "Number of retained PCs",
         col = c(rep("gray", 2), "red", rep("gray", 8)))
-dev.off()
+#dev.off()
 ```
 
 This part we prepare the print location for the labels of foliar disease traits
@@ -81,6 +82,8 @@ LabelsPCA1[11, 1:2] <- c(2.3, -1)
 
 #### Fig 2. Scatterplot of the Principal components 1 and 2 with the correlation arrows of the foliar disease resistance with the principal components.
 ```{r Figure 2, echo = FALSE}
+#pdf(file = here::here("output", "Fig7_ScatterplotPC1and2CorrelationArrowsFoliarDiseaseResistancePC.pdf"),
+#      width = 20/inch, height = 15/inch)
 #tiff(filename = here::here("output", "Fig7_ScatterplotPC1and2CorrelationArrowsFoliarDiseaseResistancePC.tiff"),
 #     res = 350, units = "cm", compression = "lzw", width = 20, height = 15)
 ggplot(data = PointPCA1, aes(x = PC1, y = PC2)) +
@@ -124,6 +127,7 @@ write.table(DadosManchasFoliares %>% dplyr::select(-CLONE) %>%
 
 ```{r Correlogram}
 library(corrplot)
+#pdf(file = here::here("output", "Correlogram.pdf"), height = 10/inch, width = 10/inch)
 #tiff(filename = here::here("output", "Correlogram.tiff"), height = 10, width = 10, compression = "lzw",
 #     units = "cm", res = 350)
 DadosManchasFoliares %>% dplyr::select(-CLONE) %>% cor(use = "complete.obs") %>%
@@ -173,6 +177,7 @@ LabelsDAPC[11, 2] <- c(-0.3)
 
 #### Fig 3. Scatterplot of the first and second linear discriminant function of the discriminant analysis of principal components for cassava foliar diseases, with three clusters
 ```{r Figure 3, echo = F}
+#pdf(file =here::here("output", "Fig8_ScatterplotLD1and2CassavaFoliarDiseases3clusters.pdf"), width = 20/inch, height = 15/inch)
 #tiff(filename = here::here("output", "Fig8_ScatterplotLD1and2CassavaFoliarDiseases3clusters.tiff"),
 #     res = 350, units = "cm", compression = "lzw", width = 20, height = 15)
 ggplot(data = DAPCIndPoint, aes(x = LD1, y = LD2, color = grp)) +
@@ -201,7 +206,8 @@ ggplot(data = DAPCIndPoint, aes(x = LD1, y = LD2, color = grp)) +
 suppressMessages(library(reshape2))
 BLUPS <- readRDS(here::here("output", "BLUPsDiseaseAgro.rds"))
 DAPCHenGraph<- readRDS(here::here("output", "DAPCAn.rds"))
-BLUPS$CLONE <- rownames(BLUPS)
+rownames(BLUPS) <- BLUPS$CLONE
+BLUPS <- BLUPS[BLUPS$CLONE%in%names(DAPCHenGraph$grp),]
 BLUPS$Grp <- DAPCHenGraph$grp
 
 BLUPSBoxplot <- reshape2::melt(BLUPS, variable.name = "Trait", value.name = "Y", id.vars = c("CLONE", "Grp"))
@@ -245,6 +251,8 @@ for(i in Traits) {
 }
 
 library(ggpubr)
+inch <- 2.54
+#pdf(file = here::here("output", "Fig9_BoxplotsBLUPSDAGrpCassavaFoliarDiseases.pdf"), width = 20/inch, height = 25/inch)
 #tiff(filename = here::here("output", "Fig9_BoxplotsBLUPSDAGrpCassavaFoliarDiseases.tiff"), res = 350,
 #     compression = "lzw", units = "cm", width = 20, height = 25)
 ggarrange(bxAnth, bxBlLS, bxBrLS,

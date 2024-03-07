@@ -43,7 +43,9 @@ orderDen <- c(orderDen1, orderDen2, orderDen3)
 
 pos <- match(orderDen, BLUPS$CLONE)
 BLUPS <- BLUPS[pos,]
-  
+
+inch <- 2.54
+#pdf(file = here::here("output", "Fig10_CircularHeatmapDAGrp.pdf"), height = 15/inch, width = 15/inch)
 #tiff(filename = here::here("output", "Fig10_CircularHeatmapDAGrp.tiff"), res = 350, compression = "lzw",
 #     units = "cm", height = 15, width = 15)
 set.seed(1)

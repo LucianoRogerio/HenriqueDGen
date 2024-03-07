@@ -151,6 +151,10 @@ BLUPSDisea %>% reactable(defaultPageSize = 25, columns = list(
 
 #### Fig 1. Distribution of the BLUPs estimated for cassava foliar diseases
 ```{r Fig1, echo = FALSE, fig.height = 4, fig.width = 3}
+library(tidyverse)
+inch <- 2.54
+BLUPSDisea <- readRDS(here::here("output", "BLUPsDisease.RDS"))
+#pdf(file = here::here("output", "Fig4_DenplotsBLUPsCassavaFoliarDiseaseTraits.pdf"), width = 20/inch, height = 15/inch)
 #tiff(here::here("output", "Fig4_DenplotsBLUPsCassavaFoliarDiseaseTraits.tiff"), res = 350,
 #     compression = "lzw", units = "cm", width = 20, height = 15)
 BLUPSDisea %>% reshape2::melt(id.vars = "CLONE",
@@ -289,6 +293,11 @@ saveRDS(object = BlupsTraits,
 
 #### Fig 2. Distribution of the BLUPs estimated for cassava agronomic traits
 ```{r Fig2, echo = FALSE, fig.height = 4, fig.width = 3}
+library(tidyverse)
+BlupsTraits <- readRDS(here::here("output", "BlupsFenHen.rds"))
+inch <- 2.54
+
+#pdf(file = here::here("output", "Fig5_DenplotsBLUPsCassavaAgronomicTraits.pdf"), width = 20/inch, height = 15/inch)
 #tiff(filename = here::here("output", "Fig5_DenplotsBLUPsCassavaAgronomicTraits.tif"), res = 350,
 #     compression = "lzw", units = "cm", width = 20, height = 15)
 BlupsTraits %>% dplyr::rename(Vigor = Vigor12M) %>% reshape2::melt(id.vars = "id",
@@ -325,6 +334,7 @@ AllBlups %>%
                            WhLS = colDef(format = colFormat(digits = 2, locales = "en-US")),
                            Vigor = colDef(format = colFormat(digits = 2, locales = "en-US")),
                            NR = colDef(format = colFormat(digits = 2, locales = "en-US")),
+                           RF = colDef(format = colFormat(digits = 2, locales = "en-US")),
                            DRY = colDef(format = colFormat(digits = 2, locales = "en-US")),
                            DMC = colDef(format = colFormat(digits = 2, locales = "en-US")),
                            PTR = colDef(format = colFormat(digits = 2, locales = "en-US")),
@@ -335,7 +345,10 @@ AllBlups %>%
 sink(file = here::here("output", "MediasBLUPs.txt"))
 colMeans(AllBlups[,-1], na.rm = T)
 sink()
+write.table(AllBlups, here::here("output", "BlupsHen.txt"), quote = F, sep = "\t")
 ```
+
+
 
 [Next page](PCA_DAPC.html)
 

@@ -41,3 +41,13 @@ BLUPSF <- Top30 %>% bind_rows(BLUPSTest)
 write.table(BLUPSF, file = here::here("output", "BLUPsSel.csv"), sep = ",", quote = F, row.names = F)
 ```
 
+
+```{r}
+((colMeans(Top30[,-1]) - colMeans(BLUPSTest[,-1]))/colMeans(BLUPSTest[,-1]))*100
+```
+
+
+
+[Last page](Den_IndSH.html)
+
+[Back to home](index.html)

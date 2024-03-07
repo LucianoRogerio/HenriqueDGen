@@ -21,6 +21,8 @@ PhenoData <- readRDS(here::here("output", "DadosDoencasv2.RDS"))
 
 #### Fig 1. Barplots of cassava foliar disease traits
 ```{r figure1, echo = FALSE, warning = FALSE, fig.height = 3, fig.width = 3}
+inch <- 2.54
+#pdf(file = here::here("output", "Fig1_BarplotsCassavaFoliarDiseaseTraits.pdf"), height = 8/inch, width = 12/inch)
 #tiff(filename = here::here("output", "Fig1_BarplotsCassavaFoliarDiseaseTraits.tiff"), res = 350,
 #     compression = "lzw", units = "cm", height = 8, width = 12)
 PhenoData %>% filter(!is.na(traits), !is.na (Y)) %>%
@@ -36,6 +38,8 @@ PhenoData %>% filter(!is.na(traits), !is.na (Y)) %>%
 
 #### Fig 2. Distribution plots of cassava foliar disease traits
 ```{r figure2, echo = FALSE, warning = FALSE, fig.height = 4, fig.width = 3}
+inch <- 2.54
+#pdf(file = here::here("output", "Fig2_DenplotsCassavaFoliarDiseaseTraits.pdf"), width = 12/inch, height = 8/inch)
 #tiff(filename = here::here("output", "Fig2_DenplotsCassavaFoliarDiseaseTraits.tiff"), res = 350,
 #     compression = "lzw", units = "cm", width = 12, height = 8)
 PhenoData %>% ggplot(aes(x = Y)) + geom_density(adjust = 3, fill = "darkgreen") + 
@@ -58,6 +62,8 @@ PhenoData <- readRDS(here::here("output", "DadosFenotipicos.rds"))
 
 #### Fig 3. Distribution plots of cassava yield traits
 ```{r figure3, echo = FALSE, warning = FALSE, fig.height = 4, fig.width = 3}
+inch <- 2.54
+#pdf(file = here::here("output", "Fig3_DenplotsCassavaAgronomicTraits.pdf"), height = 25/inch, width = 20/inch)
 #tiff(filename = here::here("output", "Fig3_DenplotsCassavaAgronomicTraits.tiff"), res = 350,
 #     compression = "lzw", units = "cm", height = 25, width = 20)
 PhenoData %>% ggplot(aes(x = y)) +
